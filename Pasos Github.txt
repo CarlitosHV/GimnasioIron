@@ -1,0 +1,12 @@
+Traer cambios
+git pull origin main
+
+
+Agregar cambios
+git add .
+
+Creamos el commit
+git commit -m "Añadí el controlador de suscripciones"
+
+Subir cambios
+git push origin main
