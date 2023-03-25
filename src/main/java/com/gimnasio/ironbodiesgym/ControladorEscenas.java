@@ -11,7 +11,7 @@ import org.controlsfx.control.spreadsheet.Grid;
 
 import java.io.IOException;
 
-public class ControladorEscenas {
+public class s {
 
     private Stage Ventana;
     private BorderPane borderPane;
