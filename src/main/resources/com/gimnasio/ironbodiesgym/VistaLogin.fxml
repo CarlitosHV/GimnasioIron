@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane prefHeight="400.0" prefWidth="387.0" style="-fx-background-color: #d1d1d1;" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.gimnasio.ironbodiesgym.ControladorLogin">
+   <children>
+      <AnchorPane layoutY="68.0" prefHeight="332.0" prefWidth="387.0" style="-fx-background-color: #fafbfc;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="68.0">
+         <children>
+            <ImageView fitHeight="38.0" fitWidth="61.0" layoutX="64.0" layoutY="73.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../../../../view.images/user.png" />
+               </image>
+            </ImageView>
+            <TextField layoutX="102.0" layoutY="127.0" prefHeight="38.0" prefWidth="194.0" promptText="Password">
+               <font>
+                  <Font name="Roboto Light" size="12.0" />
+               </font>
+            </TextField>
+            <Button layoutX="80.0" layoutY="208.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="226.0" style="-fx-background-color: #4a97f0;" text="LOGIN">
+               <font>
+                  <Font name="Roboto Light" size="13.0" />
+               </font>
+            </Button>
+            <TextField layoutX="102.0" layoutY="73.0" prefHeight="38.0" prefWidth="194.0" promptText="Username">
+               <font>
+                  <Font name="Roboto Light" size="12.0" />
+               </font>
+            </TextField>
+            <ImageView fitHeight="38.0" fitWidth="44.0" layoutX="64.0" layoutY="127.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../../../../view.images/candado.png" />
+               </image>
+            </ImageView>
+            <Label layoutX="220.0" layoutY="173.0" prefHeight="20.0" prefWidth="78.0" text="Forgot Password?" textFill="#7e7d7d">
+               <font>
+                  <Font name="Roboto Light" size="9.0" />
+               </font>
+            </Label>
+            <Label layoutX="102.0" layoutY="252.0" text="Don´t have an account? " textFill="#9c9898">
+               <font>
+                  <Font name="Roboto Light" size="10.0" />
+               </font>
+            </Label>
+            <Label contentDisplay="CENTER" layoutX="208.0" layoutY="252.0" text="Sign Up" textFill="#6e6c6c" textOverrun="CENTER_ELLIPSIS">
+               <font>
+                  <Font name="Roboto Light" size="10.0" />
+               </font>
+            </Label>
+         </children>
+      </AnchorPane>
+      <AnchorPane prefHeight="45.0" prefWidth="387.0" style="-fx-background-color: #4a97f0;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <Label alignment="CENTER" contentDisplay="CENTER" layoutX="102.0" layoutY="13.0" prefHeight="18.0" prefWidth="184.0" text="MemberLogin">
+               <font>
+                  <Font name="Roboto Light" size="14.0" />
+               </font>
+            </Label>
+         </children>
+      </AnchorPane>
+   </children>
+</AnchorPane>
