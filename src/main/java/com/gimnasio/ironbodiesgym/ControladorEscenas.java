@@ -5,7 +5,9 @@ import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
+import org.controlsfx.control.spreadsheet.Grid;
 
 import java.io.IOException;
 
@@ -13,6 +15,7 @@ public class ControladorEscenas {
 
     private Stage Ventana;
     private BorderPane borderPane;
+    private GridPane gridPane;
 
 
     public ControladorEscenas(Stage stage){
@@ -40,21 +43,21 @@ public class ControladorEscenas {
             //Como cada Vista tiene su controlador, al controlador de escenas le indicamos el controlador de la vista
             ControladorEscenas ce = loader.getController();
             //Aquí directamente cargamos la vista de Login al borderpane
-            MostrarLogin();
+            //MostrarLogin();
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
     }
 
-    public void MostrarLogin(){
+    /*public void MostrarLogin(){
         try {
             //Obtenemos la vista con un FXMLLoader
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(getClass().getResource("VistaLogin.fxml"));
+            loader.setLocation(getClass().getResource("VistaLog.fxml"));
             //Aquí depende el tipo de contenedor que se usará, en este caso es un Anchorpane
-            AnchorPane anchorPane = (AnchorPane) loader.load();
+            gridPane = (GridPane) loader.load();
             //Seteamos la vista en el centro del Borderpane
-            borderPane.setCenter(anchorPane);
+            borderPane.setCenter(gridPane);
             //Le asignamos el controlador a la vista
             ControladorLogin cl = loader.getController();
             //Al controlador le asignamos el controlador de escena, ya que tenemos sus getters and setters en la clase
@@ -62,5 +65,5 @@ public class ControladorEscenas {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-    }
+    }*/
 }
