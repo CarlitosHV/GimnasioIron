@@ -18,6 +18,7 @@ public class ControladorEscenas {
     private GridPane gridPane;
 
 
+
     public ControladorEscenas(Stage stage){
         this.Ventana = stage;
         CargarVistaPrincipal();
@@ -44,6 +45,7 @@ public class ControladorEscenas {
             ControladorEscenas ce = loader.getController();
             //Aquí directamente cargamos la vista de Login al borderpane
             //MostrarLogin();
+            CargarCrearUsuario();
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -66,4 +68,23 @@ public class ControladorEscenas {
             throw new RuntimeException(e);
         }
     }*/
+
+    public void CargarCrearUsuario(){
+        try {
+            //Obtenemos la vista con un FXMLLoader
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(getClass().getResource("VistaCrearUsuario.fxml"));
+            //Aquí depende el tipo de contenedor que se usará, en este caso es un Anchorpane
+            AnchorPane anchorPane = new AnchorPane();
+            anchorPane = (AnchorPane) loader.load();
+            //Seteamos la vista en el centro del Borderpane
+            borderPane.setCenter(anchorPane);
+            //Le asignamos el controlador a la vista
+            ControladorCrearUsuario ccu = loader.getController();
+            //Al controlador le asignamos el controlador de escena, ya que tenemos sus getters and setters en la clase
+            ccu.setControladorEscenas(this);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }
