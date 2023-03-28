@@ -1,11 +1,13 @@
 package com.gimnasio.ironbodiesgym;
 
 import javafx.application.Application;
+import javafx.scene.Scene;
+import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
 import java.io.IOException;
 
-public class ControladorPrincipal extends Application {
+public class IndexApp extends Application {
 
     //Método que inicia la aplicación
     public static void main(String[] args){
@@ -15,7 +17,11 @@ public class ControladorPrincipal extends Application {
     //Método que comienza y manda a crear el stage
     @Override
     public void start(Stage stage) throws IOException {
-        new ControladorEscenas(stage);
+        var scene = new Scene(new Pane());
+        ViewSwitcher.setScene(scene);
+        ViewSwitcher.switchTo(View.LOGIN);
+        stage.setScene(scene);
+        stage.show();
     }
 
 }

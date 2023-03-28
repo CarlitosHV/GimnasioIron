@@ -1,19 +1,3 @@
-#Boton{
-    -fx-background-color: white;
-    -fx-border-color: green;
-    -fx-border-width: 0.5;
-    -fx-border-radius: 50;
-}
 
-#Boton:hover {
-    -fx-background-color: gray;
-    -fx-scale-y: 1.1;
-    -fx-scale-x: 1.1;
-}
-
-#Fondo{
-    -fx-background-color: cyan;
-    -fx-border-radius: 50;
-}
 
 
