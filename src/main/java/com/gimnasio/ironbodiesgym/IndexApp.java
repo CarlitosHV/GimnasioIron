@@ -2,6 +2,7 @@ package com.gimnasio.ironbodiesgym;
 
 import javafx.application.Application;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
@@ -21,6 +22,8 @@ public class IndexApp extends Application {
         ViewSwitcher.setScene(scene);
         ViewSwitcher.switchTo(View.LOGIN);
         stage.setScene(scene);
+        stage.getIcons().add(new Image(IndexApp.class.getResourceAsStream("/assets/IconGym.png")));
+        stage.setTitle("Iron Bodies Gym");
         stage.show();
     }
 

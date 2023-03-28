@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="400.0" prefWidth="387.0" style="-fx-background-color: #d1d1d1;" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.gimnasio.ironbodiesgym.ControladorLogin">
+<AnchorPane fx:id="rootPane" prefHeight="400.0" prefWidth="387.0" style="-fx-background-color: #d1d1d1;" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.gimnasio.ironbodiesgym.ControladorLogin">
    <children>
       <AnchorPane layoutY="68.0" prefHeight="332.0" prefWidth="387.0" style="-fx-background-color: #fafbfc;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="68.0">
          <children>
@@ -49,7 +49,7 @@
                   <Font name="Roboto Light" size="10.0" />
                </font>
             </Label>
-            <Label fx:id="CREAR_CUENTA" onMouseClicked="#Crear_usuario" contentDisplay="CENTER" layoutX="208.0" layoutY="252.0" text="Sign Up" textFill="#6e6c6c" textOverrun="CENTER_ELLIPSIS" underline="true">
+            <Label fx:id="CREAR_CUENTA" contentDisplay="CENTER" layoutX="208.0" layoutY="252.0" onMouseClicked="#Crear_usuario" text="Sign Up" textFill="#6e6c6c" textOverrun="CENTER_ELLIPSIS" underline="true">
                <font>
                   <Font name="Roboto Light" size="10.0" />
                </font>
