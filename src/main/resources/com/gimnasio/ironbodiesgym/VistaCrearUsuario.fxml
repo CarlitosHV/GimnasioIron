@@ -5,7 +5,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="679.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.gimnasio.ironbodiesgym.ControladorCrearUsuario">
+<AnchorPane fx:id="rootPane" prefHeight="679.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.gimnasio.ironbodiesgym.ControladorCrearUsuario">
    <children>
       <Label layoutX="300.0" layoutY="19.0" text="Crea tu usuario" AnchorPane.bottomAnchor="631.0" AnchorPane.leftAnchor="300.0" AnchorPane.rightAnchor="282.0" AnchorPane.topAnchor="19.0">
          <font>
@@ -80,6 +80,6 @@
       <MFXTextField floatMode="BORDER" floatingText="Código postal" layoutX="324.0" layoutY="563.0" prefHeight="25.0" prefWidth="87.0" />
       <MFXTextField floatMode="BORDER" floatingText="Teléfono" layoutX="432.0" layoutY="496.0" prefHeight="25.0" prefWidth="130.0" textLimit="10" />
       <MFXComboBox floatMode="BORDER" floatingText="Estado" layoutX="432.0" layoutY="563.0" prefHeight="25.0" prefWidth="130.0" promptText="Selecciona" />
-      <MFXButton layoutX="474.0" layoutY="627.0" mnemonicParsing="false" text="Crear cuenta" />
+      <MFXButton fx:id="Retroceder" layoutX="474.0" layoutY="627.0" mnemonicParsing="false" text="Crear cuenta" onAction="#Regresar"/>
    </children>
 </AnchorPane>
