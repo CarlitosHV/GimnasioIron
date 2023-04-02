@@ -25,14 +25,16 @@ public class ViewSwitcher {
         }
         try {
             Parent root;
-            if (cache.containsKey(view)){
+            root = FXMLLoader.load(ViewSwitcher.class.getResource(view.getFileName()));
+            //cache.put(view, root);
+            /*if (cache.containsKey(view)){
                 System.out.println("Cargando desde el caché");
                 root = cache.get(view);
             }else{
                 System.out.println("Cargando desde el FXML");
                 root = FXMLLoader.load(ViewSwitcher.class.getResource(view.getFileName()));
                 cache.put(view, root);
-            }
+            }*/
             scene.setRoot(root);
         } catch (IOException e) {
             throw new RuntimeException(e);

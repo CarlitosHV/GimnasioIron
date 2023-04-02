@@ -21,4 +21,14 @@ public class ControladorLogin
       fadeTransition.play();
   }
 
+  public void RecuperarCuenta(){
+      FadeTransition fadeTransition = new FadeTransition();
+      fadeTransition.setDuration(Duration.millis(500));
+      fadeTransition.setNode(rootPane);
+      fadeTransition.setFromValue(1);
+      fadeTransition.setToValue(0);
+      fadeTransition.setOnFinished(actionEvent -> ViewSwitcher.switchTo(View.RECUPERAR_CONTRASENA));
+      fadeTransition.play();
+  }
+
 }
