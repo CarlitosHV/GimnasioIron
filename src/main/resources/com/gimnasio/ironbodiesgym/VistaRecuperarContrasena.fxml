@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import io.github.palexdev.materialfx.controls.MFXButton?>
+<?import io.github.palexdev.materialfx.controls.MFXPasswordField?>
+<?import io.github.palexdev.materialfx.controls.MFXTextField?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane id="PanelPrin" prefHeight="400.0" prefWidth="427.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.gimnasio.ironbodiesgym.ControladorRecuperarContrasena">
+   <children>
+      <AnchorPane layoutX="-3.0" prefHeight="43.0" prefWidth="438.0" style="-fx-background-color: #4a97f0;">
+         <children>
+            <Label layoutX="51.0" layoutY="16.0" text="Recuperar contraseña" textFill="#f2f2f2">
+               <font>
+                  <Font name="Roboto Light" size="12.0" />
+               </font>
+            </Label>
+            <MFXButton fx:id="Back" onAction="#RegresarLogin" contentDisplay="GRAPHIC_ONLY" depthLevel="LEVEL3" layoutX="14.0" layoutY="9.0" style="-fx-background-color: #4a97f0;" stylesheets="@../../../css/ModoClaro.css">
+               <graphic>
+                  <ImageView fitHeight="30.0" fitWidth="21.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../../assets/back_ico.png" />
+                     </image>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </ImageView>
+               </graphic>
+            </MFXButton>
+         </children></AnchorPane>
+      <MFXTextField floatMode="BORDER" floatingText="Ingresa tu correo" layoutX="108.0" layoutY="95.0" prefHeight="0.0" prefWidth="219.0" />
+      <MFXButton buttonType="RAISED" depthLevel="LEVEL3" layoutX="272.0" layoutY="153.0" style="-fx-background-color: #4a97f0;" text="Validar" textFill="WHITE">
+         <font>
+            <Font name="Roboto Light" size="12.0" />
+         </font></MFXButton>
+      <MFXPasswordField floatMode="BORDER" floatingText="Ingresa la nueva contraseña" layoutX="107.0" layoutY="200.0" prefHeight="38.0" prefWidth="219.0" />
+      <MFXPasswordField floatingText="Repite la contraseña" layoutX="108.0" layoutY="260.0" prefHeight="4.0" prefWidth="219.0" />
+      <MFXButton buttonType="RAISED" depthLevel="LEVEL3" layoutX="255.0" layoutY="331.0" style="-fx-background-color: #4a97f0;" text="Actualizar" textFill="WHITE">
+         <font>
+            <Font name="Roboto Light" size="12.0" />
+         </font>
+      </MFXButton>
+   </children>
+</AnchorPane>
