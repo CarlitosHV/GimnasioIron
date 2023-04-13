@@ -6,6 +6,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.paint.*?>
 <?import javafx.scene.text.*?>
 
 <AnchorPane fx:id="rootPane" cache="true" cacheHint="SCALE" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.gimnasio.ironbodiesgym.ControladorLogin">
@@ -21,8 +22,11 @@
                <font>
                   <Font name="Roboto Light" size="12.0" />
                </font>
+               <textFill>
+                  <Color red="0.621052622795105" green="0.6072514653205872" blue="0.6072514653205872" opacity="0.8700000047683716" />
+               </textFill>
             </MFXPasswordField>
-            <MFXButton id="Boton_ingresar" buttonType="RAISED" depthLevel="LEVEL3" layoutX="80.0" layoutY="208.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="226.0" rippleAnimateShadow="true" style="-fx-background-color: #4a97f0;" text="INGRESAR">
+            <MFXButton id="Boton_ingresar" buttonType="RAISED" depthLevel="LEVEL3" layoutX="80.0" layoutY="208.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="226.0" rippleAnimateShadow="true" style="-fx-background-color: #4a97f0;" text="INGRESAR" textFill="WHITE">
                <font>
                   <Font name="Roboto Light" size="13.0" />
                </font>
@@ -34,6 +38,9 @@
                <font>
                   <Font name="Roboto Light" size="12.0" />
                </font>
+               <textFill>
+                  <Color red="0.6842105388641357" green="0.6690058708190918" blue="0.6690058708190918" opacity="0.8700000047683716" />
+               </textFill>
             </MFXTextField>
             <ImageView fitHeight="38.0" fitWidth="44.0" layoutX="64.0" layoutY="127.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -71,9 +78,9 @@
       </AnchorPane>
       <AnchorPane prefHeight="45.0" prefWidth="387.0" style="-fx-background-color: #4a97f0;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <Label alignment="CENTER" contentDisplay="CENTER" layoutX="102.0" layoutY="13.0" prefHeight="18.0" prefWidth="184.0" text="INICIAR SESIÓN" AnchorPane.leftAnchor="102.0" AnchorPane.rightAnchor="101.0">
+            <Label alignment="CENTER" contentDisplay="CENTER" layoutX="102.0" layoutY="13.0" prefHeight="18.0" prefWidth="184.0" text="INICIAR SESIÓN" textFill="#faf4f4" AnchorPane.leftAnchor="102.0" AnchorPane.rightAnchor="101.0">
                <font>
-                  <Font name="Roboto Light" size="18.0" />
+                  <Font name="Roboto Black" size="14.0" />
                </font>
             </Label>
          </children>

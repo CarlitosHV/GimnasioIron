@@ -2,7 +2,9 @@ package com.gimnasio.ironbodiesgym;
 
 public enum View {
     LOGIN("VistaLogin.fxml"),
-    CREAR_USUARIO("VistaCrearUsuario.fxml");
+    CREAR_USUARIO("VistaCrearUsuario.fxml"),
+
+    RENOVAR_SUSCRIPCIONES("VistaRenovarSuscripciones.fxml");
 
     private String fileName;
 

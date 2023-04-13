@@ -2,62 +2,49 @@
 
 <?import io.github.palexdev.materialfx.controls.*?>
 <?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #FFFFFF;" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.gimnasio.ironbodiesgym.ControladorRenovarSuscripciones">
+<AnchorPane prefHeight="312.0" prefWidth="455.0" style="-fx-background-color: #FFFFFF;" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.gimnasio.ironbodiesgym.ControladorRenovarSuscripciones">
    <children>
-      <AnchorPane layoutX="18.0" layoutY="55.0" prefHeight="26.0" prefWidth="562.0" style="-fx-background-color: #EAEAEA;">
+      <AnchorPane prefHeight="38.0" prefWidth="455.0" style="-fx-background-color: #4a97f0;">
          <children>
-            <Label layoutX="10.0" layoutY="7.0" text="Localizar un usuario">
+            <Label layoutX="14.0" layoutY="11.0" text="Crear nueva suscripción" textFill="#fffafa">
                <font>
-                  <Font name="Roboto Bold" size="12.0" />
-               </font>
-            </Label>
-         </children>
-      </AnchorPane>
-      <MFXButton layoutX="36.0" layoutY="161.0" mnemonicParsing="false" rippleColor="#999999" style="-fx-background-color: #d7d2cc;" text="Buscar" textFill="#2b2626">
-         <font>
-            <Font name="Roboto Italic" size="12.0" />
-         </font></MFXButton>
-      <AnchorPane prefHeight="41.0" prefWidth="600.0" style="-fx-background-color: #4a97f0;">
-         <children>
-            <Label layoutX="14.0" layoutY="7.0" prefHeight="26.0" prefWidth="222.0" text="Crear una nueva suscripción" textFill="#faf6f6">
-               <font>
-                  <Font name="Roboto Bold" size="13.0" />
+                  <Font name="Roboto Bold Italic" size="13.0" />
                </font>
             </Label>
          </children></AnchorPane>
-      <MFXTextField layoutX="27.0" layoutY="118.0" prefHeight="15.0" prefWidth="370.0" />
-      <AnchorPane layoutX="18.0" layoutY="205.0" prefHeight="26.0" prefWidth="562.0" style="-fx-background-color: #EAEAEA;">
-         <children>
-            <Label layoutX="13.0" layoutY="5.0" text="Tipo de suscripción">
-               <font>
-                  <Font name="Roboto Bold" size="12.0" />
-               </font>
-            </Label>
-         </children>
-      </AnchorPane>
-      <SplitMenuButton layoutX="27.0" layoutY="260.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="275.0" style="-fx-background-color: ffff;" text="Estudiante - $400.00">
+      <MFXButton contentDisplay="GRAPHIC_ONLY" layoutX="384.0" layoutY="265.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="40.0" text="Button">
+         <graphic>
+            <ImageView fitHeight="23.0" fitWidth="17.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../../assets/sig.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </MFXButton>
+      <SplitMenuButton layoutX="105.0" layoutY="82.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="198.0" text="Estudiante">
         <items>
           <MenuItem mnemonicParsing="false" text="Action 1" />
           <MenuItem mnemonicParsing="false" text="Action 2" />
         </items>
       </SplitMenuButton>
-      <SplitMenuButton layoutX="341.0" layoutY="260.0" mnemonicParsing="false" prefHeight="15.0" prefWidth="170.0" text="Activo/a">
+      <SplitMenuButton layoutX="105.0" layoutY="156.0" mnemonicParsing="false" prefHeight="18.0" prefWidth="198.0" text="Costo $$$">
         <items>
           <MenuItem mnemonicParsing="false" text="Action 1" />
           <MenuItem mnemonicParsing="false" text="Action 2" />
         </items>
       </SplitMenuButton>
-      <Label layoutX="41.0" layoutY="289.0" text="Tipo de suscripción*">
+      <Label layoutX="63.0" layoutY="82.0" prefHeight="26.0" prefWidth="33.0" text="Tipo" textFill="#8c8888">
          <font>
-            <Font size="11.0" />
+            <Font name="Roboto Italic" size="12.0" />
          </font>
       </Label>
-      <Label layoutX="352.0" layoutY="288.0" prefHeight="18.0" prefWidth="73.0" text="Estado*" textFill="#131111">
+      <Label layoutX="64.0" layoutY="161.0" text="Costo" textFill="#969494">
          <font>
-            <Font name="System Italic" size="11.0" />
+            <Font name="Roboto Italic" size="12.0" />
          </font>
       </Label>
    </children>
