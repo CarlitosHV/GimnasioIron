@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import io.github.palexdev.materialfx.controls.*?>
+
 <?import javafx.scene.control.*?>
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
@@ -16,7 +16,7 @@
                </font>
             </Label>
          </children></AnchorPane>
-      <MFXButton contentDisplay="GRAPHIC_ONLY" layoutX="384.0" layoutY="265.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="40.0" text="Button">
+      <Button contentDisplay="GRAPHIC_ONLY" layoutX="384.0" layoutY="265.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="40.0" text="Button">
          <graphic>
             <ImageView fitHeight="23.0" fitWidth="17.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -24,7 +24,7 @@
                </image>
             </ImageView>
          </graphic>
-      </MFXButton>
+      </Button>
       <SplitMenuButton layoutX="105.0" layoutY="82.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="198.0" text="Estudiante">
         <items>
           <MenuItem mnemonicParsing="false" text="Action 1" />

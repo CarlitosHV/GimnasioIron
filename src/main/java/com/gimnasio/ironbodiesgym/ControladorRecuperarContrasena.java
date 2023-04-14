@@ -10,7 +10,8 @@ public class ControladorRecuperarContrasena {
     @FXML
     public AnchorPane PanelPrin;
 
-    public void RegresarLogin(){
+    @FXML
+    void RegresarLogin(){
         FadeTransition fadeTransition = new FadeTransition();
         fadeTransition.setDuration(Duration.millis(500));
         fadeTransition.setNode(PanelPrin);
