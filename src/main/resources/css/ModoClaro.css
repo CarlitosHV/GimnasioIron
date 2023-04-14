@@ -1,10 +1,47 @@
-#Back{
-    -fx-border-radius: 0.5;
+#Fondo{
+    -fx-background-color: white;
 }
 
+#Fondo2{
+    -fx-background-color: #4a97f0;
+    -fx-border-radius: 25%;
+}
 
-#Back:hover{
+#Labels{
+    -fx-text-fill: rgba(23, 22, 22, 0.93);
+}
+
+#TextFields{
+    -fx-background-color: white;
+    -fx-border-color:  #4a97f0;
+    -fx-border-radius: 10%;
+    -fx-text-fill: rgba(23, 22, 22, 0.93);
+    -fx-prompt-text-fill: #4a97f0;
+}
+
+#TextFields:focused{
+    -fx-prompt-text-fill: white;
+}
+
+#PasswordFields{
+    -fx-background-color: white;
+    -fx-border-color: #4a97f0;
+    -fx-border-radius: 10%;
+    -fx-text-fill: rgba(23, 22, 22, 0.93);
+    -fx-prompt-text-fill: #4a97f0;
+}
+
+#PasswordFields:focused{
+    -fx-prompt-text-fill: white;
+}
+
+#Buttons{
+    -fx-background-color: #4a97f0;
+    -fx-border-radius: 5%;
+}
+
+#Buttons:hover{
     -fx-background-color: gray;
+    -fx-scale-x: 1.1;
+    -fx-scale-y: 1.1;
 }
-
-

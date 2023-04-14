@@ -16,7 +16,7 @@ public class ControladorRecuperarContrasena {
         fadeTransition.setNode(PanelPrin);
         fadeTransition.setFromValue(1);
         fadeTransition.setToValue(0);
-        fadeTransition.setOnFinished(actionEvent -> ViewSwitcher.switchTo(View.LOGIN));
+        fadeTransition.setOnFinished(actionEvent -> ViewSwitcher.switchTo(View.LOGIN, IndexApp.Tema));
         fadeTransition.play();
     }
 }

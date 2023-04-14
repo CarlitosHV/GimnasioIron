@@ -1,0 +1,47 @@
+#Fondo{
+    -fx-background-color: rgba(49, 41, 41, 0.93);
+}
+
+#Fondo2{
+    -fx-background-color: rgba(14, 13, 13, 0.93);
+    -fx-border-radius: 25%;
+}
+
+#Labels{
+    -fx-text-fill: white;
+}
+
+#TextFields{
+    -fx-background-color: rgba(49, 41, 41, 0.93);
+    -fx-border-color: white;
+    -fx-border-radius: 10%;
+    -fx-text-fill: white;
+    -fx-prompt-text-fill: white;
+}
+
+#TextFields:focused{
+    -fx-prompt-text-fill: rgba(49, 41, 41, 0.93);
+}
+
+#PasswordFields{
+    -fx-background-color: rgba(49, 41, 41, 0.93);
+    -fx-border-color: white;
+    -fx-border-radius: 10%;
+    -fx-text-fill: white;
+    -fx-prompt-text-fill: white;
+}
+
+#PasswordFields:focused{
+    -fx-prompt-text-fill: rgba(49, 41, 41, 0.93);
+}
+
+#Buttons{
+    -fx-background-color: #4a97f0;
+    -fx-border-radius: 5%;
+}
+
+#Buttons:hover{
+    -fx-background-color: gray;
+    -fx-scale-x: 1.1;
+    -fx-scale-y: 1.1;
+}

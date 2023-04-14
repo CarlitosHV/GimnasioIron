@@ -21,7 +21,7 @@ public class ControladorCrearUsuario {
         fadeTransition.setNode(rootPane);
         fadeTransition.setFromValue(1);
         fadeTransition.setToValue(0);
-        fadeTransition.setOnFinished(actionEvent -> ViewSwitcher.switchTo(View.LOGIN));
+        fadeTransition.setOnFinished(actionEvent -> ViewSwitcher.switchTo(View.LOGIN, ViewSwitcher.MODO_CLARO));
         fadeTransition.play();
     }
 

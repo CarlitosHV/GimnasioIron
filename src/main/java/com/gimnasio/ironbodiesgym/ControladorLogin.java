@@ -26,17 +26,18 @@ public class ControladorLogin
       fadeTransition.setNode(rootPane);
       fadeTransition.setFromValue(1);
       fadeTransition.setToValue(0);
-      fadeTransition.setOnFinished(actionEvent -> ViewSwitcher.switchTo(View.CREAR_USUARIO));
+      fadeTransition.setOnFinished(actionEvent -> ViewSwitcher.switchTo(View.CREAR_USUARIO, ViewSwitcher.MODO_CLARO));
       fadeTransition.play();
   }
 
-  public void RecuperarCuenta(){
+  @FXML
+  void RecuperarCuenta(){
       FadeTransition fadeTransition = new FadeTransition();
       fadeTransition.setDuration(Duration.millis(500));
       fadeTransition.setNode(rootPane);
       fadeTransition.setFromValue(1);
       fadeTransition.setToValue(0);
-      fadeTransition.setOnFinished(actionEvent -> ViewSwitcher.switchTo(View.RECUPERAR_CONTRASENA));
+      fadeTransition.setOnFinished(actionEvent -> ViewSwitcher.switchTo(View.RECUPERAR_CONTRASENA, ViewSwitcher.MODO_CLARO));
       fadeTransition.play();
   }
 
