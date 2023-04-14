@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import io.github.palexdev.materialfx.controls.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
@@ -13,27 +12,27 @@
          </font>
       </Label>
       <Separator layoutY="79.0" prefHeight="10.0" prefWidth="742.0" />
-      <MFXTextField floatMode="BORDER" floatingText="Nombre(s)" layoutX="232.0" layoutY="102.0" prefHeight="29.0" prefWidth="278.0">
+      <TextField layoutX="232.0" layoutY="102.0" prefHeight="29.0" prefWidth="278.0" promptText="correo electrnico">
          <font>
             <Font name="Roboto Light" size="12.0" />
          </font>
-      </MFXTextField>
-      <MFXTextField floatMode="BORDER" floatingText="Apellido Paterno" layoutX="232.0" layoutY="162.0" prefHeight="25.0" prefWidth="130.0">
+      </TextField>
+      <TextField layoutX="219.0" layoutY="162.0" prefHeight="26.0" prefWidth="143.0" promptText="nombre(s)">
          <font>
             <Font name="Roboto Light" size="12.0" />
          </font>
-      </MFXTextField>
-      <MFXTextField floatMode="BORDER" floatingText="Apellido Materno" layoutX="380.0" layoutY="162.0" prefHeight="15.0" prefWidth="130.0">
+      </TextField>
+      <TextField layoutX="380.0" layoutY="162.0" prefHeight="15.0" prefWidth="130.0" promptText="Primer Apellido">
          <font>
             <Font name="Roboto Light" size="12.0" />
          </font>
-      </MFXTextField>
-      <MFXTextField floatMode="BORDER" floatingText="Edad" layoutX="232.0" layoutY="223.0" prefHeight="25.0" prefWidth="130.0">
+      </TextField>
+      <TextField layoutX="232.0" layoutY="223.0" prefHeight="25.0" prefWidth="130.0" promptText="Segundo Apellido">
          <font>
             <Font name="Roboto Light" size="12.0" />
          </font>
-      </MFXTextField>
-      <MFXComboBox floatingText="Sexo" layoutX="380.0" layoutY="223.0" prefHeight="25.0" prefWidth="130.0" promptText="Selecciona" />
+      </TextField>
+      <ComboBox layoutX="380.0" layoutY="223.0" prefHeight="25.0" prefWidth="130.0" promptText="Selecciona" />
       <Label layoutX="14.0" layoutY="52.0" text="Información personal">
          <font>
             <Font name="Roboto Light" size="18.0" />
@@ -45,41 +44,41 @@
             <Font name="Roboto Light" size="18.0" />
          </font>
       </Label>
-      <MFXTextField floatMode="BORDER" floatingText="Correo" layoutX="231.0" layoutY="326.0" prefHeight="25.0" prefWidth="278.0">
+      <TextField layoutX="231.0" layoutY="326.0" prefHeight="25.0" prefWidth="278.0">
          <font>
             <Font name="Roboto Light" size="12.0" />
          </font>
-      </MFXTextField>
-      <MFXPasswordField floatMode="BORDER" floatingText="Contraseña" layoutX="231.0" layoutY="388.0" prefHeight="25.0" prefWidth="130.0">
+      </TextField>
+      <PasswordField layoutX="231.0" layoutY="388.0" prefHeight="25.0" prefWidth="130.0">
          <font>
             <Font name="Roboto Light" size="12.0" />
          </font>
-      </MFXPasswordField>
-      <MFXPasswordField floatMode="BORDER" floatingText="Repite contraseña" layoutX="379.0" layoutY="388.0" prefHeight="25.0" prefWidth="130.0">
+      </PasswordField>
+      <PasswordField layoutX="379.0" layoutY="388.0" prefHeight="25.0" prefWidth="130.0">
          <font>
             <Font name="Roboto Light" size="12.0" />
          </font>
-      </MFXPasswordField>
+      </PasswordField>
       <Separator layoutY="462.0" prefHeight="10.0" prefWidth="742.0" />
       <Label layoutX="14.0" layoutY="435.0" text="Información de dirección">
          <font>
             <Font name="Roboto Light" size="18.0" />
          </font>
       </Label>
-      <MFXTextField floatMode="BORDER" floatingText="Calle" layoutX="173.0" layoutY="496.0" prefHeight="25.0" prefWidth="130.0">
+      <TextField layoutX="173.0" layoutY="496.0" prefHeight="25.0" prefWidth="130.0" promptText="calle">
          <font>
             <Font name="Roboto Light" size="12.0" />
          </font>
-      </MFXTextField>
-      <MFXTextField floatMode="BORDER" floatingText="Número" layoutX="324.0" layoutY="496.0" prefHeight="25.0" prefWidth="87.0">
+      </TextField>
+      <TextField layoutX="324.0" layoutY="496.0" prefHeight="25.0" prefWidth="87.0" promptText="numero">
          <font>
             <Font name="Roboto Light" size="12.0" />
          </font>
-      </MFXTextField>
-      <MFXComboBox floatMode="BORDER" floatingText="Municipio" layoutX="173.0" layoutY="563.0" prefHeight="25.0" prefWidth="130.0" promptText="Selecciona" />
-      <MFXTextField floatMode="BORDER" floatingText="Código postal" layoutX="324.0" layoutY="563.0" prefHeight="25.0" prefWidth="87.0" />
-      <MFXTextField floatMode="BORDER" floatingText="Teléfono" layoutX="432.0" layoutY="496.0" prefHeight="25.0" prefWidth="130.0" textLimit="10" />
-      <MFXComboBox floatMode="BORDER" floatingText="Estado" layoutX="432.0" layoutY="563.0" prefHeight="25.0" prefWidth="130.0" promptText="Selecciona" />
-      <MFXButton fx:id="Retroceder" layoutX="474.0" layoutY="627.0" mnemonicParsing="false" text="Crear cuenta" onAction="#Regresar"/>
+      </TextField>
+      <ComboBox layoutX="173.0" layoutY="563.0" prefHeight="25.0" prefWidth="130.0" promptText="Selecciona" />
+      <TextField layoutX="324.0" layoutY="563.0" prefHeight="25.0" prefWidth="87.0" />
+      <TextField layoutX="432.0" layoutY="496.0" prefHeight="25.0" prefWidth="130.0" promptText="municipio" />
+      <ComboBox layoutX="432.0" layoutY="563.0" prefHeight="25.0" prefWidth="130.0" promptText="Selecciona" />
+      <Button fx:id="Retroceder" layoutX="474.0" layoutY="627.0" mnemonicParsing="false" onAction="#Regresar" text="Crear cuenta" />
    </children>
 </AnchorPane>
