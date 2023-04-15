@@ -41,7 +41,7 @@ public class ControladorLogin {
         fadeTransition.setNode(rootPane);
         fadeTransition.setFromValue(1);
         fadeTransition.setToValue(0);
-        fadeTransition.setOnFinished(actionEvent -> ViewSwitcher.switchTo(View.RECUPERAR_CONTRASENA, ViewSwitcher.MODO_CLARO));
+        fadeTransition.setOnFinished(actionEvent -> ViewSwitcher.switchTo(View.RECUPERAR_CONTRASENA, IndexApp.Tema));
         fadeTransition.play();
     }
 
