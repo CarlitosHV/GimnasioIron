@@ -10,6 +10,8 @@ import java.io.IOException;
 
 public class IndexApp extends Application {
 
+    public static int Tema = 1;
+
     //Método que inicia la aplicación
     public static void main(String[] args){
         launch(args);
@@ -20,7 +22,8 @@ public class IndexApp extends Application {
     public void start(Stage stage) throws IOException {
         var scene = new Scene(new Pane());
         ViewSwitcher.setScene(scene);
-        ViewSwitcher.switchTo(View.LOGIN);
+        //Extraemos la variable del tema del archivo
+        ViewSwitcher.switchTo(View.LOGIN, Tema);
         stage.setScene(scene);
         stage.getIcons().add(new Image(IndexApp.class.getResourceAsStream("/assets/IconGym.png")));
         stage.setTitle("Iron Bodies Gym");
