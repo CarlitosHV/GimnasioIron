@@ -10,6 +10,7 @@ module com.gimnasio.ironbodiesgym {
     requires org.kordamp.bootstrapfx.core;
     requires eu.hansolo.tilesfx;
     requires com.almasb.fxgl.all;
+    requires java.sql;
 
     opens com.gimnasio.ironbodiesgym to javafx.fxml;
     exports com.gimnasio.ironbodiesgym;

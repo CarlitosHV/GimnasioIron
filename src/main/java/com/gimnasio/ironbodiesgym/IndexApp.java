@@ -11,6 +11,7 @@ import java.io.IOException;
 public class IndexApp extends Application {
 
     public static int Tema = 1;
+    ControladorBD controladorBD = new ControladorBD();
 
     //Método que inicia la aplicación
     public static void main(String[] args){
@@ -20,6 +21,7 @@ public class IndexApp extends Application {
     //Método que comienza y manda a crear el stage
     @Override
     public void start(Stage stage) throws IOException {
+        controladorBD.ConexionBD();
         var scene = new Scene(new Pane());
         ViewSwitcher.setScene(scene);
         //Extraemos la variable del tema del archivo
