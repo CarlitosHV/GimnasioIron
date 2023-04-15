@@ -5,11 +5,11 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.gimnasio.ironbodiesgym.ControladorConsultaUsuario">
+<AnchorPane id="Fondo" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.gimnasio.ironbodiesgym.ControladorConsultaUsuario">
     <children>
-        <AnchorPane prefHeight="45.0" prefWidth="600.0" style="-fx-background-color: #4a97f0;">
+        <AnchorPane id="Fondo2" prefHeight="45.0" prefWidth="600.0" style="-fx-background-color: #4a97f0;">
             <children>
-            <Button contentDisplay="GRAPHIC_ONLY" mnemonicParsing="false" style="-fx-background-color: #4a97f0;" text="Button" />
+            <Button id="Buttons" contentDisplay="GRAPHIC_ONLY" mnemonicParsing="false" prefHeight="40.0" prefWidth="48.0" style="-fx-background-color: #4a97f0;" text="Button" />
                 <ImageView accessibleRole="BUTTON" fitHeight="29.0" fitWidth="30.0" layoutX="5.0" layoutY="8.0" pickOnBounds="true" preserveRatio="true">
                     <image>
                         <Image url="@../../../assets/back_ico.png" />
@@ -17,11 +17,17 @@
                 </ImageView>
             </children>
         </AnchorPane>
-        <Button layoutX="487.0" layoutY="336.0" mnemonicParsing="false" prefHeight="29.0" prefWidth="74.0" style="-fx-background-color: #4a97f0;" text="Editar" textFill="#f7f5f5">
+        <Button id="Buttons" layoutX="461.0" layoutY="336.0" mnemonicParsing="false" prefHeight="29.0" prefWidth="100.0" style="-fx-background-color: #4a97f0;" text="Editar" textFill="#f7f5f5">
             <font>
                 <Font name="Roboto Thin" size="12.0" />
             </font>
         </Button>
-      <TextField layoutX="110.0" layoutY="109.0" prefHeight="181.0" prefWidth="379.0" text="Nombre:" />
+      <TextField id="TextFields" layoutX="57.0" layoutY="88.0" prefHeight="29.0" prefWidth="337.0" promptText="Nombre" />
+      <TextField id="TextFields" layoutX="56.0" layoutY="148.0" prefHeight="15.0" prefWidth="338.0" promptText="Dirección" />
+      <TextField id="TextFields" layoutX="57.0" layoutY="207.0" prefHeight="18.0" prefWidth="338.0" promptText="Correo Electronico" />
+      <TextField id="TextFields" layoutX="57.0" layoutY="263.0" prefHeight="17.0" prefWidth="338.0" promptText="Estado de Suscripción">
+         <font>
+            <Font name="Roboto Light" size="12.0" />
+         </font></TextField>
     </children>
 </AnchorPane>

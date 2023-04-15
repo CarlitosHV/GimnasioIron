@@ -10,7 +10,7 @@ import java.io.IOException;
 
 public class IndexApp extends Application {
 
-    public static int Tema = 0;
+    public static int Tema = 1;
 
     //Método que inicia la aplicación
     public static void main(String[] args){

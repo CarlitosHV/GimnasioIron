@@ -59,3 +59,9 @@
 #Separadores{
     -fx-text-fill: rgba(23, 22, 22, 0.93);
 }
+#ListViews{
+    -fx-background-color: white;
+    -fx-border-color:  #4a97f0;
+
+
+}
