@@ -22,4 +22,15 @@ public class ControladorMenuAdmin {
         fadeTransition.play();
         fadeTransition.setOnFinished(actionEvent -> ViewSwitcher.switchTo(View.CONSULTA_USUARIO, IndexApp.Tema));
     }
+
+    @FXML
+    void Regresar(ActionEvent event){
+        FadeTransition fadeTransition = new FadeTransition();
+        fadeTransition.setDuration(Duration.millis(500));
+        fadeTransition.setNode(rootPane);
+        fadeTransition.setFromValue(1);
+        fadeTransition.setToValue(0);
+        fadeTransition.play();
+        fadeTransition.setOnFinished(actionEvent -> ViewSwitcher.switchTo(View.LOGIN, IndexApp.Tema));
+    }
 }
