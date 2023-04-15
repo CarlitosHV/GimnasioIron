@@ -15,13 +15,14 @@ public class ControladorCrearUsuario {
     private AnchorPane rootPane;
 
 
-    public void Regresar(){
+    @FXML
+    void Regresar(){
         FadeTransition fadeTransition = new FadeTransition();
         fadeTransition.setDuration(Duration.millis(500));
         fadeTransition.setNode(rootPane);
         fadeTransition.setFromValue(1);
         fadeTransition.setToValue(0);
-        fadeTransition.setOnFinished(actionEvent -> ViewSwitcher.switchTo(View.LOGIN, ViewSwitcher.MODO_CLARO));
+        fadeTransition.setOnFinished(actionEvent -> ViewSwitcher.switchTo(View.LOGIN, IndexApp.Tema));
         fadeTransition.play();
     }
 

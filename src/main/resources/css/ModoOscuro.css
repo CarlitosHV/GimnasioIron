@@ -45,3 +45,17 @@
     -fx-scale-x: 1.1;
     -fx-scale-y: 1.1;
 }
+
+#ComboBox{
+    -fx-background-color: #4a97f0;
+    -fx-border-radius: 25%;
+    -fx-text-fill: white;
+}
+
+#ComboBox:focused{
+    -fx-background-color: gray;
+}
+
+#Separadores{
+    -fx-text-fill: rgba(23, 22, 22, 0.93);
+}

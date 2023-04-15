@@ -30,7 +30,7 @@ public class ControladorLogin {
         fadeTransition.setNode(rootPane);
         fadeTransition.setFromValue(1);
         fadeTransition.setToValue(0);
-        fadeTransition.setOnFinished(actionEvent -> ViewSwitcher.switchTo(View.CREAR_USUARIO, ViewSwitcher.MODO_CLARO));
+        fadeTransition.setOnFinished(actionEvent -> ViewSwitcher.switchTo(View.CREAR_USUARIO, IndexApp.Tema));
         fadeTransition.play();
     }
 
