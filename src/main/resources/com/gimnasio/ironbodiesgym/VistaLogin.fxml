@@ -28,7 +28,7 @@
                     </font>
                 </PasswordField>
                 <Button id="Buttons" fx:id="Boton_ingresar" layoutX="80.0" layoutY="208.0"
-                        mnemonicParsing="false" onAction="#Contra" prefHeight="30.0" prefWidth="226.0"
+                        mnemonicParsing="false" onAction="#AbrirMenu" prefHeight="30.0" prefWidth="226.0"
                         text="INGRESAR" textFill="WHITE">
                     <Font name="Roboto Light" size="13.0"/>
                     <cursor>

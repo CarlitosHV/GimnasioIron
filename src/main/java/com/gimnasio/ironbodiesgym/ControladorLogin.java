@@ -5,53 +5,74 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.util.Duration;
+
 import java.security.MessageDigest;
 import javax.crypto.Cipher;
 import javax.crypto.spec.SecretKeySpec;
 import java.nio.charset.StandardCharsets;
 
-public class ControladorLogin
-{
+public class ControladorLogin {
     @FXML
     private AnchorPane rootPane;
     @FXML
     private Button Boton_ingresar;
     @FXML
+    private TextField Campo_correo;
+    @FXML
     private PasswordField Campo_contra;
-  public void Crear_usuario(){
-      FadeTransition fadeTransition = new FadeTransition();
-      fadeTransition.setDuration(Duration.millis(500));
-      fadeTransition.setNode(rootPane);
-      fadeTransition.setFromValue(1);
-      fadeTransition.setToValue(0);
-      fadeTransition.setOnFinished(actionEvent -> ViewSwitcher.switchTo(View.CREAR_USUARIO, ViewSwitcher.MODO_CLARO));
-      fadeTransition.play();
-  }
 
-  @FXML
-  void RecuperarCuenta(){
-      FadeTransition fadeTransition = new FadeTransition();
-      fadeTransition.setDuration(Duration.millis(500));
-      fadeTransition.setNode(rootPane);
-      fadeTransition.setFromValue(1);
-      fadeTransition.setToValue(0);
-      fadeTransition.setOnFinished(actionEvent -> ViewSwitcher.switchTo(View.RECUPERAR_CONTRASENA, ViewSwitcher.MODO_CLARO));
-      fadeTransition.play();
-  }
+    public void Crear_usuario() {
+        FadeTransition fadeTransition = new FadeTransition();
+        fadeTransition.setDuration(Duration.millis(500));
+        fadeTransition.setNode(rootPane);
+        fadeTransition.setFromValue(1);
+        fadeTransition.setToValue(0);
+        fadeTransition.setOnFinished(actionEvent -> ViewSwitcher.switchTo(View.CREAR_USUARIO, ViewSwitcher.MODO_CLARO));
+        fadeTransition.play();
+    }
+
+    @FXML
+    void RecuperarCuenta() {
+        FadeTransition fadeTransition = new FadeTransition();
+        fadeTransition.setDuration(Duration.millis(500));
+        fadeTransition.setNode(rootPane);
+        fadeTransition.setFromValue(1);
+        fadeTransition.setToValue(0);
+        fadeTransition.setOnFinished(actionEvent -> ViewSwitcher.switchTo(View.RECUPERAR_CONTRASENA, ViewSwitcher.MODO_CLARO));
+        fadeTransition.play();
+    }
+
+    @FXML
+    void AbrirMenu(ActionEvent event) {
+        int prueba = Integer.parseInt(Campo_correo.getText());
+        FadeTransition fadeTransition = new FadeTransition();
+        fadeTransition.setDuration(Duration.millis(500));
+        fadeTransition.setNode(rootPane);
+        fadeTransition.setFromValue(1);
+        fadeTransition.setToValue(0);
+        if (prueba == 1) {
+            fadeTransition.play();
+            fadeTransition.setOnFinished(actionEvent -> ViewSwitcher.switchTo(View.MENU_ADMINISTRADOR, IndexApp.Tema));
+        } else if (prueba == 2) {
+            fadeTransition.play();
+            fadeTransition.setOnFinished(actionEvent -> ViewSwitcher.switchTo(View.MENU_USUARIO, IndexApp.Tema));
+        }
+    }
 
 
-  @FXML
-  void Contra(ActionEvent event) throws Exception {
-      String contrasenia = Campo_contra.getText();
-      byte[] contra = cifra(contrasenia);
-      String descifra = descifra(contra);
-      System.out.println(contra);
-      System.out.println("-----------------");
-      System.out.println(descifra);
+    @FXML
+    void Contra(ActionEvent event) throws Exception {
+        String contrasenia = Campo_contra.getText();
+        byte[] contra = cifra(contrasenia);
+        String descifra = descifra(contra);
+        System.out.println(contra);
+        System.out.println("-----------------");
+        System.out.println(descifra);
 
-  }
+    }
 
     public byte[] cifra(String sinCifrar) throws Exception {
         final byte[] bytes = sinCifrar.getBytes("UTF-8");
