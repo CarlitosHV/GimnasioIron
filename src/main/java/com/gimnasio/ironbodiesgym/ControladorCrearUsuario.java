@@ -20,7 +20,7 @@ public class ControladorCrearUsuario implements Initializable {
     ClaseUsuario claseUsuario = new ClaseUsuario();
     ControladorBD controladorBD = new ControladorBD();
 
-    private boolean campo_nombre, campo_apellido_paterno;
+    private boolean campo_nombre, campo_apellido_paterno, campo_apellido_materno, campo_edad, campo_correo, campo_calle, campo_numero,campo_codigo_postal, campo_telefono;
 
     @FXML
     private TextField Campo_nombre, Campo_apellido_paterno, Campo_apellido_materno, Campo_edad, Campo_correo,
@@ -62,7 +62,64 @@ public class ControladorCrearUsuario implements Initializable {
             }
             return change;
         }));
+
+        Campo_apellido_materno.setTextFormatter(new TextFormatter<>(change -> {
+            String newText = change.getControlNewText();
+            if (newText.length() > 10) {
+                return null;
+            }
+            return change;
+        }));
+
+        Campo_edad.setTextFormatter(new TextFormatter<>(change -> {
+            String newText = change.getControlNewText();
+            if (newText.length() > 2) {
+                return null;
+            }
+            return change;
+        }));
+
+        Campo_correo.setTextFormatter(new TextFormatter<>(change -> {
+            String newText = change.getControlNewText();
+            if (newText.length() > 45) {
+                return null;
+            }
+            return change;
+        }));
+
+        Campo_calle.setTextFormatter(new TextFormatter<>(change -> {
+            String newText = change.getControlNewText();
+            if (newText.length() > 20) {
+                return null;
+            }
+            return change;
+        }));
+
+        Campo_numero.setTextFormatter(new TextFormatter<>(change -> {
+            String newText = change.getControlNewText();
+            if (newText.length() > 5) {
+                return null;
+            }
+            return change;
+        }));
+
+        Campo_codigo_postal.setTextFormatter(new TextFormatter<>(change -> {
+            String newText = change.getControlNewText();
+            if (newText.length() > 5) {
+                return null;
+            }
+            return change;
+        }));
+
+        Campo_telefono.setTextFormatter(new TextFormatter<>(change -> {
+            String newText = change.getControlNewText();
+            if (newText.length() > 10) {
+                return null;
+            }
+            return change;
+        }));
     }
+
 
 
     /*
@@ -90,6 +147,73 @@ public class ControladorCrearUsuario implements Initializable {
         }
     }
 
+    @FXML void validar_campo_apellido_materno(javafx.scene.input.KeyEvent keyEvent){
+        if (Campo_apellido_materno.getText().matches("^[a-zA-Z]{3,10}$") && !Campo_apellido_materno.getText().isEmpty()) {
+            campo_apellido_materno = true;
+            Campo_apellido_materno.setStyle("-fx-border-color: #4a97f0");
+        } else {
+            Campo_apellido_materno.setStyle("-fx-border-color: red");
+            campo_apellido_materno = false;
+        }
+    }
+    @FXML void validar_campo_edad(javafx.scene.input.KeyEvent keyEvent){
+        if (Campo_edad.getText().matches("^[0-9]{1,2}$") && !Campo_edad.getText().isEmpty()) {
+            campo_edad = true;
+            Campo_edad.setStyle("-fx-border-color: #4a97f0");
+        } else {
+            Campo_edad.setStyle("-fx-border-color: red");
+            campo_edad = false;
+        }
+    }
+
+    @FXML void validar_campo_correo(javafx.scene.input.KeyEvent keyEvent){
+        if (Campo_correo.getText().matches("^[a-zA-Z],[0-9],[@*/._+-]{20,45}$") && !Campo_correo.getText().isEmpty()) {
+            campo_correo = true;
+            Campo_correo.setStyle("-fx-border-color: #4a97f0");
+        } else {
+            Campo_correo.setStyle("-fx-border-color: red");
+            campo_correo = false;
+        }
+    }
+    @FXML void validar_campo_calle(javafx.scene.input.KeyEvent keyEvent){
+        if (Campo_calle.getText().matches("^[a-zA-Z]{5,20}$") && !Campo_calle.getText().isEmpty()) {
+            campo_calle = true;
+            Campo_calle.setStyle("-fx-border-color: #4a97f0");
+        } else {
+            Campo_calle.setStyle("-fx-border-color: red");
+            campo_calle = false;
+        }
+    }
+
+    @FXML void validar_campo_numero(javafx.scene.input.KeyEvent keyEvent){
+        if (Campo_numero.getText().matches("^[0-9]{1,5}$") && !Campo_numero.getText().isEmpty()) {
+            campo_numero = true;
+            Campo_numero.setStyle("-fx-border-color: #4a97f0");
+        } else {
+            Campo_numero.setStyle("-fx-border-color: red");
+            campo_numero = false;
+        }
+    }
+
+    @FXML void validar_campo_codigo_postal(javafx.scene.input.KeyEvent keyEvent){
+        if (Campo_codigo_postal.getText().matches("^[0-9]{1,5}$") && !Campo_codigo_postal.getText().isEmpty()) {
+            campo_codigo_postal = true;
+            Campo_codigo_postal.setStyle("-fx-border-color: #4a97f0");
+        } else {
+            Campo_codigo_postal.setStyle("-fx-border-color: red");
+            campo_codigo_postal = false;
+        }
+    }
+
+    @FXML void validar_campo_telefono(javafx.scene.input.KeyEvent keyEvent){
+        if (Campo_telefono.getText().matches("^[0-9]{5,10}$") && !Campo_telefono.getText().isEmpty()) {
+            campo_telefono = true;
+            Campo_telefono.setStyle("-fx-border-color: #4a97f0");
+        } else {
+            Campo_telefono.setStyle("-fx-border-color: red");
+            campo_telefono = false;
+        }
+    }
     boolean CamposValidos(){
         if (campo_nombre && campo_apellido_paterno){
             return true;
