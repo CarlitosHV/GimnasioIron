@@ -5,9 +5,9 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane id="Fondo" prefHeight="765.0" prefWidth="744.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.gimnasio.ironbodiesgym.ControladorCrearUsuario">
+<AnchorPane id="Fondo" minHeight="765.0" minWidth="744.0" maxHeight="Infinity" maxWidth="Infinity" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.gimnasio.ironbodiesgym.ControladorCrearUsuario">
     <children>
-      <AnchorPane id="Fondo2" minHeight="-Infinity" prefHeight="90.0" prefWidth="744.0">
+      <AnchorPane id="Fondo2" minHeight="-Infinity"  prefHeight="90.0" prefWidth="744.0">
          <children>
               <Label id="Labels" layoutX="288.0" layoutY="9.0" prefHeight="63.0" prefWidth="169.0" text="Crea tu usuario">
                   <font>
@@ -26,22 +26,22 @@
          </children>
       </AnchorPane>
         <Separator id="Separadores" layoutX="-1.0" layoutY="128.0" prefHeight="10.0" prefWidth="742.0" />
-        <TextField id="TextFields" layoutX="231.0" layoutY="145.0" prefHeight="37.0" prefWidth="278.0" promptText="Nombre(s)">
+        <TextField id="TextFields" fx:id="Campo_nombre" onKeyTyped="#validar_campo_nombre" layoutX="231.0" layoutY="145.0" prefHeight="37.0" prefWidth="278.0" promptText="Nombre(s)">
             <font>
                 <Font name="Roboto Light" size="12.0" />
             </font>
         </TextField>
-        <TextField id="TextFields" layoutX="233.0" layoutY="196.0" prefHeight="37.0" prefWidth="130.0" promptText="Apellido Paterno">
+        <TextField id="TextFields" fx:id="Campo_apellido_paterno" onKeyTyped="#validar_campo_apellido_paterno" layoutX="233.0" layoutY="196.0" prefHeight="37.0" prefWidth="130.0" promptText="Apellido Paterno">
             <font>
                 <Font name="Roboto Light" size="12.0" />
             </font>
         </TextField>
-        <TextField id="TextFields" layoutX="381.0" layoutY="196.0" prefHeight="37.0" prefWidth="130.0" promptText="Apellido Materno">
+        <TextField id="TextFields" fx:id="Campo_apellido_materno" layoutX="381.0" layoutY="196.0" prefHeight="37.0" prefWidth="130.0" promptText="Apellido Materno">
             <font>
                 <Font name="Roboto Light" size="12.0" />
             </font>
         </TextField>
-        <TextField id="TextFields" layoutX="233.0" layoutY="249.0" prefHeight="37.0" prefWidth="130.0" promptText="Edad">
+        <TextField id="TextFields" fx:id="Campo_edad" layoutX="233.0" layoutY="249.0" prefHeight="37.0" prefWidth="130.0" promptText="Edad">
             <font>
                 <Font name="Roboto Light" size="12.0" />
             </font>
@@ -58,17 +58,17 @@
                 <Font name="Roboto Light" size="18.0" />
             </font>
         </Label>
-        <TextField id="TextFields" layoutX="232.0" layoutY="339.0" prefHeight="37.0" prefWidth="278.0" promptText="Correo">
+        <TextField id="TextFields" fx:id="Campo_correo" layoutX="232.0" layoutY="339.0" prefHeight="37.0" prefWidth="278.0" promptText="Correo">
             <font>
                 <Font name="Roboto Light" size="12.0" />
             </font>
         </TextField>
-        <PasswordField id="PasswordFields" layoutX="232.0" layoutY="389.0" prefHeight="37.0" prefWidth="130.0" promptText="Contraseña">
+        <PasswordField id="PasswordFields"  fx:id="Campo_contrasenia"  layoutX="232.0" layoutY="389.0" prefHeight="37.0" prefWidth="130.0" promptText="Contraseña">
             <font>
                 <Font name="Roboto Light" size="12.0" />
             </font>
         </PasswordField>
-        <PasswordField id="PasswordFields" layoutX="380.0" layoutY="389.0" prefHeight="37.0" prefWidth="130.0" promptText="Repite contraseña">
+        <PasswordField id="PasswordFields" fx:id="Campo_repite_contrasenia"  layoutX="380.0" layoutY="389.0" prefHeight="37.0" prefWidth="130.0" promptText="Repite contraseña">
             <font>
                 <Font name="Roboto Light" size="12.0" />
             </font>
@@ -79,12 +79,12 @@
                 <Font name="Roboto Light" size="18.0" />
             </font>
         </Label>
-        <TextField id="TextFields" layoutX="230.0" layoutY="496.0" prefHeight="37.0" prefWidth="130.0" promptText="Calle">
+        <TextField id="TextFields"  fx:id="Campo_calle"  layoutX="230.0" layoutY="496.0" prefHeight="37.0" prefWidth="130.0" promptText="Calle">
             <font>
                 <Font name="Roboto Light" size="12.0" />
             </font>
         </TextField>
-        <TextField id="TextFields" layoutX="381.0" layoutY="496.0" prefHeight="37.0" prefWidth="130.0" promptText="Número">
+        <TextField id="TextFields"  fx:id="Campo_numero"  layoutX="381.0" layoutY="496.0" prefHeight="37.0" prefWidth="130.0" promptText="Número">
             <font>
                 <Font name="Roboto Light" size="12.0" />
             </font>
@@ -95,10 +95,10 @@
             </font>
         </Label>
         <ComboBox id="ComboBox" fx:id="Combo_municipio" layoutX="232.0" layoutY="612.0" prefHeight="37.0" prefWidth="130.0" promptText="Selecciona" />
-        <TextField id="TextFields" layoutX="232.0" layoutY="545.0" prefHeight="37.0" prefWidth="130.0" promptText="Código postal" />
-        <TextField id="TextFields" layoutX="381.0" layoutY="545.0" prefHeight="37.0" prefWidth="130.0" promptText="Teléfono" />
+        <TextField id="TextFields"  fx:id="Campo_codigo_postal"  layoutX="232.0" layoutY="545.0" prefHeight="37.0" prefWidth="130.0" promptText="Código postal" />
+        <TextField id="TextFields"  fx:id="Campo_telefono"  layoutX="381.0" layoutY="545.0" prefHeight="37.0" prefWidth="130.0" promptText="Teléfono" />
         <ComboBox id="ComboBox" fx:id="Combo_estado" layoutX="381.0" layoutY="612.0" prefHeight="37.0" prefWidth="130.0" promptText="Selecciona" />
-        <Button id="Buttons" layoutX="427.0" layoutY="676.0" mnemonicParsing="false" text="Crear cuenta" />
+        <Button id="Buttons" fx:id="Boton_crear" onAction="#GuardarUsuario" layoutX="427.0" layoutY="676.0" mnemonicParsing="false" text="Crear cuenta" />
       <Label id="Labels" layoutX="381.0" layoutY="591.0" text="Estado">
          <font>
             <Font name="Roboto Light" size="12.0" />

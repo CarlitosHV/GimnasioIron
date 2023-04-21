@@ -6,12 +6,16 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
-import java.io.IOException;
+import java.io.*;
+import java.util.Properties;
 
 public class IndexApp extends Application {
 
-    public static int Tema = 1;
-    ControladorBD controladorBD = new ControladorBD();
+    InputStream configInput = null;
+    OutputStream configOutput = null;
+    public static int Tema;
+    public static String servidor, usuario, contrasenia, base_datos;
+
 
     //Método que inicia la aplicación
     public static void main(String[] args){
@@ -21,7 +25,7 @@ public class IndexApp extends Application {
     //Método que comienza y manda a crear el stage
     @Override
     public void start(Stage stage) throws IOException {
-        controladorBD.ConexionBD();
+        ObtenerPropiedades();
         var scene = new Scene(new Pane());
         ViewSwitcher.setScene(scene);
         //Extraemos la variable del tema del archivo
@@ -30,6 +34,36 @@ public class IndexApp extends Application {
         stage.getIcons().add(new Image(IndexApp.class.getResourceAsStream("/assets/IconGym.png")));
         stage.setTitle("Iron Bodies Gym");
         stage.show();
+    }
+
+    public void ObtenerPropiedades() {
+        try {
+            Properties config = new Properties();
+            configInput = new FileInputStream("src/main/resources/config.properties");
+            config.load(configInput);
+            Tema = Integer.parseInt(config.getProperty("theme"));
+            servidor = config.getProperty("server");
+            usuario = config.getProperty("user");
+            contrasenia = config.getProperty("password");
+            base_datos = config.getProperty("database");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void EscribirPropiedades(String property, String value) {
+        try {
+            configOutput = new FileOutputStream("src/main/resources/config.properties");
+            Properties config = new Properties();
+            config.setProperty(property, value);
+            config.setProperty("server", servidor);
+            config.setProperty("user", usuario);
+            config.setProperty("password", contrasenia);
+            config.setProperty("database", base_datos);
+            config.store(configOutput, null);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
 }

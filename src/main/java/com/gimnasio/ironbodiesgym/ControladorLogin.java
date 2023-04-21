@@ -7,6 +7,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.BorderPane;
 import javafx.util.Duration;
 
 import java.security.MessageDigest;
@@ -46,8 +47,9 @@ public class ControladorLogin {
     }
 
     @FXML
-    void AbrirMenu(ActionEvent event) {
+    void AbrirMenu(ActionEvent event) throws Exception {
         int prueba = Integer.parseInt(Campo_correo.getText());
+        Contra();
         FadeTransition fadeTransition = new FadeTransition();
         fadeTransition.setDuration(Duration.millis(500));
         fadeTransition.setNode(rootPane);
@@ -63,8 +65,7 @@ public class ControladorLogin {
     }
 
 
-    @FXML
-    void Contra(ActionEvent event) throws Exception {
+    void Contra() throws Exception {
         String contrasenia = Campo_contra.getText();
         byte[] contra = cifra(contrasenia);
         String descifra = descifra(contra);
