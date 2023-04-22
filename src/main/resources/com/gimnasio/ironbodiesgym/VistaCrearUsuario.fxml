@@ -46,7 +46,7 @@
                 <Font name="Roboto Light" size="12.0" />
             </font>
         </TextField>
-        <ComboBox id="ComboBox" fx:id="Combo_sexo" layoutX="381.0" layoutY="249.0" prefHeight="37.0" prefWidth="130.0" promptText="Selecciona" />
+        <ComboBox id="ComboBox" fx:id="Combo_sexo" layoutX="381.0" layoutY="249.0" prefHeight="37.0" prefWidth="130.0" promptText="Sexo" />
         <Label id="Labels" layoutX="13.0" layoutY="101.0" text="Información personal">
             <font>
                 <Font name="Roboto Light" size="18.0" />

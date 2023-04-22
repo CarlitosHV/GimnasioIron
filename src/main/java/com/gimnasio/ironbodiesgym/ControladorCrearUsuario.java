@@ -1,18 +1,13 @@
 package com.gimnasio.ironbodiesgym;
 
 import javafx.animation.FadeTransition;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.util.Duration;
 
-import javax.crypto.Cipher;
-import javax.crypto.spec.SecretKeySpec;
 import java.net.URL;
-import java.security.MessageDigest;
 import java.util.ResourceBundle;
 
 public class ControladorCrearUsuario implements Initializable {
@@ -143,7 +138,7 @@ public class ControladorCrearUsuario implements Initializable {
      */
     @FXML
     void validar_campo_nombre(javafx.scene.input.KeyEvent keyEvent) {
-        if (Campo_nombre.getText().matches("^[a-zA-Z]{3,15}$") && !Campo_nombre.getText().isEmpty()) {
+        if (Campo_nombre.getText().matches("^[a-zA-ZáéíóúÁÉÍÓÚñÑ]{3,15}$") && !Campo_nombre.getText().isEmpty()) {
             campo_nombre = true;
             Campo_nombre.setStyle("-fx-border-color: #4a97f0");
         } else {
@@ -154,7 +149,7 @@ public class ControladorCrearUsuario implements Initializable {
 
     @FXML
     void validar_campo_apellido_paterno(javafx.scene.input.KeyEvent keyEvent) {
-        if (Campo_apellido_paterno.getText().matches("^[a-zA-Z]{3,10}$") && !Campo_apellido_paterno.getText().isEmpty()) {
+        if (Campo_apellido_paterno.getText().matches("^[a-zA-ZáéíóúÁÉÍÓÚñÑ]{3,10}$") && !Campo_apellido_paterno.getText().isEmpty()) {
             campo_apellido_paterno = true;
             Campo_apellido_paterno.setStyle("-fx-border-color: #4a97f0");
         } else {
@@ -165,7 +160,7 @@ public class ControladorCrearUsuario implements Initializable {
 
     @FXML
     void validar_campo_apellido_materno(javafx.scene.input.KeyEvent keyEvent) {
-        if (Campo_apellido_materno.getText().matches("^[a-zA-Z]{3,10}$") && !Campo_apellido_materno.getText().isEmpty()) {
+        if (Campo_apellido_materno.getText().matches("^[a-zA-ZáéíóúÁÉÍÓÚñÑ]{3,10}$") && !Campo_apellido_materno.getText().isEmpty()) {
             campo_apellido_materno = true;
             Campo_apellido_materno.setStyle("-fx-border-color: #4a97f0");
         } else {
@@ -187,7 +182,7 @@ public class ControladorCrearUsuario implements Initializable {
 
     @FXML
     void validar_campo_correo(javafx.scene.input.KeyEvent keyEvent) {
-        if (Campo_correo.getText().matches("^[a-zA-Z],[0-9],[@*/._+-]{20,45}$") && !Campo_correo.getText().isEmpty()) {
+        if (Campo_correo.getText().matches("^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$") && !Campo_correo.getText().isEmpty()) {
             campo_correo = true;
             Campo_correo.setStyle("-fx-border-color: #4a97f0");
         } else {
@@ -198,7 +193,7 @@ public class ControladorCrearUsuario implements Initializable {
 
     @FXML
     void validar_campo_contrasenia(javafx.scene.input.KeyEvent keyEvent) {
-        if (Campo_contrasenia.getText().matches("^[a-zA-Z],[0-9],[@*/._+-]{6,14}$") && !Campo_contrasenia.getText().isEmpty()) {
+        if (Campo_contrasenia.getText().matches("^[A-Za-z\\d@$!%*?&]{6,12}$") && !Campo_contrasenia.getText().isEmpty()) {
             campo_contrasenia = true;
             Campo_contrasenia.setStyle("-fx-border-color: #4a97f0");
         } else {
@@ -209,7 +204,7 @@ public class ControladorCrearUsuario implements Initializable {
 
     @FXML
     void validar_campo_repetir_contrasenia(javafx.scene.input.KeyEvent keyEvent) {
-        if (Campo_repite_contrasenia.getText().matches("^[a-zA-Z],[0-9],[@*/._+-]{6,14}$") && !Campo_repite_contrasenia.getText().isEmpty()) {
+        if (Campo_repite_contrasenia.getText().matches("^[A-Za-z\\d@$!%*?&]{6,12}$") && !Campo_repite_contrasenia.getText().isEmpty()) {
             campo_repertir_contrasenia = true;
             Campo_repite_contrasenia.setStyle("-fx-border-color: #4a97f0");
         } else {
@@ -220,7 +215,7 @@ public class ControladorCrearUsuario implements Initializable {
 
     @FXML
     void validar_campo_calle(javafx.scene.input.KeyEvent keyEvent) {
-        if (Campo_calle.getText().matches("^[a-zA-Z]{5,20}$") && !Campo_calle.getText().isEmpty()) {
+        if (Campo_calle.getText().matches("^[A-Za-z0-9áéíóúÁÉÍÓÚñÑ.,\\-/ ]+$") && !Campo_calle.getText().isEmpty()) {
             campo_calle = true;
             Campo_calle.setStyle("-fx-border-color: #4a97f0");
         } else {
@@ -306,12 +301,13 @@ public class ControladorCrearUsuario implements Initializable {
     }
 
     private void insertarClaseUsuario() throws Exception {
+        ControladorCifrarContrasena controladorCifrarContrasena = new ControladorCifrarContrasena();
         claseUsuario.setNombre(Campo_nombre.getText());
         claseUsuario.setApellido_paterno(Campo_apellido_paterno.getText());
         claseUsuario.setApellido_materno(Campo_apellido_materno.getText());
         claseUsuario.setCorreo(Campo_correo.getText());
-        String contra = Contra();
-        claseUsuario.setContrasenia(Contra());
+        String contra = controladorCifrarContrasena.encript(Campo_contrasenia.getText());
+        claseUsuario.setContrasenia(contra);
         claseUsuario.setTelefono(Integer.parseInt(Campo_telefono.getText()));
         claseUsuario.setUsuario_administrador(false);
         claseUsuario.setCalle(Campo_calle.getText());
@@ -325,40 +321,5 @@ public class ControladorCrearUsuario implements Initializable {
         claseUsuario.setEstado_suscripcion(false);
     }
 
-    String Contra() throws Exception {
-        String contrasenia = Campo_contrasenia.getText();
-        byte[] contra = cifra(contrasenia);
-        return new String(contra);
-    }
-
-    public byte[] cifra(String sinCifrar) throws Exception {
-        final byte[] bytes = sinCifrar.getBytes("UTF-8");
-        final Cipher aes = obtieneCipher(true);
-        final byte[] cifrado = aes.doFinal(bytes);
-        return cifrado;
-    }
-
-    public String descifra(byte[] cifrado) throws Exception {
-        final Cipher aes = obtieneCipher(false);
-        final byte[] bytes = aes.doFinal(cifrado);
-        final String sinCifrar = new String(bytes, "UTF-8");
-        return sinCifrar;
-    }
-
-    private Cipher obtieneCipher(boolean paraCifrar) throws Exception {
-        final String frase = "NuestraLLave";
-        final MessageDigest digest = MessageDigest.getInstance("SHA");
-        digest.update(frase.getBytes("UTF-8"));
-        final SecretKeySpec key = new SecretKeySpec(digest.digest(), 0, 16, "AES");
-
-        final Cipher aes = Cipher.getInstance("AES/ECB/PKCS5Padding");
-        if (paraCifrar) {
-            aes.init(Cipher.ENCRYPT_MODE, key);
-        } else {
-            aes.init(Cipher.DECRYPT_MODE, key);
-        }
-
-        return aes;
-    }
 
 }

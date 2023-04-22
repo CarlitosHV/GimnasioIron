@@ -72,11 +72,13 @@ public class ControladorBD {
 
 
 
+
             while (resultSet.next()) {
                 login.add(resultSet.getString("correo"));
                 login.add(resultSet.getString("contrasenia"));
                 login.add(resultSet.getBoolean("usuario_administrador"));
                 login.add(resultSet.getBoolean("bloqueado"));
+                ControladorLogin.contra = resultSet.getString("contrasenia");
             }
 
             stmt.close();

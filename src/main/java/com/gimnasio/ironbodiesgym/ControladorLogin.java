@@ -7,20 +7,15 @@ import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.BorderPane;
 import javafx.util.Duration;
 
-import java.security.MessageDigest;
-import javax.crypto.Cipher;
-import javax.crypto.spec.SecretKeySpec;
-import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Objects;
 
 public class ControladorLogin {
 
     public static String correo;
-    public static String contrasenia;
+    public static String contra;
     public static boolean usuario_administrador;
     public static boolean bloqueado;
 
@@ -60,45 +55,41 @@ public class ControladorLogin {
 
     @FXML
     void AbrirMenu(ActionEvent event) throws Exception {
+        camposValidos();
+    }
+
+
+    private void camposValidos() throws Exception {
+        ControladorCifrarContrasena controladorCifrarContrasena = new ControladorCifrarContrasena();
+        loginuser = controladorBD.loginUsuario(Campo_correo.getText());
+        String contraseniadecifrada = controladorCifrarContrasena.decrypt((String) loginuser.get(1));
+
+        String correo = String.valueOf(loginuser.get(0));
+        boolean admin = (boolean) loginuser.get(2);
+        boolean bloqueado = (boolean) loginuser.get(3);
+
         FadeTransition fadeTransition = new FadeTransition();
         fadeTransition.setDuration(Duration.millis(500));
         fadeTransition.setNode(rootPane);
         fadeTransition.setFromValue(1);
         fadeTransition.setToValue(0);
-        TraerUsuario();
-    }
 
-
-    public void TraerUsuario() throws Exception {
-        if (camposValidos()){
-            System.out.println("Campos correctos");
-        }else{
-            System.out.println("Campos incorrectos");
-        }
-
-    }
-
-    private boolean camposValidos() throws Exception {
-        ControladorCrearUsuario controladorCrearUsuario = new ControladorCrearUsuario();
-        loginuser = controladorBD.loginUsuario(Campo_correo.getText());
-        /*byte[] contracifrada = loginuser.get(2).toString().getBytes();
-        String contradecifrada = controladorCrearUsuario.descifra(contracifrada);
-        System.out.println(contradecifrada);*/
-
-
-        String correo = String.valueOf(loginuser.get(1));
-        boolean admin = (boolean) loginuser.get(2);
-        boolean bloqueado = (boolean) loginuser.get(3);
-        if (Campo_correo.getText().equals(correo) && bloqueado){
-            if (admin){
-                ViewSwitcher.switchTo(View.MENU_ADMINISTRADOR, IndexApp.Tema);
+        if (!bloqueado){
+            if(Objects.equals(Campo_correo.getText(), correo) &&
+                    Campo_contra.getText().equals(contraseniadecifrada)){
+                if (admin){
+                    fadeTransition.play();
+                    fadeTransition.setOnFinished(event -> ViewSwitcher.switchTo(View.MENU_ADMINISTRADOR, IndexApp.Tema));
+                }else{
+                    fadeTransition.play();
+                    fadeTransition.setOnFinished(event -> ViewSwitcher.switchTo(View.MENU_USUARIO, IndexApp.Tema));
+                }
             }else{
-                ViewSwitcher.switchTo(View.MENU_USUARIO, IndexApp.Tema);
+                System.out.println("Correo erróneo");
             }
         }else{
-            System.out.println("Usuario incorrecto");
+            System.out.println("Usuario bloqueado :(");
         }
-        return true;
     }
 
 
