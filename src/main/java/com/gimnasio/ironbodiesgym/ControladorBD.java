@@ -1,22 +1,20 @@
 package com.gimnasio.ironbodiesgym;
 
-import java.sql.CallableStatement;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
+import java.sql.*;
+import java.util.ArrayList;
 
 public class ControladorBD {
 
     Connection conn = null;
 
     public void insertar_Usuario(String nombre, String apellido_paterno, String Apellido_materno, String correo,
-                                String contrasenia, int telefono,  boolean usuario_administrador, String calle,
+                                 String contrasenia, int telefono, boolean usuario_administrador, String calle,
                                  int numero, int codigo_postal, String municipio, String estado, int edad, String sexo, boolean bloqueado,
                                  boolean estado_suscripcion) {
         try {
             CallableStatement stmt = null;
             conn =
-                    DriverManager.getConnection("jdbc:mysql://"+ IndexApp.servidor + "/"+ IndexApp.base_datos + "?" +
+                    DriverManager.getConnection("jdbc:mysql://" + IndexApp.servidor + "/" + IndexApp.base_datos + "?" +
                             "user=" + IndexApp.usuario + "&password=" + IndexApp.contrasenia);
 
 
@@ -50,6 +48,49 @@ public class ControladorBD {
             System.out.println("SQLException: " + ex.getMessage());
             System.out.println("SQLState: " + ex.getSQLState());
             System.out.println("VendorError: " + ex.getErrorCode());
+        }
+    }
+
+    public ArrayList<Object> loginUsuario(String correo) {
+        ArrayList<Object> login = new ArrayList<>();
+        try {
+            CallableStatement stmt = null;
+            conn =
+                    DriverManager.getConnection("jdbc:mysql://" + IndexApp.servidor + "/" + IndexApp.base_datos + "?" +
+                            "user=" + IndexApp.usuario + "&password=" + IndexApp.contrasenia);
+
+
+            String sql = "{call login_usuario (?)}";
+            stmt = conn.prepareCall(sql);
+
+            //Campos a mandar
+            stmt.setString(1, correo);
+
+            stmt.execute();
+
+            ResultSet resultSet = stmt.getResultSet();
+
+
+
+            while (resultSet.next()) {
+                login.add(resultSet.getString("correo"));
+                login.add(resultSet.getString("contrasenia"));
+                login.add(resultSet.getBoolean("usuario_administrador"));
+                login.add(resultSet.getBoolean("bloqueado"));
+            }
+
+            stmt.close();
+            conn.close();
+        } catch (SQLException ex) {
+            System.out.println("SQLException: " + ex.getMessage());
+            System.out.println("SQLState: " + ex.getSQLState());
+            System.out.println("VendorError: " + ex.getErrorCode());
+        }
+
+        if (!login.isEmpty()) {
+            return login;
+        } else {
+            return null;
         }
     }
 }

@@ -14,8 +14,20 @@ import java.security.MessageDigest;
 import javax.crypto.Cipher;
 import javax.crypto.spec.SecretKeySpec;
 import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
+import java.util.Objects;
 
 public class ControladorLogin {
+
+    public static String correo;
+    public static String contrasenia;
+    public static boolean usuario_administrador;
+    public static boolean bloqueado;
+
+    ArrayList<Object> loginuser = new ArrayList<>();
+
+    ControladorBD controladorBD = new ControladorBD();
+
     @FXML
     private AnchorPane rootPane;
     @FXML
@@ -48,61 +60,46 @@ public class ControladorLogin {
 
     @FXML
     void AbrirMenu(ActionEvent event) throws Exception {
-        int prueba = Integer.parseInt(Campo_correo.getText());
-        Contra();
         FadeTransition fadeTransition = new FadeTransition();
         fadeTransition.setDuration(Duration.millis(500));
         fadeTransition.setNode(rootPane);
         fadeTransition.setFromValue(1);
         fadeTransition.setToValue(0);
-        if (prueba == 1) {
-            fadeTransition.play();
-            fadeTransition.setOnFinished(actionEvent -> ViewSwitcher.switchTo(View.MENU_ADMINISTRADOR, IndexApp.Tema));
-        } else if (prueba == 2) {
-            fadeTransition.play();
-            fadeTransition.setOnFinished(actionEvent -> ViewSwitcher.switchTo(View.MENU_USUARIO, IndexApp.Tema));
-        }
+        TraerUsuario();
     }
 
 
-    void Contra() throws Exception {
-        String contrasenia = Campo_contra.getText();
-        byte[] contra = cifra(contrasenia);
-        String descifra = descifra(contra);
-        System.out.println(contra);
-        System.out.println("-----------------");
-        System.out.println(descifra);
-
-    }
-
-    public byte[] cifra(String sinCifrar) throws Exception {
-        final byte[] bytes = sinCifrar.getBytes("UTF-8");
-        final Cipher aes = obtieneCipher(true);
-        final byte[] cifrado = aes.doFinal(bytes);
-        return cifrado;
-    }
-
-    public String descifra(byte[] cifrado) throws Exception {
-        final Cipher aes = obtieneCipher(false);
-        final byte[] bytes = aes.doFinal(cifrado);
-        final String sinCifrar = new String(bytes, "UTF-8");
-        return sinCifrar;
-    }
-
-    private Cipher obtieneCipher(boolean paraCifrar) throws Exception {
-        final String frase = "NuestraLLave";
-        final MessageDigest digest = MessageDigest.getInstance("SHA");
-        digest.update(frase.getBytes("UTF-8"));
-        final SecretKeySpec key = new SecretKeySpec(digest.digest(), 0, 16, "AES");
-
-        final Cipher aes = Cipher.getInstance("AES/ECB/PKCS5Padding");
-        if (paraCifrar) {
-            aes.init(Cipher.ENCRYPT_MODE, key);
-        } else {
-            aes.init(Cipher.DECRYPT_MODE, key);
+    public void TraerUsuario() throws Exception {
+        if (camposValidos()){
+            System.out.println("Campos correctos");
+        }else{
+            System.out.println("Campos incorrectos");
         }
 
-        return aes;
     }
+
+    private boolean camposValidos() throws Exception {
+        ControladorCrearUsuario controladorCrearUsuario = new ControladorCrearUsuario();
+        loginuser = controladorBD.loginUsuario(Campo_correo.getText());
+        /*byte[] contracifrada = loginuser.get(2).toString().getBytes();
+        String contradecifrada = controladorCrearUsuario.descifra(contracifrada);
+        System.out.println(contradecifrada);*/
+
+
+        String correo = String.valueOf(loginuser.get(1));
+        boolean admin = (boolean) loginuser.get(2);
+        boolean bloqueado = (boolean) loginuser.get(3);
+        if (Campo_correo.getText().equals(correo) && bloqueado){
+            if (admin){
+                ViewSwitcher.switchTo(View.MENU_ADMINISTRADOR, IndexApp.Tema);
+            }else{
+                ViewSwitcher.switchTo(View.MENU_USUARIO, IndexApp.Tema);
+            }
+        }else{
+            System.out.println("Usuario incorrecto");
+        }
+        return true;
+    }
+
 
 }
