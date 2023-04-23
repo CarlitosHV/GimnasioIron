@@ -3,59 +3,63 @@
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="Fondo" fx:id="rootPane" prefHeight="400.0" prefWidth="427.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.gimnasio.ironbodiesgym.ControladorRecuperarContrasena">
+<AnchorPane id="Fondo" fx:id="rootPane" prefHeight="400.0" prefWidth="427.0" xmlns="http://javafx.com/javafx/17.0.2-ea"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.gimnasio.ironbodiesgym.ControladorRecuperarContrasena">
     <children>
         <AnchorPane id="Fondo2" layoutX="-1.0" layoutY="-2.0" prefHeight="59.0" prefWidth="438.0">
             <children>
-                <Label id="Labels" layoutX="78.0" layoutY="20.0" text="Recuperar contraseña" textFill="#f2f2f2">
+                <Label id="Labels" layoutX="78.0" layoutY="20.0" text="Recuperar contraseña">
                     <font>
-                        <Font size="16.0" />
+                        <Font size="16.0"/>
                     </font>
                 </Label>
-            <Button id="Buttons" onAction="#RegresarLogin" contentDisplay="GRAPHIC_ONLY" layoutX="14.0" layoutY="8.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="40.0" text="Button">
-               <graphic>
-      
-                            <ImageView accessibleRole="BUTTON" fitHeight="35.0" fitWidth="41.0" onMouseClicked="#RegresarLogin" pickOnBounds="true" preserveRatio="true">
-                          <image>
-                              <Image url="@../../../assets/back_ico.png" />
-                          </image>
-                          <cursor>
-                              <Cursor fx:constant="HAND" />
-                          </cursor>
-                      </ImageView>
-               </graphic>
-            </Button>
+                <Button id="Buttons" contentDisplay="GRAPHIC_ONLY" layoutX="14.0" layoutY="8.0" mnemonicParsing="false"
+                        onAction="#RegresarLogin" prefHeight="35.0" prefWidth="40.0" text="Button">
+                    <graphic>
+
+                        <ImageView accessibleRole="BUTTON" fitHeight="35.0" fitWidth="41.0"
+                                   onMouseClicked="#RegresarLogin" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="@../../../assets/back_ico.png"/>
+                            </image>
+                            <cursor>
+                                <Cursor fx:constant="HAND"/>
+                            </cursor>
+                        </ImageView>
+                    </graphic>
+                </Button>
 
 
             </children>
         </AnchorPane>
-        <TextField id="TextFields" layoutX="124.0" layoutY="99.0" prefHeight="35.0" prefWidth="190.0" promptText="Ingresa tu correo electrónico">
+        <TextField id="TextFields" fx:id="Campo_correo" layoutX="124.0" layoutY="99.0" prefHeight="35.0"
+                   prefWidth="190.0" promptText="Ingresa tu correo electrónico">
             <font>
-                <Font name="Roboto Light" size="12.0" />
+                <Font name="Roboto Light" size="12.0"/>
             </font>
         </TextField>
-        <Button id="Buttons" layoutX="225.0" layoutY="149.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="72.0" text="Validar" textFill="#f7f4f4">
+        <Button id="Buttons" onAction="#ValidarCorreo" fx:id="Boton_validar" layoutX="225.0" layoutY="149.0" mnemonicParsing="false"
+                prefHeight="25.0" prefWidth="72.0" text="Validar" textFill="#f7f4f4">
             <font>
-                <Font name="Roboto Black" size="12.0" />
+                <Font name="Roboto Black" size="12.0"/>
             </font>
+            <cursor>
+                <Cursor fx:constant="HAND"/>
+            </cursor>
         </Button>
-        <TextField id="PasswordFields" layoutX="123.0" layoutY="200.0" prefHeight="35.0" prefWidth="190.0" promptText="Nueva contraseña">
-            <font>
-                <Font name="Roboto Light" size="12.0" />
-            </font>
-        </TextField>
-        <TextField id="PasswordFields" layoutX="123.0" layoutY="265.0" prefHeight="35.0" prefWidth="190.0" promptText="Confirmar contraseña" />
-        <Button id="Buttons" layoutX="225.0" layoutY="319.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="72.0" text="Actualizar" textFill="#f4f3f3">
-            <font>
-                <Font name="Roboto Black" size="12.0" />
-            </font>
-        </Button>
+        <PasswordField id="PasswordFields" fx:id="Campo_contrasenia" layoutX="123.0" layoutY="200.0" prefHeight="35.0"
+                       prefWidth="190.0" promptText="Nueva contraseña"/>
+        <PasswordField id="PasswordFields" fx:id="Campo_repetir_contrasena" layoutX="123.0" layoutY="261.0"
+                       prefHeight="35.0" prefWidth="190.0" promptText="Repite nueva contraseña"/>
+
 
     </children>
 </AnchorPane>
