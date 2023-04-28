@@ -104,5 +104,39 @@ public class ControladorBD {
             return null;
         }
     }
+    public boolean cambiarContrasenia(String correo, String contraseniaNueva) {
+        try {
+            CallableStatement stmt = null;
+            conn =
+                    DriverManager.getConnection("jdbc:mysql://" + IndexApp.servidor + "/" + IndexApp.base_datos + "?" +
+                            "user=" + IndexApp.usuario + "&password=" + IndexApp.contrasenia);
+
+            String consulta = "SELECT * FROM USUARIOS WHERE correo = ?";
+            PreparedStatement selectStmt = conn.prepareStatement(consulta);
+            selectStmt.setString(1, correo);
+            ResultSet resultSet = selectStmt.executeQuery();
+
+            if (resultSet.next()) {
+                String sql = "{call cambiar_contrasenia (?, ?)}";
+                stmt = conn.prepareCall(sql);
+                //Campos a mandar
+                stmt.setString(1, correo);
+                stmt.setString(2, contraseniaNueva);
+
+                stmt.execute();
+                stmt.close();
+                conn.close();
+                return true;
+            } else {
+                return false;
+            }
+
+        } catch (SQLException ex) {
+            System.out.println("SQLException: " + ex.getMessage());
+            System.out.println("SQLState: " + ex.getSQLState());
+            System.out.println("VendorError: " + ex.getErrorCode());
+            return false;
+        }
+    }
 }
 
