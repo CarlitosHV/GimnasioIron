@@ -7,6 +7,7 @@ import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
 import java.io.*;
+import java.util.Objects;
 import java.util.Properties;
 
 public class IndexApp extends Application {
@@ -24,14 +25,14 @@ public class IndexApp extends Application {
 
     //Método que comienza y manda a crear el stage
     @Override
-    public void start(Stage stage) throws IOException {
+    public void start(Stage stage) {
         ObtenerPropiedades();
         var scene = new Scene(new Pane());
         ViewSwitcher.setScene(scene);
         //Extraemos la variable del tema del archivo
         ViewSwitcher.switchTo(View.LOGIN, Tema);
         stage.setScene(scene);
-        stage.getIcons().add(new Image(IndexApp.class.getResourceAsStream("/assets/IconGym.png")));
+        stage.getIcons().add(new Image(Objects.requireNonNull(IndexApp.class.getResourceAsStream("/assets/IconGym.png"))));
         stage.setTitle("Iron Bodies Gym");
         stage.show();
     }

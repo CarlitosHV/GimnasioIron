@@ -1,5 +1,7 @@
 package com.gimnasio.ironbodiesgym;
 
+import java.math.BigInteger;
+
 public class ClaseUsuario {
 
     String nombre;
@@ -7,7 +9,7 @@ public class ClaseUsuario {
     String Apellido_materno;
     String correo;
     String contrasenia;
-    int telefono;
+    BigInteger telefono;
     boolean usuario_administrador;
     String calle;
     int numero;
@@ -59,11 +61,11 @@ public class ClaseUsuario {
         this.contrasenia = contrasenia;
     }
 
-    public int getTelefono() {
+    public BigInteger getTelefono() {
         return telefono;
     }
 
-    public void setTelefono(int telefono) {
+    public void setTelefono(BigInteger telefono) {
         this.telefono = telefono;
     }
 
@@ -150,7 +152,7 @@ public class ClaseUsuario {
     public ClaseUsuario() {
     }
 
-    public ClaseUsuario(String nombre, String apellido_paterno, String Apellido_materno, String correo, String contrasenia, int telefono,
+    public ClaseUsuario(String nombre, String apellido_paterno, String Apellido_materno, String correo, String contrasenia, BigInteger telefono,
                         boolean usuario_administrador, String calle, int numero, int codigo_postal, String municipio, String estado,
                         int edad, String sexo, boolean bloqueado, boolean estado_suscripcion) {
         this.nombre = nombre;

@@ -68,7 +68,7 @@ public class ControladorRecuperarContrasena implements Initializable {
         TranslateTransition transition = new TranslateTransition();
         transition.setNode(elemento);
         transition.setByY(Y);
-        transition.setDuration(Duration.seconds(2.0));
+        transition.setDuration(Duration.seconds(1.0));
         transition.play();
         transition.setOnFinished(event -> {
             Campo_contrasenia.setVisible(true);
