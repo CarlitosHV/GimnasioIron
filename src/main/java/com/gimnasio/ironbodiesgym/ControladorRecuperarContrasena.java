@@ -8,10 +8,12 @@ import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.control.TextFormatter;
 import javafx.scene.layout.AnchorPane;
 import javafx.util.Duration;
 
 import java.net.URL;
+import java.sql.SQLException;
 import java.util.ResourceBundle;
 
 public class ControladorRecuperarContrasena implements Initializable {
@@ -25,145 +27,64 @@ public class ControladorRecuperarContrasena implements Initializable {
     @FXML
     public AnchorPane PanelPrin;
 
+    ControladorBD bd = new ControladorBD();
+    ControladorAlertas alertas = new ControladorAlertas();
+    ControladorTransiciones transiciones = new ControladorTransiciones();
+
+
     @FXML
-    void ValidarCorreo(){
+    void ValidarCorreo() throws Exception {
         /*
         Aquí va a ir la validación del correo y traerlo para mostrarlo en pantalla
          */
-        switch (Boton_validar.getText()){
-            case "Validar":
-                //Traemos la info de la bd
-                TrasladarItems();
-                break;
-            case "Actualizar":
-                //Mandamos a actualizar la nueva contraseña
-                break;
-                        //Obtener el correo electrónico ingresado por el usuario
-                        String correo = Campo_correo.getText();
-                        //Obtener la nueva contraseña ingresada por el usuario
-                        String contraseniaNueva = Campo_contrasenia.getText();
-                        //Obtener la confirmación de la nueva contraseña ingresada por el usuario
-                        String confirmacionContrasena = Campo_repetir_contrasena.getText();
-                        //Validar que los campos de contraseña y repetir contraseña coincidan
-                        if (!contraseniaNueva.equals(confirmacionContrasena)) {
-                            //Mostrar mensaje de error
-
-                            return;
-                        }
-                        //Validar que la nueva contraseña cumpla con los requisitos de seguridad necesarios
-                        if (!validarContrasena(contraseniaNueva)) {
-                            //Mostrar mensaje de error
-
-
-                            return;
-                        }
-                        //Actualizar la contraseña en la base de datos para el usuario correspondiente
-                        //cambiarContrasenia (correo, contraseniaNueva);
-                        //Mostrar mensaje de éxito
-
-                        //alert.setContentText("La contraseña se actualizó correctamente");
-                       // alert.showAndWait();
-                        //Volver al inicio de sesión
-                        //RegresarLogin();
-                        break;
+        switch (Boton_validar.getText()) {
+            case "Validar" -> {
+                if (!Campo_correo.getText().isEmpty()){
+                    boolean encontrado = bd.validarCorreo(Campo_correo.getText());
+                    if (encontrado){
+                        TrasladarItems();
+                    }else{
+                        alertas.CrearAlerta(ControladorAlertas.ALERTA_CORREO_NO_ENCONTRADO, PanelPrin);
                     }
+                }else{
+                    alertas.CrearAlerta(ControladorAlertas.ALERTA_ERROR_CAMPOS, PanelPrin);
                 }
-                @FXML
-                private boolean validarContrasena(String contrasena) {
-                    //Validar que la contraseña tenga al menos 6 caracteres
-                    if (contrasena.length() < 6) {
-                        return false;
+            }
+            case "Actualizar" -> {
+                if (Campo_contrasenia.getText().equals(Campo_repetir_contrasena.getText())){
+                    String contracifrada = ControladorCifrarContrasena.encript(Campo_contrasenia.getText());
+                    boolean actualizada = bd.cambiarContrasenia(Campo_correo.getText(), contracifrada);
+                    if (actualizada){
+                        alertas.CrearAlerta(ControladorAlertas.ALERTA_CONTRASENIA_ACTUALIZADA, PanelPrin);
+                    }else{
+                        alertas.CrearAlerta(ControladorAlertas.ALERTA_ERROR_BD, PanelPrin);
                     }
-                    //Validar que la contraseña contenga letras mayúsculas, minúsculas y números
-                    boolean tieneMayuscula = false;
-                    boolean tieneMinuscula = false;
-                    boolean tieneNumero = false;
-                    for (char c : contrasena.toCharArray()) {
-                        if (Character.isUpperCase(c)) {
-                            tieneMayuscula = true;
-                        } else if (Character.isLowerCase(c)) {
-                            tieneMinuscula = true;
-                        } else if (Character.isDigit(c)) {
-
+                }else{
+                    alertas.CrearAlerta(ControladorAlertas.ALERTA_CONTRASENIAS_DIFERENTES, PanelPrin);
                 }
-
-                @FXML
-                public void RegresarLogin(){
-                    FadeTransition fadeTransition = new FadeTransition();
-                    fadeTransition.setDuration(Duration.millis(500));
-                    fadeTransition.setNode(PanelPrin);
-                    fadeTransition.setFromValue(1);
-                    fadeTransition.setToValue(0);
-                    fadeTransition.setOnFinished(actionEvent -> ViewSwitcher.switchTo(View.LOGIN, IndexApp.Tema));
-                    fadeTransition.play();
-                }
-
-                @FXML
-                void TrasladarItems(){
-        /*
-            Si encuentra el correo en BD, nos muestra los demás campos y los reacomoda y
-            también desactiva el campo correo
-         */
-                    animar(Campo_correo, -15.0);
-                    animar(Boton_validar, 120.0);
-
-                }
-
-                private void animar(Node elemento, double Y){
-                    TranslateTransition transition = new TranslateTransition();
-                    transition.setNode(elemento);
-                    transition.setByY(Y);
-                    transition.setDuration(Duration.seconds(1.0));
-                    transition.play();
-                    transition.setOnFinished(event -> {
-                        Campo_contrasenia.setVisible(true);
-                        Campo_repetir_contrasena.setVisible(true);
-                        Boton_validar.setText("Actualizar");
-                        Campo_correo.setEditable(false);
-                    });
-                }
-
-                void OcultarItems(){
-                    //Ocultamos los campos que no se muestran en un principio y trasladamos los que se ven un poco al centro
-                    Campo_contrasenia.setVisible(false);
-                    Campo_repetir_contrasena.setVisible(false);
-                    Campo_correo.setLayoutX(123.0);
-                    Campo_correo.setLayoutY(152.0);
-                    Boton_validar.setLayoutX(225.0);
-                    Boton_validar.setLayoutY(205.0);
-                }
-
-                @Override
-                public void initialize(URL url, ResourceBundle resourceBundle) {
-                    OcultarItems();
-                }
-
             }
 
-
-            @FXML
-    void RegresarLogin(){
-        FadeTransition fadeTransition = new FadeTransition();
-        fadeTransition.setDuration(Duration.millis(500));
-        fadeTransition.setNode(PanelPrin);
-        fadeTransition.setFromValue(1);
-        fadeTransition.setToValue(0);
-        fadeTransition.setOnFinished(actionEvent -> ViewSwitcher.switchTo(View.LOGIN, IndexApp.Tema));
-        fadeTransition.play();
+        }
     }
 
     @FXML
-    void TrasladarItems(){
+    public void RegresarLogin() {
+        transiciones.CrearAnimacionFade(500, PanelPrin, View.LOGIN);
+    }
+
+    @FXML
+    void TrasladarItems() {
         /*
             Si encuentra el correo en BD, nos muestra los demás campos y los reacomoda y
             también desactiva el campo correo
          */
+        Campo_correo.setEditable(false);
         animar(Campo_correo, -15.0);
         animar(Boton_validar, 120.0);
 
     }
 
-    private void animar(Node elemento, double Y){
+    private void animar(Node elemento, double Y) {
         TranslateTransition transition = new TranslateTransition();
         transition.setNode(elemento);
         transition.setByY(Y);
@@ -177,7 +98,7 @@ public class ControladorRecuperarContrasena implements Initializable {
         });
     }
 
-    void OcultarItems(){
+    void OcultarItems() {
         //Ocultamos los campos que no se muestran en un principio y trasladamos los que se ven un poco al centro
         Campo_contrasenia.setVisible(false);
         Campo_repetir_contrasena.setVisible(false);
@@ -187,9 +108,82 @@ public class ControladorRecuperarContrasena implements Initializable {
         Boton_validar.setLayoutY(205.0);
     }
 
+    @FXML
+    void validar_campo_correo() {
+        if (Campo_correo.getText().matches("^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$") && !Campo_correo.getText().isEmpty()) {
+            Campo_correo.setStyle("-fx-border-color: #4a97f0");
+        } else {
+            Campo_correo.setStyle("-fx-border-color: red");
+        }
+    }
+
+    @FXML
+    void validar_campo_contrasenia() {
+        if (Campo_contrasenia.getText().matches("^[A-Za-z\\d@$!%*?&]{6,12}$") && !Campo_contrasenia.getText().isEmpty()) {
+            Campo_contrasenia.setStyle("-fx-border-color: #4a97f0");
+        } else {
+            Campo_contrasenia.setStyle("-fx-border-color: red");
+        }
+    }
+
+    @FXML
+    void validar_campo_repetir_contrasenia() {
+        if (Campo_repetir_contrasena.getText().matches("^[A-Za-z\\d@$!%*?&]{6,12}$") && !Campo_repetir_contrasena.getText().isEmpty()) {
+            Campo_repetir_contrasena.setStyle("-fx-border-color: #4a97f0");
+        } else {
+            Campo_repetir_contrasena.setStyle("-fx-border-color: red");
+        }
+    }
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         OcultarItems();
+
+        Campo_correo.setTextFormatter(new TextFormatter<>(change -> {
+            String newText = change.getControlNewText();
+            if (newText.length() > 40) {
+                return null;
+            }
+            return change;
+        }));
+
+        Campo_contrasenia.setTextFormatter(new TextFormatter<>(change -> {
+            String newText = change.getControlNewText();
+            if (newText.length() > 14) {
+                return null;
+            }
+            return change;
+        }));
+
+        Campo_repetir_contrasena.setTextFormatter(new TextFormatter<>(change -> {
+            String newText = change.getControlNewText();
+            if (newText.length() > 14) {
+                return null;
+            }
+            return change;
+        }));
     }
 
+    @FXML
+    private boolean validarContrasena(String contrasena) {
+        //Validar que la contraseña tenga al menos 6 caracteres
+        if (contrasena.length() < 6) {
+            return false;
+        }
+        //Validar que la contraseña contenga zletras mayúsculas, minúsculas y números
+        boolean tieneMayuscula = false;
+        boolean tieneMinuscula = false;
+        boolean tieneNumero = false;
+        for (char c : contrasena.toCharArray()) {
+            if (Character.isUpperCase(c)) {
+                tieneMayuscula = true;
+            } else if (Character.isLowerCase(c)) {
+                tieneMinuscula = true;
+            } else if (Character.isDigit(c)) {
+
+            }
+
+        }
+        return true;
+    }
 }

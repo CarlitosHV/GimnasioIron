@@ -22,10 +22,10 @@ public class ControladorBD {
 
             String consulta = "SELECT * FROM USUARIOS WHERE correo = '" + correo + "';";
             PreparedStatement selectStmt = conn.prepareStatement(consulta);
-            ResultSet resultSet =selectStmt.executeQuery();
+            ResultSet resultSet = selectStmt.executeQuery();
             boolean usuarioexistente = !resultSet.next();
 
-            if (usuarioexistente){
+            if (usuarioexistente) {
                 String sql = "{call insertar_usuario (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)}";
                 stmt = conn.prepareCall(sql);
                 //Campos a mandar
@@ -80,11 +80,12 @@ public class ControladorBD {
             ResultSet resultSet = stmt.getResultSet();
 
 
-
-
             while (resultSet.next()) {
+                login.add(resultSet.getString("nombre"));
+                login.add(resultSet.getString("apellido_paterno"));
+                login.add(resultSet.getString("apellido_materno"));
                 login.add(resultSet.getString("correo"));
-                login.add(resultSet.getString("contrasenia"));
+                login.add(resultSet.getString("telefono"));
                 login.add(resultSet.getBoolean("usuario_administrador"));
                 login.add(resultSet.getBoolean("bloqueado"));
                 ControladorLogin.contra = resultSet.getString("contrasenia");
@@ -104,6 +105,7 @@ public class ControladorBD {
             return null;
         }
     }
+
     public boolean cambiarContrasenia(String correo, String contraseniaNueva) {
         try {
             CallableStatement stmt = null;
@@ -111,26 +113,58 @@ public class ControladorBD {
                     DriverManager.getConnection("jdbc:mysql://" + IndexApp.servidor + "/" + IndexApp.base_datos + "?" +
                             "user=" + IndexApp.usuario + "&password=" + IndexApp.contrasenia);
 
-            String consulta = "SELECT * FROM USUARIOS WHERE correo = ?";
-            PreparedStatement selectStmt = conn.prepareStatement(consulta);
-            selectStmt.setString(1, correo);
-            ResultSet resultSet = selectStmt.executeQuery();
 
-            if (resultSet.next()) {
-                String sql = "{call cambiar_contrasenia (?, ?)}";
-                stmt = conn.prepareCall(sql);
-                //Campos a mandar
-                stmt.setString(1, correo);
-                stmt.setString(2, contraseniaNueva);
+            String sql = "{call actualizar_contrasenia (?, ?)}";
+            stmt = conn.prepareCall(sql);
+            //Campos a mandar
+            stmt.setString(1, correo);
+            stmt.setString(2, contraseniaNueva);
 
-                stmt.execute();
-                stmt.close();
-                conn.close();
-                return true;
-            } else {
-                return false;
-            }
+            PreparedStatement statement = conn.prepareStatement("SELECT contrasenia FROM USUARIOS WHERE contrasenia = '" + contraseniaNueva + "';");
+            statement.execute();
+            ResultSet resultSet = statement.getResultSet();
 
+            boolean actualizado = !resultSet.next();
+
+
+            stmt.execute();
+            stmt.close();
+            conn.close();
+
+            return actualizado;
+
+        } catch (SQLException ex) {
+            System.out.println("SQLException: " + ex.getMessage());
+            System.out.println("SQLState: " + ex.getSQLState());
+            System.out.println("VendorError: " + ex.getErrorCode());
+            return false;
+        }
+    }
+
+    public boolean validarCorreo(String correo) {
+        try {
+            CallableStatement stmt = null;
+            conn =
+                    DriverManager.getConnection("jdbc:mysql://" + IndexApp.servidor + "/" + IndexApp.base_datos + "?" +
+                            "user=" + IndexApp.usuario + "&password=" + IndexApp.contrasenia);
+
+
+            String sql = "{call consultar_cuenta (?)}";
+            stmt = conn.prepareCall(sql);
+
+            //Campos a mandar
+            stmt.setString(1, correo);
+
+            stmt.execute();
+
+            ResultSet resultSet = stmt.getResultSet();
+
+            boolean encontrado = resultSet.next();
+
+            stmt.close();
+            conn.close();
+
+            return encontrado;
         } catch (SQLException ex) {
             System.out.println("SQLException: " + ex.getMessage());
             System.out.println("SQLState: " + ex.getSQLState());

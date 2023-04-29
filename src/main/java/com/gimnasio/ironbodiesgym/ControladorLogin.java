@@ -32,25 +32,16 @@ public class ControladorLogin {
     @FXML
     private PasswordField Campo_contra;
 
+    ControladorTransiciones transiciones = new ControladorTransiciones();
+    ControladorAlertas alertas = new ControladorAlertas();
+
     public void Crear_usuario() {
-        FadeTransition fadeTransition = new FadeTransition();
-        fadeTransition.setDuration(Duration.millis(500));
-        fadeTransition.setNode(rootPane);
-        fadeTransition.setFromValue(1);
-        fadeTransition.setToValue(0);
-        fadeTransition.setOnFinished(actionEvent -> ViewSwitcher.switchTo(View.CREAR_USUARIO, IndexApp.Tema));
-        fadeTransition.play();
+        transiciones.CrearAnimacionFade(500, rootPane, View.CREAR_USUARIO);
     }
 
     @FXML
     void RecuperarCuenta() {
-        FadeTransition fadeTransition = new FadeTransition();
-        fadeTransition.setDuration(Duration.millis(500));
-        fadeTransition.setNode(rootPane);
-        fadeTransition.setFromValue(1);
-        fadeTransition.setToValue(0);
-        fadeTransition.setOnFinished(actionEvent -> ViewSwitcher.switchTo(View.RECUPERAR_CONTRASENA, IndexApp.Tema));
-        fadeTransition.play();
+        transiciones.CrearAnimacionFade(500, rootPane, View.RECUPERAR_CONTRASENA);
     }
 
     @FXML
@@ -60,35 +51,27 @@ public class ControladorLogin {
 
 
     private void camposValidos() throws Exception {
-        ControladorCifrarContrasena controladorCifrarContrasena = new ControladorCifrarContrasena();
         loginuser = controladorBD.loginUsuario(Campo_correo.getText());
-        String contraseniadecifrada = controladorCifrarContrasena.decrypt((String) loginuser.get(1));
+        String contraseniadecifrada = ControladorCifrarContrasena.decrypt(loginuser.get(1).toString());
 
         String correo = String.valueOf(loginuser.get(0));
         boolean admin = (boolean) loginuser.get(2);
         boolean bloqueado = (boolean) loginuser.get(3);
 
-        FadeTransition fadeTransition = new FadeTransition();
-        fadeTransition.setDuration(Duration.millis(500));
-        fadeTransition.setNode(rootPane);
-        fadeTransition.setFromValue(1);
-        fadeTransition.setToValue(0);
 
         if (!bloqueado){
             if(Objects.equals(Campo_correo.getText(), correo) &&
                     Campo_contra.getText().equals(contraseniadecifrada)){
                 if (admin){
-                    fadeTransition.play();
-                    fadeTransition.setOnFinished(event -> ViewSwitcher.switchTo(View.MENU_ADMINISTRADOR, IndexApp.Tema));
+                    transiciones.CrearAnimacionFade(500, rootPane, View.MENU_ADMINISTRADOR);
                 }else{
-                    fadeTransition.play();
-                    fadeTransition.setOnFinished(event -> ViewSwitcher.switchTo(View.MENU_USUARIO, IndexApp.Tema));
+                    transiciones.CrearAnimacionFade(500, rootPane, View.MENU_USUARIO);
                 }
             }else{
-                System.out.println("Correo erróneo");
+                alertas.CrearAlerta(ControladorAlertas.ALERTA_USUARIO_INVALIDO, rootPane);
             }
         }else{
-            System.out.println("Usuario bloqueado :(");
+            alertas.CrearAlerta(ControladorAlertas.ALERTA_USUARIO_BLOQUEADO, rootPane);
         }
     }
 

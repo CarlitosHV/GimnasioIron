@@ -13,7 +13,8 @@ import java.util.Optional;
 public class ControladorAlertas {
 
     public static int ALERTA_USUARIO_CREADO = 0, ALERTA_CORREO_DUPLICADO = 1, ALERTA_ERROR_CAMPOS = 2,
-            ALERTA_CONTRASENIAS_DIFERENTES = 3;
+            ALERTA_CONTRASENIAS_DIFERENTES = 3, ALERTA_CORREO_NO_ENCONTRADO = 4, ALERTA_CONTRASENIA_ACTUALIZADA = 5,
+            ALERTA_ERROR_BD = 6, ALERTA_USUARIO_BLOQUEADO = 7, ALERTA_USUARIO_INVALIDO = 8;
 
     ControladorTransiciones transiciones = new ControladorTransiciones();
 
@@ -29,20 +30,24 @@ public class ControladorAlertas {
             }
             case 2 -> aplicarTemaAlerta("Error", "Campos no llenados correctamente, valida la información", ALERTA_ERROR_CAMPOS, Nodo);
             case 3 -> aplicarTemaAlerta("Error en contraseña", "Las contraseñas no coinciden", ALERTA_CONTRASENIAS_DIFERENTES, Nodo);
+            case 4 -> aplicarTemaAlerta("Correo inválido", "El correo que ingresaste no existe", ALERTA_CORREO_NO_ENCONTRADO, Nodo);
+            case 5 -> aplicarTemaAlerta("Actualización realizada", "La contraseña ha sido actualizada con éxito", 0, Nodo);
+            case 6 -> aplicarTemaAlerta("Error de conexión", "Ocurrió un error con la base de datos :(", ALERTA_ERROR_BD, Nodo);
+            case 7 -> aplicarTemaAlerta("Usuario bloqueado", "Tu cuenta ha sido bloqueada. Contacta con tu administrador", ALERTA_USUARIO_BLOQUEADO, Nodo);
+            case 8 -> aplicarTemaAlerta("Usuario no encontrado", "El correo o contraseña son incorrectos", ALERTA_USUARIO_INVALIDO, Nodo);
         }
     }
 
 
     void aplicarTemaAlerta(String titulo, String contenido, int tipo, Node Nodo) throws SQLException {
-        Alert alert;
-        alert = new Alert(Alert.AlertType.CONFIRMATION);
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
         DialogPane dialogPane = alert.getDialogPane();
         Label content = new Label(alert.getContentText());
         alert.setHeaderText(null);
         alert.setTitle(titulo);
         content.setText(contenido);
         if (IndexApp.Tema == 0) {
-            dialogPane.setStyle("-fx-background-color: white; -fx-text-fill: white");
+            dialogPane.setStyle("-fx-background-color: white;");
             content.setTextFill(Color.BLACK);
             alert.getDialogPane().setContent(content);
         } else {
