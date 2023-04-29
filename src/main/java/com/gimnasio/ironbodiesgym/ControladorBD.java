@@ -8,7 +8,6 @@ import java.util.ArrayList;
 public class ControladorBD {
 
     Connection conn = null;
-    ControladorCifrarContrasena cifrarContrasena = new ControladorCifrarContrasena();
 
     public boolean insertar_Usuario(String nombre, String apellido_paterno, String Apellido_materno, String correo,
                                     String contrasenia, BigInteger telefono, boolean usuario_administrador, String calle,
@@ -85,10 +84,17 @@ public class ControladorBD {
                 login.add(resultSet.getString("apellido_paterno"));
                 login.add(resultSet.getString("apellido_materno"));
                 login.add(resultSet.getString("correo"));
+                login.add(resultSet.getString("contrasenia"));
                 login.add(resultSet.getString("telefono"));
                 login.add(resultSet.getBoolean("usuario_administrador"));
                 login.add(resultSet.getBoolean("bloqueado"));
-                ControladorLogin.contra = resultSet.getString("contrasenia");
+                login.add(resultSet.getString("calle"));
+                login.add(resultSet.getInt("numero"));
+                login.add(resultSet.getString("municipio"));
+                login.add(resultSet.getString("estado"));
+                login.add(resultSet.getString("edad"));
+                login.add(resultSet.getString("sexo"));
+                login.add(resultSet.getBoolean("estado_suscripcion"));
             }
 
             stmt.close();

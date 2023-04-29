@@ -19,7 +19,7 @@ public class ControladorLogin {
     public static boolean usuario_administrador;
     public static boolean bloqueado;
 
-    ArrayList<Object> loginuser = new ArrayList<>();
+    public static ArrayList<Object> loginuser = new ArrayList<>();
 
     ControladorBD controladorBD = new ControladorBD();
 
@@ -52,11 +52,11 @@ public class ControladorLogin {
 
     private void camposValidos() throws Exception {
         loginuser = controladorBD.loginUsuario(Campo_correo.getText());
-        String contraseniadecifrada = ControladorCifrarContrasena.decrypt(loginuser.get(1).toString());
+        String contraseniadecifrada = ControladorCifrarContrasena.decrypt(loginuser.get(4).toString());
 
-        String correo = String.valueOf(loginuser.get(0));
-        boolean admin = (boolean) loginuser.get(2);
-        boolean bloqueado = (boolean) loginuser.get(3);
+        String correo = String.valueOf(loginuser.get(3));
+        boolean admin = (boolean) loginuser.get(6);
+        boolean bloqueado = (boolean) loginuser.get(7);
 
 
         if (!bloqueado){
@@ -74,6 +74,4 @@ public class ControladorLogin {
             alertas.CrearAlerta(ControladorAlertas.ALERTA_USUARIO_BLOQUEADO, rootPane);
         }
     }
-
-
 }
