@@ -46,14 +46,29 @@
     -fx-scale-y: 1.1;
 }
 
-#ComboBox{
+#ComboBox {
     -fx-background-color: #4a97f0;
-    -fx-border-radius: 25%;
+    -fx-text-fill: white;
+    -fx-border-color: white;
+}
+
+#ComboBox .list-cell:selected {
+    -fx-background-color: #03336a;
     -fx-text-fill: white;
 }
 
-#ComboBox:focused{
-    -fx-background-color: gray;
+#ComboBox .list-cell {
+    -fx-background-color: white;
+    -fx-text-fill: black;
+}
+
+#ComboBox .list-cell:hover {
+    -fx-background-color: #1e164f;
+    -fx-text-fill: white;
+}
+
+#ComboBox .list-view .scroll-bar {
+    -fx-background-color: #1e164f;
 }
 
 #Separadores{
@@ -62,6 +77,53 @@
 #ListViews{
     -fx-background-color: white;
     -fx-border-color:  #4a97f0;
+}
 
+#Button_back{
+    -fx-background-radius: 50;
+    -fx-effect: dropshadow( gaussian , rgba(0,0,0,0.2) , 10,0,0,1 );
+    -fx-border-radius: 50;
+    -fx-background-color: #4a97f0;
+    -fx-text-fill: black;
+    -fx-border-color: transparent;
+    -fx-image-rendering: optimizeQuality;
+    -fx-smooth: true;
+    -fx-background-size: 70% 80%;
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: center;
+}
 
+#Button_back:hover{
+    -fx-background-color: #f3f3f3;
+    -fx-scale-x: 1.1;
+    -fx-scale-y: 1.1;
+}
+
+#Button_back:pressed{
+    -fx-background-color: #afaeae;
+}
+
+#Boton_Modo{
+    -fx-background-radius: 50;
+    -fx-effect: dropshadow( gaussian , rgba(0,0,0,0.2) , 10,0,0,1 );
+    -fx-border-radius: 50;
+    -fx-background-color: #4a97f0;
+    -fx-text-fill: black;
+    -fx-border-color: transparent;
+    -fx-image-rendering: optimizeQuality;
+    -fx-smooth: true;
+    -fx-background-image: url('../assets/night_mode.png');
+    -fx-background-size: 70% 80%;
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: center;
+}
+
+#Boton_Modo:hover{
+    -fx-background-color: #f3f3f3;
+    -fx-scale-x: 1.1;
+    -fx-scale-y: 1.1;
+}
+
+#Boton_Modo:pressed{
+    -fx-background-color: #afaeae;
 }

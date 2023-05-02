@@ -16,12 +16,14 @@ public class ControladorMenuUsuario implements Initializable {
     @FXML
     private AnchorPane rootPane;
 
-    @FXML private Label LabelNombre, LabelDireccion, LabelCorreo, LabelTipoCuenta, LabelFechaVencimiento;
+    @FXML private Label LabelNombre, LabelDireccion, LabelCorreo, LabelTipoCuenta,
+            LabelHeader, LabelFechaVencimiento;
 
     ControladorLogin controladorLogin = new ControladorLogin();
 
 
     ControladorTransiciones transiciones = new ControladorTransiciones();
+    IndexApp indexApp = new IndexApp();
 
     @FXML
     void Regresar(){
@@ -33,12 +35,26 @@ public class ControladorMenuUsuario implements Initializable {
         transiciones.CrearAnimacionFade(500, rootPane, View.RENOVAR_SUSCRIPCIONES);
     }
 
+    @FXML
+    void ActivarModoOscuro() {
+        if (IndexApp.Tema == 1) {
+            ViewSwitcher.switchTo(View.MENU_USUARIO, ViewSwitcher.MODO_CLARO);
+            IndexApp.Tema = 0;
+            indexApp.EscribirPropiedades("theme", String.valueOf(IndexApp.Tema));
+        } else if (IndexApp.Tema == 0) {
+            ViewSwitcher.switchTo(View.MENU_USUARIO, ViewSwitcher.MODO_OSCURO);
+            IndexApp.Tema = 1;
+            indexApp.EscribirPropiedades("theme", String.valueOf(IndexApp.Tema));
+        }
+    }
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         String nombre = "Nombre: " + ControladorLogin.loginuser.get(0).toString() + " " + controladorLogin.loginuser.get(1).toString() + " " + controladorLogin.loginuser.get(2).toString();
         String direccion = "Dirección: " + ControladorLogin.loginuser.get(8) + " " + controladorLogin.loginuser.get(9);
         String correo = "Correo: " + ControladorLogin.loginuser.get(3).toString();
         boolean suscripcion = (boolean) ControladorLogin.loginuser.get(14);
+        LabelHeader.setText("Bienvenido, " + ControladorLogin.loginuser.get(0).toString());
         LabelNombre.setText(nombre);
         LabelDireccion.setText(direccion);
         LabelCorreo.setText(correo);

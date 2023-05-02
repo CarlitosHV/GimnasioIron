@@ -142,7 +142,7 @@ public class ControladorCrearUsuario implements Initializable {
      */
     @FXML
     void validar_campo_nombre() {
-        if (Campo_nombre.getText().matches("^[a-zA-ZáéíóúÁÉÍÓÚñÑ]{3,15}$") && !Campo_nombre.getText().isEmpty()) {
+        if (Campo_nombre.getText().matches("^[A-Za-záéíóúÁÉÍÓÚñÑ]+ [A-Za-záéíóúÁÉÍÓÚñÑ]{3,15}$") && !Campo_nombre.getText().isEmpty()) {
             campo_nombre = true;
             Campo_nombre.setStyle("-fx-border-color: #4a97f0");
         } else {

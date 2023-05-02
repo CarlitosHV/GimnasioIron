@@ -178,5 +178,33 @@ public class ControladorBD {
             return false;
         }
     }
+
+    public ArrayList<String> devolverPlanes(){
+        try {
+            ArrayList<String> planes = new ArrayList<>();
+            conn =
+                    DriverManager.getConnection("jdbc:mysql://" + IndexApp.servidor + "/" + IndexApp.base_datos + "?" +
+                            "user=" + IndexApp.usuario + "&password=" + IndexApp.contrasenia);
+
+            CallableStatement stmt = conn.prepareCall("{call obtener_planes()}");
+
+            stmt.execute();
+
+            ResultSet resultSet = stmt.getResultSet();
+
+            while (resultSet.next()){
+                planes.add(resultSet.getString("nombre"));
+            }
+
+            stmt.close();
+            conn.close();
+            return planes;
+        } catch (SQLException ex) {
+            System.out.println("SQLException: " + ex.getMessage());
+            System.out.println("SQLState: " + ex.getSQLState());
+            System.out.println("VendorError: " + ex.getErrorCode());
+            return null;
+        }
+    }
 }
 

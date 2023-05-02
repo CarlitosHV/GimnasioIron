@@ -68,7 +68,4 @@ public class IndexApp extends Application {
             e.printStackTrace();
         }
     }
-
-    //Holaaa
-
 }

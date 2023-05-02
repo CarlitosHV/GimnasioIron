@@ -1,15 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.*?>
-<?import javafx.scene.image.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane id="Fondo" prefHeight="312.0" prefWidth="455.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.gimnasio.ironbodiesgym.ControladorRenovarSuscripciones">
+<AnchorPane id="Fondo" prefHeight="312.0" prefWidth="455.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.gimnasio.ironbodiesgym.ControladorRenovarSuscripciones">
    <children>
-      <AnchorPane id="Fondo2" prefHeight="38.0" prefWidth="455.0">
+      <AnchorPane id="Fondo2" prefHeight="60.0" prefWidth="455.0">
          <children>
-            <Label id="Labels" layoutX="14.0" layoutY="11.0" text="Crear nueva suscripción" textFill="#fffafa">
+            <Label id="Labels" layoutX="82.0" layoutY="21.0" text="Crear nueva suscripción" textFill="#fffafa">
                <font>
                   <Font name="Roboto Bold Italic" size="13.0" />
                </font>
@@ -24,17 +28,35 @@
             </ImageView>
          </graphic>
       </Button>
-      <Label id="Labels" layoutX="63.0" layoutY="82.0" prefHeight="26.0" prefWidth="33.0" text="Tipo" textFill="#8c8888">
+      <Button id="Button_back" contentDisplay="GRAPHIC_ONLY" layoutX="14.0" layoutY="11.0" mnemonicParsing="false" onAction="#Regresar" prefHeight="27.0" prefWidth="43.0" text="Button">
+         <graphic>
+            <ImageView accessibleRole="BUTTON" fitHeight="32.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../../assets/back_ico.png" />
+               </image>
+            </ImageView>
+         </graphic>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </Button>
+      <Label id="Labels" alignment="CENTER_RIGHT" contentDisplay="RIGHT" layoutX="63.0" layoutY="82.0" prefHeight="26.0" prefWidth="33.0" text="Plan:" textFill="#8c8888">
          <font>
             <Font name="Roboto Italic" size="12.0" />
          </font>
       </Label>
-      <Label id="Labels" layoutX="64.0" layoutY="161.0" text="Costo" textFill="#969494">
+      <Label id="Labels" layoutX="64.0" layoutY="193.0" text="Costo:" textFill="#969494">
          <font>
             <Font name="Roboto Italic" size="12.0" />
          </font>
       </Label>
-      <ComboBox id="ComboBox" layoutX="108.0" layoutY="82.0" prefHeight="26.0" prefWidth="191.0" promptText="Estudiante" />
-      <ComboBox id="ComboBox" layoutX="104.0" layoutY="156.0" prefHeight="26.0" prefWidth="191.0" promptText="Costo $$$" />
+      <ComboBox id="ComboBox" fx:id="ComboPlanes" layoutX="108.0" layoutY="82.0" onAction="#mostrar_meses" prefHeight="26.0" prefWidth="191.0" promptText="Selecciona" />
+      <Label id="Labels" layoutX="53.0" layoutY="141.0" text="Tiempo:" textFill="#969494">
+         <font>
+            <Font name="Roboto Italic" size="12.0" />
+         </font>
+      </Label>
+      <ComboBox id="ComboBox" fx:id="ComboTiempo" onAction="#mostrar_precios" layoutX="108.0" layoutY="136.0" prefHeight="26.0" prefWidth="191.0" promptText="Selecciona un plan" />
+      <Label id="Labels" fx:id="LabelCosto" layoutX="108.0" layoutY="193.0" prefHeight="17.0" prefWidth="85.0" />
    </children>
 </AnchorPane>
