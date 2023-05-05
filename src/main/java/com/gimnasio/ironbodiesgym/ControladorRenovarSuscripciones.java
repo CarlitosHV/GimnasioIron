@@ -4,10 +4,15 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.Labeled;
 import javafx.scene.layout.AnchorPane;
 
 import java.net.URL;
+import java.sql.Date;
+import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.ResourceBundle;
 
 public class ControladorRenovarSuscripciones implements Initializable {
@@ -16,10 +21,15 @@ public class ControladorRenovarSuscripciones implements Initializable {
     @FXML
     private ComboBox<String> ComboPlanes, ComboTiempo;
     @FXML
-    private Label LabelCosto;
+    private Label LabelCosto, LabelNoSuscripcion, Renovar_suscripcion;
     ArrayList<String> planes = new ArrayList<>();
     ControladorBD bd = new ControladorBD();
     ControladorTransiciones transiciones = new ControladorTransiciones();
+    ControladorAlertas alertas = new ControladorAlertas();
+    LocalDate fecha_inicio = LocalDate.now();
+    LocalDate fecha_termino;
+    int id = (int) ControladorLogin.loginuser.get(15);
+    String pago;
 
     @FXML
     void mostrar_meses() {
@@ -37,6 +47,7 @@ public class ControladorRenovarSuscripciones implements Initializable {
             switch (ComboTiempo.getValue()) {
                 case "1 Mes" -> {
                     LabelCosto.setText("");
+                    fecha_termino = fecha_inicio.plusMonths(1);
                     if (ComboPlanes.getValue().equals("Básico")) {
                         LabelCosto.setText("$400");
                     } else {
@@ -45,26 +56,35 @@ public class ControladorRenovarSuscripciones implements Initializable {
                 }
                 case "3 Meses" -> {
                     LabelCosto.setText("");
+                    fecha_termino = fecha_inicio.plusMonths(3);
                     if (ComboPlanes.getValue().equals("Básico")) {
-                        LabelCosto.setText("$700");
+                        pago = "700.0";
+                        LabelCosto.setText("$" + pago);
                     } else {
-                        LabelCosto.setText("$800");
+                        pago = "800.0";
+                        LabelCosto.setText("$" + pago);
                     }
                 }
                 case "6 Meses" -> {
                     LabelCosto.setText("");
+                    fecha_termino = fecha_inicio.plusMonths(6);
                     if (ComboPlanes.getValue().equals("Básico")) {
-                        LabelCosto.setText("$1400");
+                        pago = "1400.0";
+                        LabelCosto.setText("$" + pago);
                     } else {
-                        LabelCosto.setText("$1500");
+                        pago = "1500.0";
+                        LabelCosto.setText("$" + pago);
                     }
                 }
                 case "1 Año" -> {
                     LabelCosto.setText("");
+                    fecha_termino = fecha_inicio.plusMonths(12);
                     if (ComboPlanes.getValue().equals("Básico")) {
-                        LabelCosto.setText("$2200");
+                        pago = "2200.0";
+                        LabelCosto.setText("$" + pago);
                     } else {
-                        LabelCosto.setText("$2300");
+                        pago = "2300.0";
+                        LabelCosto.setText("$" + pago);
                     }
                 }
             }
@@ -75,6 +95,21 @@ public class ControladorRenovarSuscripciones implements Initializable {
     @FXML
     void Regresar() {
         transiciones.CrearAnimacionFade(500, rootPane, View.MENU_USUARIO);
+    }
+
+    @FXML
+    void Guardar() throws SQLException {
+        String plan = ComboPlanes.getValue();
+        if (!ComboPlanes.getValue().equals("Selecciona") && !ComboTiempo.getValue().equals("Selecciona")){
+            boolean creada = bd.insertar_suscripcion(id, plan, Date.valueOf(fecha_inicio), Date.valueOf(fecha_termino), Float.parseFloat(pago));
+            if (creada){
+                alertas.CrearAlerta(ControladorAlertas.ALERTA_SUSCRIPCION_CREADA, rootPane);
+            }else{
+                alertas.CrearAlerta(ControladorAlertas.ALERTA_ERROR_BD, rootPane);
+            }
+        }else{
+            alertas.CrearAlerta(ControladorAlertas.ALERTA_ERROR_CAMPOS, rootPane);
+        }
     }
 
     @Override

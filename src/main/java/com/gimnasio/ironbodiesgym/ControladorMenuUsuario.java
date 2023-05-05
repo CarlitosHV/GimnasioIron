@@ -9,6 +9,10 @@ import javafx.scene.layout.AnchorPane;
 import javafx.util.Duration;
 
 import java.net.URL;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.ResourceBundle;
 
 public class ControladorMenuUsuario implements Initializable {
@@ -17,13 +21,14 @@ public class ControladorMenuUsuario implements Initializable {
     private AnchorPane rootPane;
 
     @FXML private Label LabelNombre, LabelDireccion, LabelCorreo, LabelTipoCuenta,
-            LabelHeader, LabelFechaVencimiento;
+            LabelHeader, LabelFechaVencimiento, Renovar_suscripcion, LabelNoSuscripcion;
 
     ControladorLogin controladorLogin = new ControladorLogin();
-
+    ControladorBD bd = new ControladorBD();
 
     ControladorTransiciones transiciones = new ControladorTransiciones();
     IndexApp indexApp = new IndexApp();
+    ArrayList<Object> suscripcion = new ArrayList<>();
 
     @FXML
     void Regresar(){
@@ -50,15 +55,23 @@ public class ControladorMenuUsuario implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        int id = (int) ControladorLogin.loginuser.get(15);
         String nombre = "Nombre: " + ControladorLogin.loginuser.get(0).toString() + " " + controladorLogin.loginuser.get(1).toString() + " " + controladorLogin.loginuser.get(2).toString();
         String direccion = "Dirección: " + ControladorLogin.loginuser.get(8) + " " + controladorLogin.loginuser.get(9);
         String correo = "Correo: " + ControladorLogin.loginuser.get(3).toString();
-        boolean suscripcion = (boolean) ControladorLogin.loginuser.get(14);
         LabelHeader.setText("Bienvenido, " + ControladorLogin.loginuser.get(0).toString());
         LabelNombre.setText(nombre);
         LabelDireccion.setText(direccion);
         LabelCorreo.setText(correo);
-        if (!suscripcion){
+        suscripcion = bd.devolverSuscripcion(id);
+        SimpleDateFormat formato = new SimpleDateFormat("dd/MMMM/yyyy");
+        Date date = (Date) suscripcion.get(2);
+        if (!suscripcion.isEmpty()){
+            Renovar_suscripcion.setVisible(false);
+            LabelNoSuscripcion.setVisible(false);
+            LabelFechaVencimiento.setText("Fecha de término: " + formato.format(date));
+            LabelTipoCuenta.setText("Plan: " + suscripcion.get(0).toString());
+        }else {
             LabelFechaVencimiento.setText("Fecha vencimiento: " + "Sin fecha");
             LabelTipoCuenta.setText("Tipo suscripción: " + "Sin suscripción");
         }

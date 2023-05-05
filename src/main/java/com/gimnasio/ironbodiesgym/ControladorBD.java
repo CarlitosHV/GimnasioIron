@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.Calendar;
 
 public class ControladorBD {
 
@@ -95,6 +96,7 @@ public class ControladorBD {
                 login.add(resultSet.getString("edad"));
                 login.add(resultSet.getString("sexo"));
                 login.add(resultSet.getBoolean("estado_suscripcion"));
+                login.add(resultSet.getInt("id_usuario"));
             }
 
             stmt.close();
@@ -204,6 +206,69 @@ public class ControladorBD {
             System.out.println("SQLState: " + ex.getSQLState());
             System.out.println("VendorError: " + ex.getErrorCode());
             return null;
+        }
+    }
+
+    public ArrayList<Object> devolverSuscripcion(int id_usuario){
+        try {
+            ArrayList<Object> suscripcion = new ArrayList<>();
+            conn =
+                    DriverManager.getConnection("jdbc:mysql://" + IndexApp.servidor + "/" + IndexApp.base_datos + "?" +
+                            "user=" + IndexApp.usuario + "&password=" + IndexApp.contrasenia);
+
+            CallableStatement stmt = conn.prepareCall("{call consultar_suscripcion(?)}");
+
+            stmt.setInt(1, id_usuario);
+
+            stmt.execute();
+
+            ResultSet resultSet = stmt.getResultSet();
+
+            while (resultSet.next()){
+                suscripcion.add(resultSet.getString("tipo_suscripcion"));
+                suscripcion.add(resultSet.getDate("fecha_inicio"));
+                suscripcion.add(resultSet.getDate("fecha_termino"));
+            }
+
+            stmt.close();
+            conn.close();
+            return suscripcion;
+        } catch (SQLException ex) {
+            System.out.println("SQLException: " + ex.getMessage());
+            System.out.println("SQLState: " + ex.getSQLState());
+            System.out.println("VendorError: " + ex.getErrorCode());
+            return null;
+        }
+    }
+
+    public boolean insertar_suscripcion(int id_usuario, String tipo_suscripcion, Date fecha_inicio, Date fecha_termino, float pago){
+        try {
+            conn =
+                    DriverManager.getConnection("jdbc:mysql://" + IndexApp.servidor + "/" + IndexApp.base_datos + "?" +
+                            "user=" + IndexApp.usuario + "&password=" + IndexApp.contrasenia);
+
+            String consulta = "SELECT * FROM SUSCRIPCIONES WHERE id_usuario = '" + id_usuario + "' AND fecha_termino > NOW();";
+            PreparedStatement selectStmt = conn.prepareStatement(consulta);
+            ResultSet resultSet = selectStmt.executeQuery();
+            boolean suscripcionexistente = !resultSet.next();
+
+            if (suscripcionexistente){
+                CallableStatement stmt = conn.prepareCall("{call insertar_suscripcion(?,?,?,?,?)}");
+                stmt.setInt(1, id_usuario);
+                stmt.setString(2, tipo_suscripcion);
+                stmt.setDate(3, fecha_inicio);
+                stmt.setDate(4, fecha_termino);
+                stmt.setFloat(5, pago);
+                stmt.execute();
+                stmt.close();
+            }
+            conn.close();
+            return suscripcionexistente;
+        } catch (SQLException ex) {
+            System.out.println("SQLException: " + ex.getMessage());
+            System.out.println("SQLState: " + ex.getSQLState());
+            System.out.println("VendorError: " + ex.getErrorCode());
+            return false;
         }
     }
 }

@@ -51,7 +51,7 @@
             <Font name="Roboto Light" size="18.0" />
          </font>
       </Label>
-      <Label id="Labels" layoutX="458.0" layoutY="220.0" text="No cuentas con una suscripción">
+      <Label id="Labels" fx:id="LabelNoSuscripcion" layoutX="458.0" layoutY="220.0" text="No cuentas con una suscripción">
          <font>
             <Font name="Roboto Light" size="12.0" />
          </font>
