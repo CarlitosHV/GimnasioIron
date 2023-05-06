@@ -1,27 +1,31 @@
 package com.gimnasio.ironbodiesgym;
 
-import javafx.animation.FadeTransition;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.PasswordField;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
-import javafx.util.Duration;
 
 import java.net.URL;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.ResourceBundle;
 
-public class ControladorMenuUsuario implements Initializable {
+public class ControladorEditarDatos {
 
     @FXML
     private AnchorPane rootPane;
 
-    @FXML private Label LabelNombre, LabelDireccion, LabelCorreo, LabelTipoCuenta,
-            LabelHeader, LabelFechaVencimiento, Renovar_suscripcion, LabelNoSuscripcion;
+    @FXML private TextField Campo_nombre, Campo_apellido_paterno, Campo_apellido_materno, Campo_edad, Campo_correo,
+            Campo_calle, Campo_numero, Campo_codigo_postal, Campo_telefono;
+    @FXML
+    PasswordField Campo_contrasenia, Campo_repite_contrasenia;
+    @FXML
+    private ComboBox<String> Combo_municipio;
+    @FXML
+    private ComboBox<String> Combo_estado;
 
     ControladorLogin controladorLogin = new ControladorLogin();
     ControladorBD bd = new ControladorBD();
@@ -33,10 +37,6 @@ public class ControladorMenuUsuario implements Initializable {
     @FXML
     void Regresar(){
         transiciones.CrearAnimacionFade(500, rootPane, View.LOGIN);
-    }
-    @FXML
-    void Editar(){
-        transiciones.CrearAnimacionFade(500, rootPane, View.EDITAR);
     }
 
     @FXML
@@ -57,27 +57,15 @@ public class ControladorMenuUsuario implements Initializable {
         }
     }
 
-    @Override
+
     public void initialize(URL url, ResourceBundle resourceBundle) {
         int id = (int) ControladorLogin.loginuser.get(15);
         String nombre = "Nombre: " + ControladorLogin.loginuser.get(0).toString() + " " + controladorLogin.loginuser.get(1).toString() + " " + controladorLogin.loginuser.get(2).toString();
-        String direccion = "Dirección: " + ControladorLogin.loginuser.get(8) + " " + controladorLogin.loginuser.get(9);
-        String correo = "Correo: " + ControladorLogin.loginuser.get(3).toString();
-        LabelHeader.setText("Bienvenido, " + ControladorLogin.loginuser.get(0).toString());
-        LabelNombre.setText(nombre);
-        LabelDireccion.setText(direccion);
-        LabelCorreo.setText(correo);
-        suscripcion = bd.devolverSuscripcion(id);
-        SimpleDateFormat formato = new SimpleDateFormat("dd/MMMM/yyyy");
-        Date date = (Date) suscripcion.get(2);
-        if (!suscripcion.isEmpty()){
-            Renovar_suscripcion.setVisible(false);
-            LabelNoSuscripcion.setVisible(false);
-            LabelFechaVencimiento.setText("Fecha de término: " + formato.format(date));
-            LabelTipoCuenta.setText("Plan: " + suscripcion.get(0).toString());
-        }else {
-            LabelFechaVencimiento.setText("Fecha vencimiento: " + "Sin fecha");
-            LabelTipoCuenta.setText("Tipo suscripción: " + "Sin suscripción");
-        }
+        String ap ="Apellido_Paterno: " + ControladorLogin.loginuser.get(2) + " " + controladorLogin.loginuser.get(9);
+        String am = "Apellido_Materno: " + ControladorLogin.loginuser.get(3).toString();
+        Campo_nombre.setText(nombre);
+        Campo_apellido_paterno.setText(ap);
+        Campo_apellido_materno.setText(am);
+
     }
 }

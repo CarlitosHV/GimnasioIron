@@ -7,8 +7,8 @@ public enum View {
     RECUPERAR_CONTRASENA("VistaRecuperarContrasena.fxml"),
     MENU_ADMINISTRADOR("VistaMenuAdmin.fxml"),
     MENU_USUARIO("VistaMenuUsuario.fxml"),
-    CONSULTA_USUARIO("VistaConsultaUsuario.fxml");
-
+    CONSULTA_USUARIO("VistaConsultaUsuario.fxml"),
+    EDITAR ( "VistaEditarDatos.fxml");
     private String fileName;
 
     View(String fileName){
