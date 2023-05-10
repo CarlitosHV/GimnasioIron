@@ -209,6 +209,46 @@ public class ControladorBD {
         }
     }
 
+    public ArrayList<ClaseClientes> devolverClientes(){
+        ArrayList<ClaseClientes> _informacion = new ArrayList<>();
+        try {
+            conn =
+                    DriverManager.getConnection("jdbc:mysql://" + IndexApp.servidor + "/" + IndexApp.base_datos + "?" +
+                            "user=" + IndexApp.usuario + "&password=" + IndexApp.contrasenia);
+
+            CallableStatement stmt = conn.prepareCall("{call consultar_clientes()}");
+
+            stmt.execute();
+
+            ResultSet resultSet = stmt.getResultSet();
+
+            while (resultSet.next()){
+                int id = resultSet.getInt("id_usuario");
+                String nombre = resultSet.getString("nombre");
+                String apellido_paterno = resultSet.getString("apellido_paterno");
+                String apellido_materno = resultSet.getString("apellido_materno");
+                String correo = resultSet.getString("correo");
+                String tipo_suscripcion = resultSet.getString("tipo_suscripcion");
+                Date fecha_termino = resultSet.getDate("fecha_termino");
+
+                ClaseClientes clientes = new ClaseClientes(id, nombre, apellido_paterno, apellido_materno,
+                        correo, tipo_suscripcion, fecha_termino);
+
+                _informacion.add(clientes);
+
+            }
+
+            stmt.close();
+            conn.close();
+            return _informacion;
+        } catch (SQLException ex) {
+            System.out.println("SQLException: " + ex.getMessage());
+            System.out.println("SQLState: " + ex.getSQLState());
+            System.out.println("VendorError: " + ex.getErrorCode());
+            return null;
+        }
+    }
+
     public ArrayList<Object> devolverSuscripcion(int id_usuario){
         try {
             ArrayList<Object> suscripcion = new ArrayList<>();
