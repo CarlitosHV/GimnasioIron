@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1:3306
--- Tiempo de generación: 13-05-2023 a las 01:28:44
+-- Tiempo de generación: 13-05-2023 a las 14:30:37
 -- Versión del servidor: 8.0.31
 -- Versión de PHP: 8.0.26
 
@@ -56,9 +56,9 @@ CREATE DEFINER=`AdminGimnasio`@`%` PROCEDURE `actualizar_usuario` (IN `p_id_usua
         AND NOMBRES.apellido_materno = p_apellido_materno;
     END;
 
-    -- Validamos si existe el Estado y si no, lo insertamos
+    -- Validamos si existe el estado y si no, lo insertamos
     IF NOT EXISTS(SELECT ESTADO.nombre FROM ESTADO WHERE ESTADO.nombre = p_estado)
-    THEN INSERT INTO ESTADO(nombre) 
+    THEN INSERT INTO ESTADO(nombre)
     VALUES (p_estado);
     END IF;
     BEGIN
@@ -68,10 +68,10 @@ CREATE DEFINER=`AdminGimnasio`@`%` PROCEDURE `actualizar_usuario` (IN `p_id_usua
         WHERE ESTADO.nombre = p_estado;
     END;
 
-    -- Validamos si existe el Municipio y si no, lo insertamos
+   -- Validamos si existe el Municipio y si no, lo insertamos
     IF NOT EXISTS(SELECT MUNICIPIO.nombre FROM MUNICIPIO WHERE MUNICIPIO.nombre = p_municipio)
     THEN INSERT INTO MUNICIPIO(nombre, id_estado)
-    VALUES (p_municipio);
+    VALUES (p_municipio, v_id_estado);
     END IF;
     BEGIN
         SELECT MUNICIPIO.id_municipio
@@ -79,32 +79,27 @@ CREATE DEFINER=`AdminGimnasio`@`%` PROCEDURE `actualizar_usuario` (IN `p_id_usua
         FROM MUNICIPIO 
         WHERE MUNICIPIO.nombre = p_municipio;
     END;
+
     
-    
-    -- Validamos e insertamos la dirección
-    IF NOT EXISTS(SELECT DIRECCION.calle, DIRECCION.numero, DIRECCION.codigo_postal, DIRECCION.id_municipio, DIRECCION.id_estado FROM DIRECCION 
-    WHERE DIRECCION.calle = p_calle AND DIRECCION.numero = p_numero AND DIRECCION.codigo_postal = p_codigo_postal AND DIRECCION.id_municipio = id_municipio AND DIRECCION.id_estado = id_estado)
+    	-- Validamos e insertamos la dirección
+	IF NOT EXISTS(SELECT DIRECCION.calle, DIRECCION.numero, DIRECCION.codigo_postal, DIRECCION.id_municipio, DIRECCION.id_estado 	FROM DIRECCION 
+	WHERE DIRECCION.calle = p_calle AND DIRECCION.numero = p_numero AND DIRECCION.codigo_postal = p_codigo_postal AND 		DIRECCION.id_municipio = v_id_municipio AND DIRECCION.id_estado = v_id_estado)
     THEN INSERT INTO DIRECCION(calle, numero, codigo_postal, id_municipio, id_estado) 
-    VALUES (p_calle, p_numero, p_codigo_postal, id_municipio, id_estado);
+    VALUES (p_calle, p_numero, p_codigo_postal, v_id_municipio, v_id_estado);
     END IF;
     BEGIN
-        SELECT DIRECCION.id_direccion 
+        SELECT DIRECCION.id_direccion
         INTO v_id_direccion
         FROM DIRECCION 
-        WHERE DIRECCION.calle = p_calle AND DIRECCION.numero = p_numero AND DIRECCION.codigo_postal = p_codigo_postal AND DIRECCION.id_municipio = id_municipio AND DIRECCION.id_estado = id_estado;
+	    WHERE DIRECCION.calle = p_calle AND DIRECCION.numero = p_numero AND DIRECCION.codigo_postal = p_codigo_postal AND DIRECCION.id_municipio = v_id_municipio AND DIRECCION.id_estado = v_id_estado;
     END;
 
-    -- Validamos e insertamos el usuario
-    IF NOT EXISTS(SELECT USUARIOS.id_nombre, USUARIOS.correo, USUARIOS.contrasenia FROM USUARIOS 
-    WHERE USUARIOS.id_nombre = id_nombre AND USUARIOS.correo = p_correo AND USUARIOS.contrasenia = p_contrasenia)
-    THEN
     UPDATE USUARIOS
     SET 
         id_nombre = v_id_nombre, correo = p_correo, contrasenia = p_contrasenia, telefono = p_telefono,
         id_direccion = v_id_direccion
     WHERE 
         id_usuario = p_id_usuario;
-    END IF;
 END$$
 
 DROP PROCEDURE IF EXISTS `consultar_clientes`$$
@@ -315,7 +310,7 @@ CREATE TABLE IF NOT EXISTS `direccion` (
   PRIMARY KEY (`id_direccion`),
   KEY `id_municipio` (`id_municipio`),
   KEY `id_estado` (`id_estado`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Volcado de datos para la tabla `direccion`
@@ -324,7 +319,21 @@ CREATE TABLE IF NOT EXISTS `direccion` (
 INSERT INTO `direccion` (`id_direccion`, `calle`, `numero`, `codigo_postal`, `id_municipio`, `id_estado`) VALUES
 (4, 'Abel Salazar', 113, 52300, 9, 35),
 (5, 'Abel Salazar', 113, 52300, 10, 35),
-(6, 'Benito Juárez', 109, 52240, 9, 34);
+(6, 'Benito Juárez', 109, 52240, 9, 34),
+(7, 'Abel Salazar', 110, 52300, 11, 12),
+(8, 'Abel Salazar', 110, 52300, 9, 12),
+(9, 'Abel Salazar', 110, 52300, 9, 12),
+(10, 'Abel', 111, 52300, 10, 12),
+(11, 'Abel', 111, 52300, 9, 12),
+(12, 'Abel', 99, 52300, 9, 12),
+(13, 'Abel', 99, 52300, 11, 12),
+(14, 'Juárez', 250, 52300, 9, 12),
+(15, 'Juárez', 250, 52300, 10, 12),
+(18, 'China', 210, 52300, 9, 12),
+(19, 'China', 54, 52300, 9, 12),
+(20, 'Juanes', 115, 52300, 10, 12),
+(21, 'Hola', 23, 52300, 10, 12),
+(22, 'Abel Salazar', 113, 52300, 11, 12);
 
 -- --------------------------------------------------------
 
@@ -406,15 +415,16 @@ CREATE TABLE IF NOT EXISTS `municipio` (
   `id_estado` int NOT NULL,
   PRIMARY KEY (`id_municipio`),
   KEY `id_estado` (`id_estado`)
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Volcado de datos para la tabla `municipio`
 --
 
 INSERT INTO `municipio` (`id_municipio`, `nombre`, `id_estado`) VALUES
-(9, 'Metepec', 3),
-(10, 'Toluca', 35);
+(9, 'Metepec', 12),
+(10, 'Toluca', 12),
+(11, 'Tenango', 12);
 
 -- --------------------------------------------------------
 
@@ -429,7 +439,7 @@ CREATE TABLE IF NOT EXISTS `nombres` (
   `apellido_paterno` varchar(15) COLLATE utf8mb4_general_ci DEFAULT NULL,
   `apellido_materno` varchar(25) COLLATE utf8mb4_general_ci DEFAULT NULL,
   PRIMARY KEY (`id_nombre`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Volcado de datos para la tabla `nombres`
@@ -439,7 +449,12 @@ INSERT INTO `nombres` (`id_nombre`, `nombre`, `apellido_paterno`, `apellido_mate
 (1, 'Carlos', 'Hernández', 'Velázquez'),
 (2, 'Juan', 'Pérez', 'García'),
 (3, 'Carlos Alberto', 'Hernández', 'Velázquez'),
-(4, 'Laisha Denis', 'Rodríguez', 'García');
+(4, 'Laisha Denis', 'Rodríguez', 'García'),
+(5, 'Carlos', 'Hernández', 'Velaz'),
+(6, 'Charlie', 'Hernández', 'Velázquez'),
+(7, 'Carl', 'Hernández', 'Velázquez'),
+(8, 'Charlie Alberto', 'Hernández', 'Velázquez'),
+(9, 'Carlitos', 'Hernández', 'Velázquez');
 
 -- --------------------------------------------------------
 
@@ -555,7 +570,7 @@ CREATE TABLE IF NOT EXISTS `usuarios` (
 --
 
 INSERT INTO `usuarios` (`id_usuario`, `id_nombre`, `correo`, `contrasenia`, `telefono`, `usuario_administrador`, `id_direccion`, `edad`, `sexo`, `bloqueado`, `estado_suscripcion`) VALUES
-(5, 3, 'carloshvsa21@hotmail.com', 'v6mzPpnjSX66wfZGhGmUMA==', 7297516216, 0, 4, 23, 'M', 0, 1),
+(5, 3, 'carloshvsa21@hotmail.com', 'v6mzPpnjSX66wfZGhGmUMA==', 7297516216, 0, 22, 23, 'M', 0, 1),
 (6, 3, 'carloshv51@gmail.com', 'II9WbHYltuN1iLoFmhzk5g==', 7297516216, 1, 5, 23, 'M', 0, 1),
 (7, 4, 'laisha.denis@gmail.com', 'QgT4gCIYvLdBXJKV+UXcLw==', 7222543322, 0, 6, 21, 'F', 0, 1);
 
