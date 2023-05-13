@@ -1,36 +1,48 @@
 package com.gimnasio.ironbodiesgym;
 
-import javafx.animation.FadeTransition;
-import javafx.event.ActionEvent;
+
+import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
-import javafx.scene.layout.AnchorPane;
-import javafx.util.Duration;
+import javafx.fxml.Initializable;
+import javafx.scene.control.ListView;
+import javafx.scene.layout.GridPane;
 
-public class ControladorMenuAdmin {
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.ResourceBundle;
+
+public class ControladorMenuAdmin implements Initializable {
 
     @FXML
-    private AnchorPane rootPane;
+    private GridPane rootPane;
+    @FXML
+    private ListView<ClaseClientes> ListView;
+
+    ControladorTransiciones transiciones = new ControladorTransiciones();
+    ControladorBD bd = new ControladorBD();
+
+
+    /*
+    Arreglo que contiene la lista de los clientes
+     */
+    public static ArrayList<ClaseClientes> _clientes = new ArrayList<>();
 
 
     @FXML
-    void Abrir_informacion(ActionEvent event){
-        FadeTransition fadeTransition = new FadeTransition();
-        fadeTransition.setDuration(Duration.millis(500));
-        fadeTransition.setNode(rootPane);
-        fadeTransition.setFromValue(1);
-        fadeTransition.setToValue(0);
-        fadeTransition.play();
-        fadeTransition.setOnFinished(actionEvent -> ViewSwitcher.switchTo(View.CONSULTA_USUARIO, IndexApp.Tema));
+    void Abrir_informacion(){
+        transiciones.CrearAnimacionFade(500, rootPane, View.CONSULTA_USUARIO);
     }
 
     @FXML
-    void Regresar(ActionEvent event){
-        FadeTransition fadeTransition = new FadeTransition();
-        fadeTransition.setDuration(Duration.millis(500));
-        fadeTransition.setNode(rootPane);
-        fadeTransition.setFromValue(1);
-        fadeTransition.setToValue(0);
-        fadeTransition.play();
-        fadeTransition.setOnFinished(actionEvent -> ViewSwitcher.switchTo(View.LOGIN, IndexApp.Tema));
+    void Regresar(){
+        transiciones.CrearAnimacionFade(500, rootPane, View.LOGIN);
+    }
+
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        _clientes = bd.devolverClientes();
+        ListView.setCellFactory(lv -> new ClienteCell());
+        ListView.setItems(FXCollections.observableArrayList(_clientes));
+
     }
 }
