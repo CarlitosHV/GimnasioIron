@@ -97,6 +97,7 @@ public class ControladorBD {
                 login.add(resultSet.getString("sexo"));
                 login.add(resultSet.getBoolean("estado_suscripcion"));
                 login.add(resultSet.getInt("id_usuario"));
+                login.add(resultSet.getInt("codigo_postal"));
             }
 
             stmt.close();

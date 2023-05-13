@@ -35,10 +35,8 @@ public class ControladorMenuUsuario implements Initializable {
         transiciones.CrearAnimacionFade(500, rootPane, View.LOGIN);
     }
     @FXML
-    void Editar(){
-        transiciones.CrearAnimacionFade(500, rootPane, View.EDITAR);
+    void Editar() {transiciones.CrearAnimacionFade(500, rootPane, View.EDITAR);
     }
-
     @FXML
     void Renovar_Suscripcion() {
         transiciones.CrearAnimacionFade(500, rootPane, View.RENOVAR_SUSCRIPCIONES);

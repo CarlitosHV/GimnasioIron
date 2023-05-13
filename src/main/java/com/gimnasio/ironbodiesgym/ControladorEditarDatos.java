@@ -1,6 +1,7 @@
 package com.gimnasio.ironbodiesgym;
 
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
@@ -13,7 +14,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.ResourceBundle;
 
-public class ControladorEditarDatos {
+public class ControladorEditarDatos implements Initializable {
 
     @FXML
     private AnchorPane rootPane;
@@ -36,36 +37,35 @@ public class ControladorEditarDatos {
 
     @FXML
     void Regresar(){
-        transiciones.CrearAnimacionFade(500, rootPane, View.LOGIN);
+        transiciones.CrearAnimacionFade(500, rootPane, View.MENU_USUARIO);
     }
+
+
+
 
     @FXML
-    void Renovar_Suscripcion() {
-        transiciones.CrearAnimacionFade(500, rootPane, View.RENOVAR_SUSCRIPCIONES);
-    }
-
-    @FXML
-    void ActivarModoOscuro() {
-        if (IndexApp.Tema == 1) {
-            ViewSwitcher.switchTo(View.MENU_USUARIO, ViewSwitcher.MODO_CLARO);
-            IndexApp.Tema = 0;
-            indexApp.EscribirPropiedades("theme", String.valueOf(IndexApp.Tema));
-        } else if (IndexApp.Tema == 0) {
-            ViewSwitcher.switchTo(View.MENU_USUARIO, ViewSwitcher.MODO_OSCURO);
-            IndexApp.Tema = 1;
-            indexApp.EscribirPropiedades("theme", String.valueOf(IndexApp.Tema));
-        }
-    }
-
-
     public void initialize(URL url, ResourceBundle resourceBundle) {
         int id = (int) ControladorLogin.loginuser.get(15);
-        String nombre = "Nombre: " + ControladorLogin.loginuser.get(0).toString() + " " + controladorLogin.loginuser.get(1).toString() + " " + controladorLogin.loginuser.get(2).toString();
-        String ap ="Apellido_Paterno: " + ControladorLogin.loginuser.get(2) + " " + controladorLogin.loginuser.get(9);
-        String am = "Apellido_Materno: " + ControladorLogin.loginuser.get(3).toString();
-        Campo_nombre.setText(nombre);
+        String nom =  ControladorLogin.loginuser.get(0).toString() ;
+        String ap = ControladorLogin.loginuser.get(1).toString();
+        String am =  ControladorLogin.loginuser.get(2).toString();
+        String cor =  ControladorLogin.loginuser.get(3).toString();
+        String con =  ControladorLogin.loginuser.get(4).toString();
+        String rcon =  ControladorLogin.loginuser.get(4).toString();
+        String calle =  ControladorLogin.loginuser.get(8).toString();
+        String num =  ControladorLogin.loginuser.get(9).toString();
+        String tel =  ControladorLogin.loginuser.get(5).toString();
+        String cp =  ControladorLogin.loginuser.get(16).toString();
+        Campo_nombre.setText(nom);
         Campo_apellido_paterno.setText(ap);
         Campo_apellido_materno.setText(am);
+        Campo_correo.setText(cor);
+        Campo_contrasenia.setText(con);
+        Campo_repite_contrasenia.setText(rcon);
+        Campo_calle.setText(calle);
+        Campo_numero.setText(num);
+        Campo_telefono.setText(tel);
+        Campo_codigo_postal.setText(cp);
 
     }
 }

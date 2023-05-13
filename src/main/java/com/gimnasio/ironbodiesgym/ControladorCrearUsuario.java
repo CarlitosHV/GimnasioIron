@@ -141,7 +141,7 @@ public class ControladorCrearUsuario implements Initializable {
         Validaciones de los campos
      */
     @FXML
-    void validar_campo_nombre() {
+    public void validar_campo_nombre() {
         if (Campo_nombre.getText().matches("^[A-Za-záéíóúÁÉÍÓÚñÑ]+ [A-Za-záéíóúÁÉÍÓÚñÑ]{3,15}$") && !Campo_nombre.getText().isEmpty()) {
             campo_nombre = true;
             Campo_nombre.setStyle("-fx-border-color: #4a97f0");
@@ -152,7 +152,7 @@ public class ControladorCrearUsuario implements Initializable {
     }
 
     @FXML
-    void validar_campo_apellido_paterno() {
+   public void validar_campo_apellido_paterno() {
         if (Campo_apellido_paterno.getText().matches("^[a-zA-ZáéíóúÁÉÍÓÚñÑ]{3,10}$") && !Campo_apellido_paterno.getText().isEmpty()) {
             campo_apellido_paterno = true;
             Campo_apellido_paterno.setStyle("-fx-border-color: #4a97f0");
@@ -163,7 +163,7 @@ public class ControladorCrearUsuario implements Initializable {
     }
 
     @FXML
-    void validar_campo_apellido_materno() {
+   public void validar_campo_apellido_materno() {
         if (Campo_apellido_materno.getText().matches("^[a-zA-ZáéíóúÁÉÍÓÚñÑ]{3,10}$") && !Campo_apellido_materno.getText().isEmpty()) {
             campo_apellido_materno = true;
             Campo_apellido_materno.setStyle("-fx-border-color: #4a97f0");
@@ -174,7 +174,7 @@ public class ControladorCrearUsuario implements Initializable {
     }
 
     @FXML
-    void validar_campo_edad() {
+   public void validar_campo_edad() {
         if (Campo_edad.getText().matches("^[0-9]{1,2}$") && !Campo_edad.getText().isEmpty()) {
             campo_edad = true;
             Campo_edad.setStyle("-fx-border-color: #4a97f0");
@@ -185,7 +185,7 @@ public class ControladorCrearUsuario implements Initializable {
     }
 
     @FXML
-    void validar_campo_correo() {
+    public void validar_campo_correo() {
         if (Campo_correo.getText().matches("^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$") && !Campo_correo.getText().isEmpty()) {
             campo_correo = true;
             Campo_correo.setStyle("-fx-border-color: #4a97f0");
@@ -196,7 +196,7 @@ public class ControladorCrearUsuario implements Initializable {
     }
 
     @FXML
-    void validar_campo_contrasenia() {
+   public void validar_campo_contrasenia() {
         if (Campo_contrasenia.getText().matches("^[A-Za-z\\d@$!%*?&]{6,12}$") && !Campo_contrasenia.getText().isEmpty()) {
             campo_contrasenia = true;
             Campo_contrasenia.setStyle("-fx-border-color: #4a97f0");
@@ -207,7 +207,7 @@ public class ControladorCrearUsuario implements Initializable {
     }
 
     @FXML
-    void validar_campo_repetir_contrasenia() {
+    public void validar_campo_repetir_contrasenia() {
         if (Campo_repite_contrasenia.getText().matches("^[A-Za-z\\d@$!%*?&]{6,12}$") && !Campo_repite_contrasenia.getText().isEmpty()) {
             campo_repertir_contrasenia = true;
             Campo_repite_contrasenia.setStyle("-fx-border-color: #4a97f0");
@@ -218,7 +218,7 @@ public class ControladorCrearUsuario implements Initializable {
     }
 
     @FXML
-    void validar_campo_calle() {
+    public void validar_campo_calle() {
         if (Campo_calle.getText().matches("^[A-Za-z0-9áéíóúÁÉÍÓÚñÑ.,\\-/ ]+$") && !Campo_calle.getText().isEmpty()) {
             campo_calle = true;
             Campo_calle.setStyle("-fx-border-color: #4a97f0");
@@ -229,7 +229,7 @@ public class ControladorCrearUsuario implements Initializable {
     }
 
     @FXML
-    void validar_campo_numero() {
+   public void validar_campo_numero() {
         if (Campo_numero.getText().matches("^[0-9]{1,5}$") && !Campo_numero.getText().isEmpty()) {
             campo_numero = true;
             Campo_numero.setStyle("-fx-border-color: #4a97f0");
@@ -240,7 +240,7 @@ public class ControladorCrearUsuario implements Initializable {
     }
 
     @FXML
-    void validar_campo_codigo_postal() {
+   public void validar_campo_codigo_postal() {
         if (Campo_codigo_postal.getText().matches("^[0-9]{1,5}$") && !Campo_codigo_postal.getText().isEmpty()) {
             campo_codigo_postal = true;
             Campo_codigo_postal.setStyle("-fx-border-color: #4a97f0");
@@ -251,7 +251,7 @@ public class ControladorCrearUsuario implements Initializable {
     }
 
     @FXML
-    void validar_campo_telefono() {
+  public void validar_campo_telefono() {
         if (Campo_telefono.getText().matches("^[0-9]{5,10}$") && !Campo_telefono.getText().isEmpty()) {
             campo_telefono = true;
             Campo_telefono.setStyle("-fx-border-color: #4a97f0");
