@@ -29,7 +29,7 @@ public class ControladorRenovarSuscripciones implements Initializable {
     LocalDate fecha_inicio = LocalDate.now();
     LocalDate fecha_termino;
     int id = (int) ControladorLogin.loginuser.get(15);
-    String pago;
+    float pago;
 
     @FXML
     void mostrar_meses() {
@@ -58,10 +58,10 @@ public class ControladorRenovarSuscripciones implements Initializable {
                     LabelCosto.setText("");
                     fecha_termino = fecha_inicio.plusMonths(3);
                     if (ComboPlanes.getValue().equals("Básico")) {
-                        pago = "700.0";
+                        pago = 700;
                         LabelCosto.setText("$" + pago);
                     } else {
-                        pago = "800.0";
+                        pago = 800;
                         LabelCosto.setText("$" + pago);
                     }
                 }
@@ -69,10 +69,10 @@ public class ControladorRenovarSuscripciones implements Initializable {
                     LabelCosto.setText("");
                     fecha_termino = fecha_inicio.plusMonths(6);
                     if (ComboPlanes.getValue().equals("Básico")) {
-                        pago = "1400.0";
+                        pago = 1400;
                         LabelCosto.setText("$" + pago);
                     } else {
-                        pago = "1500.0";
+                        pago = 1500;
                         LabelCosto.setText("$" + pago);
                     }
                 }
@@ -80,10 +80,10 @@ public class ControladorRenovarSuscripciones implements Initializable {
                     LabelCosto.setText("");
                     fecha_termino = fecha_inicio.plusMonths(12);
                     if (ComboPlanes.getValue().equals("Básico")) {
-                        pago = "2200.0";
+                        pago = 2200;
                         LabelCosto.setText("$" + pago);
                     } else {
-                        pago = "2300.0";
+                        pago = 2300;
                         LabelCosto.setText("$" + pago);
                     }
                 }
@@ -101,7 +101,7 @@ public class ControladorRenovarSuscripciones implements Initializable {
     void Guardar() throws SQLException {
         String plan = ComboPlanes.getValue();
         if (!ComboPlanes.getValue().equals("Selecciona") && !ComboTiempo.getValue().equals("Selecciona")){
-            boolean creada = bd.insertar_suscripcion(id, plan, Date.valueOf(fecha_inicio), Date.valueOf(fecha_termino), Float.parseFloat(pago));
+            boolean creada = bd.insertar_suscripcion(id, plan, Date.valueOf(fecha_inicio), Date.valueOf(fecha_termino), pago);
             if (creada){
                 alertas.CrearAlerta(ControladorAlertas.ALERTA_SUSCRIPCION_CREADA, rootPane);
             }else{
