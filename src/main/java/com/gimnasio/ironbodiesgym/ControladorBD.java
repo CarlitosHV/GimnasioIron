@@ -312,7 +312,7 @@ public class ControladorBD {
             return false;
         }
     }
-    public boolean actualizar_Usuario(String nombre, String apellido_paterno, String Apellido_materno, String correo,
+    public boolean actualizar_Usuario(int id_usuario, String nombre, String apellido_paterno, String Apellido_materno, String correo,
                                     String contrasenia, BigInteger telefono,String calle,
                                     int numero, int codigo_postal, String municipio, String estado) {
         try {
@@ -321,9 +321,10 @@ public class ControladorBD {
                     DriverManager.getConnection("jdbc:mysql://" + IndexApp.servidor + "/" + IndexApp.base_datos + "?" +
                             "user=" + IndexApp.usuario + "&password=" + IndexApp.contrasenia);
 
-            String sql = "{call actualizar_usuario (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?)}";
+            String sql = "{call actualizar_usuario (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)}";
             stmt = conn.prepareCall(sql);
             //Campos a mandar
+            stmt.setInt(1, id_usuario);
             stmt.setString(2, nombre);
             stmt.setString(3, apellido_paterno);
             stmt.setString(4, Apellido_materno);
@@ -336,10 +337,8 @@ public class ControladorBD {
             stmt.setString(11, municipio);
             stmt.setString(12, estado);
 
-
             stmt.execute();
             stmt.close();
-
             conn.close();
             return true;
         } catch (SQLException ex) {

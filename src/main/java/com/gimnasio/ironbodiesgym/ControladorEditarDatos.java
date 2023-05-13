@@ -32,6 +32,7 @@ public class ControladorEditarDatos implements Initializable {
     private ComboBox<String> Combo_municipio;
     @FXML
     private ComboBox<String> Combo_estado;
+    int id;
 
     @FXML
     void Regresar() {
@@ -157,7 +158,7 @@ public class ControladorEditarDatos implements Initializable {
 
     @FXML
     public void initialize(URL url, ResourceBundle resourceBundle){
-        Combo_estado.getItems().addAll("Estado México", "CDMX");
+        Combo_estado.getItems().addAll("Estado de México");
         Combo_municipio.getItems().addAll("Tenango", "Metepec", "Toluca");
 
         Campo_nombre.setTextFormatter(new TextFormatter<>(change -> {
@@ -241,7 +242,7 @@ public class ControladorEditarDatos implements Initializable {
         }));
 
 
-        int id = (int) ControladorLogin.loginuser.get(16);
+        id = (int) ControladorLogin.loginuser.get(15);
         String nom = ControladorLogin.loginuser.get(0).toString();
         String apaterno = ControladorLogin.loginuser.get(1).toString();
         String amaterno = ControladorLogin.loginuser.get(2).toString();
@@ -295,7 +296,7 @@ public class ControladorEditarDatos implements Initializable {
     void GuardarUsuario() throws Exception {
         if (Campo_contrasenia.getText().equals(Campo_repite_contrasenia.getText())) {
             insertarClaseUsuario();
-            boolean actualizarCuenta = controladorBD.actualizar_Usuario(claseUsuario.getNombre(), claseUsuario.getApellido_paterno(), claseUsuario.getApellido_materno(),
+            boolean actualizarCuenta = controladorBD.actualizar_Usuario(id, claseUsuario.getNombre(), claseUsuario.getApellido_paterno(), claseUsuario.getApellido_materno(),
                     claseUsuario.getCorreo(), claseUsuario.getContrasenia(), claseUsuario.getTelefono(),
                     claseUsuario.getCalle(), claseUsuario.getNumero(), claseUsuario.getCodigo_postal(), claseUsuario.getMunicipio(),
                     claseUsuario.getEstado());

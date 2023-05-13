@@ -43,7 +43,7 @@ public class ControladorCrearUsuario implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        Combo_estado.getItems().addAll("Estado México", "CDMX");
+        Combo_estado.getItems().addAll("Estado de México");
         Combo_municipio.getItems().addAll("Tenango", "Metepec", "Toluca");
         Combo_sexo.getItems().addAll("M", "F");
 

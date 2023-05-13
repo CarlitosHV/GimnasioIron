@@ -58,21 +58,24 @@ public class ControladorAlertas {
             content.setTextFill(Color.WHITESMOKE);
             alert.getDialogPane().setContent(content);
         }
-        Optional<ButtonType> result = alert.showAndWait();
         switch(tipo){
             case 0 -> {
+                Optional<ButtonType> result = alert.showAndWait();
                 if (result.isPresent() && result.get() == ButtonType.OK) {
                     alert.close();
                     transiciones.CrearAnimacionFade(500, Nodo, View.LOGIN);
                 }
             }
             case 9, 10 -> {
+                Optional<ButtonType> result = alert.showAndWait();
                 if (result.isPresent() && result.get() == ButtonType.OK) {
                     alert.close();
                     transiciones.CrearAnimacionFade(500, Nodo, View.MENU_USUARIO);
                 }
             }
+            default -> {
+                alert.showAndWait();
+            }
         }
-        alert.showAndWait();
     }
 }

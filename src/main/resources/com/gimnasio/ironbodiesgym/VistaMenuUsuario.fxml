@@ -17,7 +17,7 @@
                         <Font name="Roboto Black" size="14.0"/>
                     </font>
                 </Label>
-                <Button id="Boton_Modo" contentDisplay="GRAPHIC_ONLY" layoutX="225.0" layoutY="10.0"
+                <Button id="Boton_Modo" contentDisplay="GRAPHIC_ONLY" layoutX="265.0" layoutY="10.0"
                         mnemonicParsing="false"
                         onAction="#ActivarModoOscuro" text="Modo oscuro">
                     <font>

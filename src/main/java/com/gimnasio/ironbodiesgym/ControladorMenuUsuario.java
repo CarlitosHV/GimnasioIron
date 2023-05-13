@@ -29,6 +29,7 @@ public class ControladorMenuUsuario implements Initializable {
     ControladorTransiciones transiciones = new ControladorTransiciones();
     IndexApp indexApp = new IndexApp();
     ArrayList<Object> suscripcion = new ArrayList<>();
+    ArrayList<Object> user = new ArrayList<>();
 
     @FXML
     void Regresar(){
@@ -57,11 +58,12 @@ public class ControladorMenuUsuario implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        int id = (int) ControladorLogin.loginuser.get(15);
-        String nombre = "Nombre: " + ControladorLogin.loginuser.get(0).toString() + " " + controladorLogin.loginuser.get(1).toString() + " " + controladorLogin.loginuser.get(2).toString();
-        String direccion = "Dirección: " + ControladorLogin.loginuser.get(8) + " " + controladorLogin.loginuser.get(9);
-        String correo = "Correo: " + ControladorLogin.loginuser.get(3).toString();
-        LabelHeader.setText("Bienvenido, " + ControladorLogin.loginuser.get(0).toString());
+        user = bd.loginUsuario(ControladorLogin.loginuser.get(3).toString());
+        int id = (int) user.get(15);
+        String nombre = "Nombre: " + user.get(0).toString() + " " + user.get(1).toString() + " " + user.get(2).toString();
+        String direccion = "Dirección: " + user.get(8) + " " + user.get(9);
+        String correo = "Correo: " + user.get(3).toString();
+        LabelHeader.setText("Bienvenido, " + user.get(0).toString());
         LabelNombre.setText(nombre);
         LabelDireccion.setText(direccion);
         LabelCorreo.setText(correo);

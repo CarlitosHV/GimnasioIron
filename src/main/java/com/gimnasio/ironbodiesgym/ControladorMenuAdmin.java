@@ -19,6 +19,7 @@ public class ControladorMenuAdmin implements Initializable {
     private ListView<ClaseClientes> ListView;
 
     ControladorTransiciones transiciones = new ControladorTransiciones();
+    IndexApp indexApp = new IndexApp();
     ControladorBD bd = new ControladorBD();
 
 
@@ -38,11 +39,23 @@ public class ControladorMenuAdmin implements Initializable {
         transiciones.CrearAnimacionFade(500, rootPane, View.LOGIN);
     }
 
+    @FXML
+    void ActivarModoOscuro() {
+        if (IndexApp.Tema == 1) {
+            ViewSwitcher.switchTo(View.MENU_ADMINISTRADOR, ViewSwitcher.MODO_CLARO);
+            IndexApp.Tema = 0;
+            indexApp.EscribirPropiedades("theme", String.valueOf(IndexApp.Tema));
+        } else if (IndexApp.Tema == 0) {
+            ViewSwitcher.switchTo(View.MENU_ADMINISTRADOR, ViewSwitcher.MODO_OSCURO);
+            IndexApp.Tema = 1;
+            indexApp.EscribirPropiedades("theme", String.valueOf(IndexApp.Tema));
+        }
+    }
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         _clientes = bd.devolverClientes();
         ListView.setCellFactory(lv -> new ClienteCell());
         ListView.setItems(FXCollections.observableArrayList(_clientes));
-
     }
 }
