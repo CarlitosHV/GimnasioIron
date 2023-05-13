@@ -15,7 +15,7 @@ import java.util.Objects;
 public class ControladorLogin {
 
     public static String correo;
-    public static String contra;
+    public static String contraseniadecifrada;
     public static boolean usuario_administrador;
     public static boolean bloqueado;
 
@@ -52,7 +52,7 @@ public class ControladorLogin {
 
     private void camposValidos() throws Exception {
         loginuser = controladorBD.loginUsuario(Campo_correo.getText());
-        String contraseniadecifrada = ControladorCifrarContrasena.decrypt(loginuser.get(4).toString());
+        contraseniadecifrada = ControladorCifrarContrasena.decrypt(loginuser.get(4).toString());
 
         String correo = String.valueOf(loginuser.get(3));
         boolean admin = (boolean) loginuser.get(6);

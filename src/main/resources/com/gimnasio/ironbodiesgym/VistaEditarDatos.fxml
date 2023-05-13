@@ -9,7 +9,7 @@
     <children>
         <AnchorPane id="Fondo2" minHeight="-Infinity" prefHeight="90.0" prefWidth="744.0">
             <children>
-                <Label id="Labels" layoutX="288.0" layoutY="9.0" prefHeight="63.0" prefWidth="169.0" text="Crea tu usuario">
+                <Label id="Labels" layoutX="288.0" layoutY="9.0" prefHeight="63.0" prefWidth="220.0" text="Editar Información">
                     <font>
                         <Font name="Roboto Light" size="24.0" />
                     </font>
@@ -26,17 +26,17 @@
             </children>
         </AnchorPane>
         <Separator id="Separadores" layoutX="-1.0" layoutY="128.0" prefHeight="10.0" prefWidth="742.0" />
-        <TextField id="TextFields" fx:id="Campo_nombre" layoutX="231.0" layoutY="147.0" prefHeight="37.0" prefWidth="278.0" promptText="Nombre(s)">
+        <TextField id="TextFields" fx:id="Campo_nombre" layoutX="231.0" layoutY="147.0" onKeyTyped="#validar_campo_nombre" prefHeight="37.0" prefWidth="278.0" promptText="Nombre(s)">
             <font>
                 <Font name="Roboto Light" size="12.0" />
             </font>
         </TextField>
-        <TextField id="TextFields" fx:id="Campo_apellido_paterno" layoutX="233.0" layoutY="196.0" prefHeight="37.0" prefWidth="130.0" promptText="Apellido Paterno">
+        <TextField id="TextFields" fx:id="Campo_apellido_paterno" layoutX="233.0" layoutY="196.0" onKeyTyped="#validar_campo_apellido_paterno" prefHeight="37.0" prefWidth="130.0" promptText="Apellido Paterno">
             <font>
                 <Font name="Roboto Light" size="12.0" />
             </font>
         </TextField>
-        <TextField id="TextFields" fx:id="Campo_apellido_materno" layoutX="381.0" layoutY="196.0" prefHeight="37.0" prefWidth="130.0" promptText="Apellido Materno">
+        <TextField id="TextFields" fx:id="Campo_apellido_materno" layoutX="381.0" layoutY="196.0" onKeyTyped="#validar_campo_apellido_materno" prefHeight="37.0" prefWidth="130.0" promptText="Apellido Materno">
             <font>
                 <Font name="Roboto Light" size="12.0" />
             </font>
@@ -52,12 +52,12 @@
                 <Font name="Roboto Light" size="18.0" />
             </font>
         </Label>
-        <TextField id="TextFields" fx:id="Campo_correo" layoutX="232.0" layoutY="339.0" prefHeight="37.0" prefWidth="278.0" promptText="Correo">
+        <TextField id="TextFields" fx:id="Campo_correo" layoutX="232.0" layoutY="339.0" onKeyTyped="#validar_campo_correo" prefHeight="37.0" prefWidth="278.0" promptText="Correo">
             <font>
                 <Font name="Roboto Light" size="12.0" />
             </font>
         </TextField>
-        <PasswordField id="PasswordFields" fx:id="Campo_contrasenia" layoutX="232.0" layoutY="389.0" prefHeight="38.0" prefWidth="130.0" promptText="Contraseña">
+        <PasswordField id="PasswordFields" fx:id="Campo_contrasenia" layoutX="232.0" layoutY="389.0" onKeyTyped="#validar_campo_contrasenia" prefHeight="38.0" prefWidth="130.0" promptText="Contraseña">
             <font>
                 <Font name="Roboto Light" size="12.0" />
             </font>
@@ -68,12 +68,12 @@
                 <Font name="Roboto Light" size="18.0" />
             </font>
         </Label>
-        <TextField id="TextFields" fx:id="Campo_calle" layoutX="230.0" layoutY="496.0" prefHeight="37.0" prefWidth="130.0" promptText="Calle">
+        <TextField id="TextFields" fx:id="Campo_calle" layoutX="230.0" layoutY="496.0" onKeyTyped="#validar_campo_calle" prefHeight="37.0" prefWidth="130.0" promptText="Calle">
             <font>
                 <Font name="Roboto Light" size="12.0" />
             </font>
         </TextField>
-        <TextField id="TextFields" fx:id="Campo_numero" layoutX="381.0" layoutY="496.0" prefHeight="37.0" prefWidth="130.0" promptText="Número">
+        <TextField id="TextFields" fx:id="Campo_numero" layoutX="381.0" layoutY="496.0" onKeyTyped="#validar_campo_numero" prefHeight="37.0" prefWidth="130.0" promptText="Número">
             <font>
                 <Font name="Roboto Light" size="12.0" />
             </font>
@@ -84,15 +84,15 @@
             </font>
         </Label>
         <ComboBox id="ComboBox" fx:id="Combo_municipio" layoutX="232.0" layoutY="612.0" prefHeight="37.0" prefWidth="130.0" promptText="Selecciona" />
-        <TextField id="TextFields" fx:id="Campo_codigo_postal" layoutX="232.0" layoutY="545.0" prefHeight="37.0" prefWidth="130.0" promptText="Código postal" />
-        <TextField id="TextFields" fx:id="Campo_telefono" layoutX="381.0" layoutY="545.0" prefHeight="37.0" prefWidth="130.0" promptText="Teléfono" />
+        <TextField id="TextFields" fx:id="Campo_codigo_postal" layoutX="232.0" layoutY="545.0" onKeyTyped="#validar_campo_codigo_postal" prefHeight="37.0" prefWidth="130.0" promptText="Código postal" />
+        <TextField id="TextFields" fx:id="Campo_telefono" layoutX="381.0" layoutY="545.0" onKeyTyped="#validar_campo_telefono" prefHeight="37.0" prefWidth="130.0" promptText="Teléfono" />
         <ComboBox id="ComboBox" fx:id="Combo_estado" layoutX="381.0" layoutY="612.0" prefHeight="37.0" prefWidth="130.0" promptText="Selecciona" />
         <Label id="Labels" layoutX="381.0" layoutY="591.0" text="Estado">
             <font>
                 <Font name="Roboto Light" size="12.0" />
             </font>
         </Label>
-        <Button id="Buttons" layoutX="572.0" layoutY="683.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="78.0" text="Editar" />
-      <PasswordField id="PasswordFields"  fx:id="Campo_repite_contrasenia"  layoutX="371.0" layoutY="389.0" prefHeight="38.0" prefWidth="140.0" promptText="Repite Contraseña" />
+        <Button id="Buttons" layoutX="572.0" layoutY="683.0" mnemonicParsing="false" onAction="#GuardarUsuario" prefHeight="32.0" prefWidth="78.0" text="Editar" />
+      <PasswordField id="PasswordFields" fx:id="Campo_repite_contrasenia" layoutX="371.0" layoutY="389.0" onKeyTyped="#validar_campo_repetir_contrasenia" prefHeight="38.0" prefWidth="140.0" promptText="Repite Contraseña" />
     </children>
 </AnchorPane>

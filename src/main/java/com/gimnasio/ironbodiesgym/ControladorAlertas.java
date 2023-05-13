@@ -14,7 +14,8 @@ public class ControladorAlertas {
 
     public static int ALERTA_USUARIO_CREADO = 0, ALERTA_CORREO_DUPLICADO = 1, ALERTA_ERROR_CAMPOS = 2,
             ALERTA_CONTRASENIAS_DIFERENTES = 3, ALERTA_CORREO_NO_ENCONTRADO = 4, ALERTA_CONTRASENIA_ACTUALIZADA = 5,
-            ALERTA_ERROR_BD = 6, ALERTA_USUARIO_BLOQUEADO = 7, ALERTA_USUARIO_INVALIDO = 8, ALERTA_SUSCRIPCION_CREADA = 9;
+            ALERTA_ERROR_BD = 6, ALERTA_USUARIO_BLOQUEADO = 7, ALERTA_USUARIO_INVALIDO = 8, ALERTA_SUSCRIPCION_CREADA = 9,
+            ALERTA_USUARIO_EDITADO = 10;
 
     ControladorTransiciones transiciones = new ControladorTransiciones();
 
@@ -36,6 +37,7 @@ public class ControladorAlertas {
             case 7 -> aplicarTemaAlerta("Usuario bloqueado", "Tu cuenta ha sido bloqueada. Contacta con tu administrador", ALERTA_USUARIO_BLOQUEADO, Nodo);
             case 8 -> aplicarTemaAlerta("Usuario no encontrado", "El correo o contraseña son incorrectos", ALERTA_USUARIO_INVALIDO, Nodo);
             case 9 -> aplicarTemaAlerta("¡Suscripción activa!", "Se ha creado tu suscripción", ALERTA_SUSCRIPCION_CREADA, Nodo);
+            case 10 -> aplicarTemaAlerta("¡Usuario editado!", "El usuario ha sido modificado con éxito", ALERTA_USUARIO_EDITADO, Nodo);
         }
     }
 
@@ -56,20 +58,21 @@ public class ControladorAlertas {
             content.setTextFill(Color.WHITESMOKE);
             alert.getDialogPane().setContent(content);
         }
-        if (tipo == 0) {
-            Optional<ButtonType> result = alert.showAndWait();
-            if (result.isPresent() && result.get() == ButtonType.OK) {
-                alert.close();
-                transiciones.CrearAnimacionFade(500, Nodo, View.LOGIN);
+        Optional<ButtonType> result = alert.showAndWait();
+        switch(tipo){
+            case 0 -> {
+                if (result.isPresent() && result.get() == ButtonType.OK) {
+                    alert.close();
+                    transiciones.CrearAnimacionFade(500, Nodo, View.LOGIN);
+                }
             }
-        }else if(tipo == 9){
-            Optional<ButtonType> result = alert.showAndWait();
-            if (result.isPresent() && result.get() == ButtonType.OK) {
-                alert.close();
-                transiciones.CrearAnimacionFade(500, Nodo, View.MENU_USUARIO);
+            case 9, 10 -> {
+                if (result.isPresent() && result.get() == ButtonType.OK) {
+                    alert.close();
+                    transiciones.CrearAnimacionFade(500, Nodo, View.MENU_USUARIO);
+                }
             }
-        }else{
-            alert.showAndWait();
         }
+        alert.showAndWait();
     }
 }

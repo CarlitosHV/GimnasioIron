@@ -66,9 +66,10 @@ public class ControladorMenuUsuario implements Initializable {
         LabelDireccion.setText(direccion);
         LabelCorreo.setText(correo);
         suscripcion = bd.devolverSuscripcion(id);
-        SimpleDateFormat formato = new SimpleDateFormat("dd/MMMM/yyyy");
-        Date date = (Date) suscripcion.get(2);
+
         if (!suscripcion.isEmpty()){
+            SimpleDateFormat formato = new SimpleDateFormat("dd/MMMM/yyyy");
+            Date date = (Date) suscripcion.get(2);
             Renovar_suscripcion.setVisible(false);
             LabelNoSuscripcion.setVisible(false);
             LabelFechaVencimiento.setText("Fecha de término: " + formato.format(date));
