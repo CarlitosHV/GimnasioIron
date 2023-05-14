@@ -1,5 +1,7 @@
 package com.gimnasio.ironbodiesgym;
 
+import javafx.collections.FXCollections;
+import javafx.concurrent.Task;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
@@ -8,9 +10,16 @@ import javafx.scene.layout.AnchorPane;
 import java.math.BigInteger;
 import java.net.URL;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 public class ControladorCrearUsuario implements Initializable {
+
+
+    //Arreglos que guardan la información de los municipios y estados
+    private ArrayList<String> _estados = new ArrayList<>();
+    private ArrayList<String> _municipios = new ArrayList<>();
+
 
     ClaseUsuario claseUsuario = new ClaseUsuario();
     ControladorBD controladorBD = new ControladorBD();
@@ -28,6 +37,8 @@ public class ControladorCrearUsuario implements Initializable {
     PasswordField Campo_contrasenia, Campo_repite_contrasenia;
 
     @FXML
+    private ProgressIndicator IconoCarga;
+    @FXML
     private ComboBox<String> Combo_sexo;
     @FXML
     private ComboBox<String> Combo_municipio;
@@ -43,9 +54,11 @@ public class ControladorCrearUsuario implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        Combo_estado.getItems().addAll("Estado de México");
-        Combo_municipio.getItems().addAll("Tenango", "Metepec", "Toluca");
+        _estados = controladorBD.devolverEstados();
+        Combo_estado.getItems().addAll(FXCollections.observableArrayList(_estados));
+        Combo_municipio.setPromptText("Selecciona un estado");
         Combo_sexo.getItems().addAll("M", "F");
+        IconoCarga.setVisible(false);
 
         Campo_nombre.setTextFormatter(new TextFormatter<>(change -> {
             String newText = change.getControlNewText();
@@ -136,6 +149,35 @@ public class ControladorCrearUsuario implements Initializable {
         }));
     }
 
+    /*
+        Validación para cuando se selecciona un estado
+     */
+
+    @FXML
+    void mostrarMunicipio(){
+        _municipios.clear();
+        Combo_municipio.getItems().clear();
+        Combo_municipio.setPromptText("Selecciona un estado");
+        IconoCarga.setVisible(true);
+        IconoCarga.setProgress(-1.0);
+        rootPane.setOpacity(0.5);
+
+        Task<ArrayList<String>> traer_municipios = new Task<ArrayList<String>>() {
+            @Override
+            protected ArrayList<String> call() throws Exception {
+                ArrayList<String> result = controladorBD.devolverMunicipios(Combo_estado.getValue());
+                return result;
+            }
+        };
+        new Thread(traer_municipios).start();
+
+        traer_municipios.setOnSucceeded(event -> {
+            IconoCarga.setVisible(false);
+            rootPane.setOpacity(1.0);
+            _municipios = traer_municipios.getValue();
+            Combo_municipio.getItems().addAll(FXCollections.observableArrayList(_municipios));
+        });
+    }
 
     /*
         Validaciones de los campos

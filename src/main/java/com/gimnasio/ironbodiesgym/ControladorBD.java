@@ -210,6 +210,62 @@ public class ControladorBD {
         }
     }
 
+    public ArrayList<String> devolverEstados(){
+        try {
+            ArrayList<String> estados = new ArrayList<>();
+            conn =
+                    DriverManager.getConnection("jdbc:mysql://" + IndexApp.servidor + "/" + IndexApp.base_datos + "?" +
+                            "user=" + IndexApp.usuario + "&password=" + IndexApp.contrasenia);
+
+            CallableStatement stmt = conn.prepareCall("{call traer_estado()}");
+
+            stmt.execute();
+
+            ResultSet resultSet = stmt.getResultSet();
+
+            while (resultSet.next()){
+                estados.add(resultSet.getString("nombre"));
+            }
+
+            stmt.close();
+            conn.close();
+            return estados;
+        } catch (SQLException ex) {
+            System.out.println("SQLException: " + ex.getMessage());
+            System.out.println("SQLState: " + ex.getSQLState());
+            System.out.println("VendorError: " + ex.getErrorCode());
+            return null;
+        }
+    }
+    public ArrayList<String> devolverMunicipios(String estado){
+        ArrayList<String> municipios = new ArrayList<>();
+        try {
+            conn =
+                    DriverManager.getConnection("jdbc:mysql://" + IndexApp.servidor + "/" + IndexApp.base_datos + "?" +
+                            "user=" + IndexApp.usuario + "&password=" + IndexApp.contrasenia);
+
+            CallableStatement stmt = conn.prepareCall("{call traer_municipio(?)}");
+
+            stmt.setString(1, estado);
+            stmt.execute();
+
+            ResultSet resultSet = stmt.getResultSet();
+
+            while (resultSet.next()){
+                municipios.add(resultSet.getString("nombre"));
+            }
+
+            stmt.close();
+            conn.close();
+            return municipios;
+        } catch (SQLException ex) {
+            System.out.println("SQLException: " + ex.getMessage());
+            System.out.println("SQLState: " + ex.getSQLState());
+            System.out.println("VendorError: " + ex.getErrorCode());
+            return null;
+        }
+    }
+
     public ArrayList<ClaseClientes> devolverClientes(){
         ArrayList<ClaseClientes> _informacion = new ArrayList<>();
         try {

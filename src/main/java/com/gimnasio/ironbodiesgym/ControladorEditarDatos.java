@@ -1,5 +1,7 @@
 package com.gimnasio.ironbodiesgym;
 
+import javafx.collections.FXCollections;
+import javafx.concurrent.Task;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
@@ -20,6 +22,10 @@ public class ControladorEditarDatos implements Initializable {
     @FXML
     private AnchorPane rootPane;
 
+    //Arreglos que guardan la información de los municipios y estados
+    private ArrayList<String> _estados = new ArrayList<>();
+    private ArrayList<String> _municipios = new ArrayList<>();
+
     private boolean campo_nombre, campo_apellido_paterno, campo_apellido_materno,
             campo_correo, campo_contrasenia, campo_repertir_contrasenia, campo_calle, campo_numero, campo_codigo_postal, campo_telefono;
 
@@ -32,6 +38,8 @@ public class ControladorEditarDatos implements Initializable {
     private ComboBox<String> Combo_municipio;
     @FXML
     private ComboBox<String> Combo_estado;
+    @FXML
+    private ProgressIndicator IconoCarga;
     int id;
 
     @FXML
@@ -158,8 +166,10 @@ public class ControladorEditarDatos implements Initializable {
 
     @FXML
     public void initialize(URL url, ResourceBundle resourceBundle){
-        Combo_estado.getItems().addAll("Estado de México");
-        Combo_municipio.getItems().addAll("Tenango", "Metepec", "Toluca");
+        _estados = controladorBD.devolverEstados();
+        Combo_estado.getItems().addAll(FXCollections.observableArrayList(_estados));
+        Combo_municipio.setPromptText("Selecciona un estado");
+        IconoCarga.setVisible(false);
 
         Campo_nombre.setTextFormatter(new TextFormatter<>(change -> {
             String newText = change.getControlNewText();
@@ -268,6 +278,32 @@ public class ControladorEditarDatos implements Initializable {
         Campo_telefono.setText(telefono);
         Campo_codigo_postal.setText(cp);
 
+    }
+
+    @FXML
+    void mostrarMunicipio(){
+        _municipios.clear();
+        Combo_municipio.getItems().clear();
+        Combo_municipio.setPromptText("Selecciona un estado");
+        IconoCarga.setVisible(true);
+        IconoCarga.setProgress(-1.0);
+        rootPane.setOpacity(0.5);
+
+        Task<ArrayList<String>> traer_municipios = new Task<ArrayList<String>>() {
+            @Override
+            protected ArrayList<String> call() throws Exception {
+                ArrayList<String> result = controladorBD.devolverMunicipios(Combo_estado.getValue());
+                return result;
+            }
+        };
+        new Thread(traer_municipios).start();
+
+        traer_municipios.setOnSucceeded(event -> {
+            IconoCarga.setVisible(false);
+            rootPane.setOpacity(1.0);
+            _municipios = traer_municipios.getValue();
+            Combo_municipio.getItems().addAll(FXCollections.observableArrayList(_municipios));
+        });
     }
 
     private String retornar_contrasenia(String contraseniaCifrada) throws Exception{
