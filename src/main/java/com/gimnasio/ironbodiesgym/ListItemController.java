@@ -11,7 +11,7 @@ import java.util.ResourceBundle;
 public class ListItemController implements Initializable {
 
     @FXML
-    private Button BotonEditar, BotonEliminar, BotonSuscripcion;
+    private Button BotonEditar, BotonEliminar, BotonSuscripcion,BotonBloqueo;
 
     @FXML
     private Label LabelNombre, LabelCorreo, LabelPlan, LabelFecha;

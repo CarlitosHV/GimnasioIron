@@ -13,16 +13,18 @@
       <ColumnConstraints hgrow="SOMETIMES" maxWidth="394.0" minWidth="10.0" prefWidth="79.0" />
       <ColumnConstraints hgrow="SOMETIMES" maxWidth="394.0" minWidth="10.0" prefWidth="73.0" />
       <ColumnConstraints hgrow="SOMETIMES" maxWidth="394.0" minWidth="10.0" prefWidth="71.0" />
+      <ColumnConstraints hgrow="SOMETIMES" maxWidth="394.0" minWidth="10.0" prefWidth="100.0" />
    </columnConstraints>
    <rowConstraints>
       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+      <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
       <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
    </rowConstraints>
    <children>
-        <Button id="ButtonList" fx:id="BotonEliminar" contentDisplay="GRAPHIC_ONLY" mnemonicParsing="false" prefHeight="27.0" prefWidth="49.0" text="Delete" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="2">
+        <Button id="ButtonList" fx:id="BotonEliminar" contentDisplay="GRAPHIC_ONLY" mnemonicParsing="false" prefHeight="27.0" prefWidth="49.0" text="Delete" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="3">
             <graphic>
                 <ImageView fitHeight="18.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                     <image>
@@ -43,11 +45,11 @@
             <Font name="Roboto Light" size="14.0" />
          </font>
         </Label>
-        <Label id="Labels" fx:id="LabelFecha" maxWidth="1.7976931348623157E308" prefHeight="20.0" prefWidth="380.0" text="Fecha:" GridPane.columnIndex="1" GridPane.rowIndex="3">
+        <Label id="Labels" fx:id="LabelFecha" maxWidth="1.7976931348623157E308" prefHeight="20.0" prefWidth="380.0" text="Fecha:" GridPane.columnIndex="1" GridPane.rowIndex="4">
          <font>
             <Font name="Roboto Light" size="12.0" />
          </font></Label>
-        <Button id="ButtonList" fx:id="BotonEditar" contentDisplay="GRAPHIC_ONLY" mnemonicParsing="false" nodeOrientation="LEFT_TO_RIGHT" onAction="#Editar" prefHeight="26.0" prefWidth="45.0" text="Edit" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="2">
+        <Button id="ButtonList" fx:id="BotonEditar" contentDisplay="GRAPHIC_ONLY" mnemonicParsing="false" nodeOrientation="LEFT_TO_RIGHT" onAction="#Editar" prefHeight="26.0" prefWidth="45.0" text="Edit" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="3">
             <graphic>
                 <ImageView fitHeight="18.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                     <image>
@@ -56,11 +58,11 @@
                 </ImageView>
             </graphic>
         </Button>
-        <Label id="Labels" fx:id="LabelCorreo" maxWidth="1.7976931348623157E308" prefHeight="17.0" prefWidth="400.0" text="Correo:" GridPane.rowIndex="3">
+        <Label id="Labels" fx:id="LabelCorreo" maxWidth="1.7976931348623157E308" prefHeight="17.0" prefWidth="400.0" text="Correo:" GridPane.rowIndex="4">
          <font>
             <Font name="Roboto Light" size="16.0" />
          </font></Label>
-      <Button id="ButtonList" fx:id="BotonSuscripcion" contentDisplay="GRAPHIC_ONLY" layoutX="272.0" layoutY="28.0" mnemonicParsing="false" nodeOrientation="LEFT_TO_RIGHT" prefHeight="26.0" prefWidth="45.0" text="Edit" GridPane.columnIndex="4" GridPane.halignment="CENTER" GridPane.rowIndex="2">
+      <Button id="ButtonList" fx:id="BotonSuscripcion" alignment="CENTER" contentDisplay="GRAPHIC_ONLY" layoutX="272.0" layoutY="28.0" mnemonicParsing="false" nodeOrientation="LEFT_TO_RIGHT" prefHeight="26.0" prefWidth="45.0" text="Edit" GridPane.columnIndex="4" GridPane.halignment="CENTER" GridPane.rowIndex="3">
          <graphic>
             <ImageView fitHeight="18.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -69,5 +71,11 @@
             </ImageView>
          </graphic>
       </Button>
+      <Button fx:id="BotonBloqueo" alignment="CENTER" contentDisplay="GRAPHIC_ONLY" mnemonicParsing="false" text="Bloq" GridPane.columnIndex="5" GridPane.rowIndex="3" />
+      <ImageView fitHeight="20.0" fitWidth="28.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="5" GridPane.rowIndex="3">
+         <image>
+            <Image url="@../../../assets/bloquear.png" />
+         </image>
+      </ImageView>
    </children>
 </GridPane>

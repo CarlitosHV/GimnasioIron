@@ -17,7 +17,7 @@ public class ClienteCell extends ListCell<ClaseClientes> {
     private FXMLLoader fxmlLoader;
     private GridPane fondoItem;
     private Label labelNombre, labelCorreo, labelPlan, labelFecha;
-    private Button botonEditar, botonEliminar, botonSuscripcion;
+    private Button botonEditar, botonEliminar, botonSuscripcion, botonBloqueo;
     private EventHandler<ActionEvent> onItemSelected;
 
     public EventHandler<ActionEvent> getOnItemSelected() {
@@ -40,6 +40,7 @@ public class ClienteCell extends ListCell<ClaseClientes> {
             botonEditar = (Button) fxmlLoader.getNamespace().get("BotonEditar");
             botonEliminar = (Button) fxmlLoader.getNamespace().get("BotonEliminar");
             botonSuscripcion = (Button) fxmlLoader.getNamespace().get("BotonSuscripcion");
+            botonBloqueo = (Button) fxmlLoader.getNamespace().get("BotonBloqueo");
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
