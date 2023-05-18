@@ -25,6 +25,7 @@ public class ControladorEditarDatos implements Initializable {
     //Arreglos que guardan la información de los municipios y estados
     private ArrayList<String> _estados = new ArrayList<>();
     private ArrayList<String> _municipios = new ArrayList<>();
+    private ArrayList<Object> _usuario = new ArrayList<>();
 
     private boolean campo_nombre, campo_apellido_paterno, campo_apellido_materno,
             campo_correo, campo_contrasenia, campo_repertir_contrasenia, campo_calle, campo_numero, campo_codigo_postal, campo_telefono;
@@ -41,6 +42,7 @@ public class ControladorEditarDatos implements Initializable {
     @FXML
     private ProgressIndicator IconoCarga;
     int id;
+    String nom, apaterno, amaterno, correo, contraseña = null, calle, num, telefono, cp;
 
     @FXML
     void Regresar() {
@@ -169,104 +171,27 @@ public class ControladorEditarDatos implements Initializable {
         _estados = controladorBD.devolverEstados();
         Combo_estado.getItems().addAll(FXCollections.observableArrayList(_estados));
         Combo_municipio.setPromptText("Selecciona un estado");
-        IconoCarga.setVisible(false);
-
-        Campo_nombre.setTextFormatter(new TextFormatter<>(change -> {
-            String newText = change.getControlNewText();
-            if (newText.length() > 16) {
-                return null;
-            }
-            return change;
-        }));
-
-        Campo_apellido_paterno.setTextFormatter(new TextFormatter<>(change -> {
-            String newText = change.getControlNewText();
-            if (newText.length() > 10) {
-                return null;
-            }
-            return change;
-        }));
-
-        Campo_apellido_materno.setTextFormatter(new TextFormatter<>(change -> {
-            String newText = change.getControlNewText();
-            if (newText.length() > 10) {
-                return null;
-            }
-            return change;
-        }));
-
-        Campo_correo.setTextFormatter(new TextFormatter<>(change -> {
-            String newText = change.getControlNewText();
-            if (newText.length() > 45) {
-                return null;
-            }
-            return change;
-        }));
-
-        Campo_contrasenia.setTextFormatter(new TextFormatter<>(change -> {
-            String newText = change.getControlNewText();
-            if (newText.length() > 14) {
-                return null;
-            }
-            return change;
-        }));
-
-        Campo_repite_contrasenia.setTextFormatter(new TextFormatter<>(change -> {
-            String newText = change.getControlNewText();
-            if (newText.length() > 14) {
-                return null;
-            }
-            return change;
-        }));
-
-        Campo_calle.setTextFormatter(new TextFormatter<>(change -> {
-            String newText = change.getControlNewText();
-            if (newText.length() > 20) {
-                return null;
-            }
-            return change;
-        }));
-
-        Campo_numero.setTextFormatter(new TextFormatter<>(change -> {
-            String newText = change.getControlNewText();
-            if (newText.length() > 5) {
-                return null;
-            }
-            return change;
-        }));
-
-        Campo_codigo_postal.setTextFormatter(new TextFormatter<>(change -> {
-            String newText = change.getControlNewText();
-            if (newText.length() > 5) {
-                return null;
-            }
-            return change;
-        }));
-
-        Campo_telefono.setTextFormatter(new TextFormatter<>(change -> {
-            String newText = change.getControlNewText();
-            if (newText.length() > 10) {
-                return null;
-            }
-            return change;
-        }));
-
-
-        id = (int) ControladorLogin.loginuser.get(15);
-        String nom = ControladorLogin.loginuser.get(0).toString();
-        String apaterno = ControladorLogin.loginuser.get(1).toString();
-        String amaterno = ControladorLogin.loginuser.get(2).toString();
-        String correo = ControladorLogin.loginuser.get(3).toString();
-        String contraseña = null;
+        if (ControladorMenuAdmin.DESDE_MENU_ADMIN){
+            _usuario = controladorBD.loginUsuario(ControladorMenuAdmin.CORREO_USUARIO);
+        }else{
+            _usuario = controladorBD.loginUsuario(ControladorLogin.loginuser.get(3).toString());
+        }
+        ControladorCrearUsuario.codigoduplicado(IconoCarga, Campo_nombre, Campo_apellido_paterno, Campo_apellido_materno);
+        ControladorCrearUsuario.TextFormatter(Campo_correo, Campo_contrasenia, Campo_repite_contrasenia, Campo_calle, Campo_numero, Campo_codigo_postal, Campo_telefono);
+        id = (int) _usuario.get(15);
+        nom = _usuario.get(0).toString();
+        apaterno = _usuario.get(1).toString();
+        amaterno = _usuario.get(2).toString();
+        correo = _usuario.get(3).toString();
         try {
-            contraseña = retornar_contrasenia(ControladorLogin.loginuser.get(4).toString());
+            contraseña = retornar_contrasenia(_usuario.get(4).toString());
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
-        String calle = ControladorLogin.loginuser.get(8).toString();
-        String num = ControladorLogin.loginuser.get(9).toString();
-        String telefono = ControladorLogin.loginuser.get(5).toString();
-        String cp = ControladorLogin.loginuser.get(16).toString();
+        calle = _usuario.get(8).toString();
+        num = _usuario.get(9).toString();
+        telefono = _usuario.get(5).toString();
+        String cp = _usuario.get(16).toString();
         Campo_nombre.setText(nom);
         Campo_apellido_paterno.setText(apaterno);
         Campo_apellido_materno.setText(amaterno);
@@ -312,15 +237,7 @@ public class ControladorEditarDatos implements Initializable {
     }
 
     private void insertarClaseUsuario() throws Exception {
-        claseUsuario.setNombre(Campo_nombre.getText());
-        claseUsuario.setApellido_paterno(Campo_apellido_paterno.getText());
-        claseUsuario.setApellido_materno(Campo_apellido_materno.getText());
-        claseUsuario.setCorreo(Campo_correo.getText());
-        String contra = ControladorCifrarContrasena.encript(Campo_contrasenia.getText());
-        claseUsuario.setContrasenia(contra);
-        String telefonostring = Campo_telefono.getText();
-        BigInteger telefono = new BigInteger(telefonostring);
-        claseUsuario.setTelefono(telefono);
+        ControladorCrearUsuario.LlenarClase(claseUsuario, Campo_nombre, Campo_apellido_paterno, Campo_apellido_materno, Campo_correo, Campo_contrasenia, Campo_telefono);
         claseUsuario.setCalle(Campo_calle.getText());
         claseUsuario.setNumero(Integer.parseInt(Campo_numero.getText()));
         claseUsuario.setCodigo_postal(Integer.parseInt(Campo_codigo_postal.getText()));

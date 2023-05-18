@@ -1,20 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.ColumnConstraints?>
-<?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
-<GridPane fx:id="fondoItem" prefHeight="68.0" prefWidth="468.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1">
+<GridPane fx:id="fondoItem" prefHeight="68.0" prefWidth="468.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.gimnasio.ironbodiesgym.ListItemController">
    <columnConstraints>
-      <ColumnConstraints hgrow="SOMETIMES" maxWidth="247.0" minWidth="10.0" prefWidth="246.0" />
-      <ColumnConstraints hgrow="SOMETIMES" maxWidth="394.0" minWidth="10.0" prefWidth="111.0" />
+      <ColumnConstraints hgrow="SOMETIMES" maxWidth="247.0" minWidth="10.0" prefWidth="179.0" />
+      <ColumnConstraints hgrow="SOMETIMES" maxWidth="394.0" minWidth="10.0" prefWidth="119.0" />
       <ColumnConstraints hgrow="SOMETIMES" maxWidth="394.0" minWidth="10.0" prefWidth="79.0" />
-      <ColumnConstraints hgrow="SOMETIMES" maxWidth="394.0" minWidth="10.0" prefWidth="78.0" />
+      <ColumnConstraints hgrow="SOMETIMES" maxWidth="394.0" minWidth="10.0" prefWidth="73.0" />
+      <ColumnConstraints hgrow="SOMETIMES" maxWidth="394.0" minWidth="10.0" prefWidth="71.0" />
    </columnConstraints>
    <rowConstraints>
       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
@@ -24,7 +22,7 @@
       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
    </rowConstraints>
    <children>
-        <Button id="ButtonCancel" fx:id="BotonEliminar" contentDisplay="GRAPHIC_ONLY" mnemonicParsing="false" prefHeight="27.0" prefWidth="49.0" text="Delete" GridPane.columnIndex="3" GridPane.rowIndex="2">
+        <Button id="ButtonList" fx:id="BotonEliminar" contentDisplay="GRAPHIC_ONLY" mnemonicParsing="false" prefHeight="27.0" prefWidth="49.0" text="Delete" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="2">
             <graphic>
                 <ImageView fitHeight="18.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                     <image>
@@ -33,14 +31,23 @@
                 </ImageView>
             </graphic>
         </Button>
-        <Label id="Labels" fx:id="LabelNombre" maxWidth="1.7976931348623157E308" prefHeight="17.0" prefWidth="400.0" text="Nombre:" GridPane.rowIndex="1" />
+        <Label id="Labels" fx:id="LabelNombre" maxWidth="1.7976931348623157E308" prefHeight="17.0" prefWidth="400.0" text="Nombre:" GridPane.rowIndex="1">
+         <font>
+            <Font name="Roboto Light" size="16.0" />
+         </font></Label>
         <Label id="Labels" fx:id="LabelPlan" maxWidth="1.7976931348623157E308" prefHeight="17.0" prefWidth="400.0" text="Plan:" GridPane.columnIndex="1" GridPane.rowIndex="1">
             <padding>
                 <Insets right="45.0" />
             </padding>
+         <font>
+            <Font name="Roboto Light" size="14.0" />
+         </font>
         </Label>
-        <Label id="Labels" fx:id="LabelFecha" maxWidth="1.7976931348623157E308" prefHeight="20.0" prefWidth="380.0" text="Fecha:" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-        <Button id="ButtonEdit" fx:id="BotonEditar" contentDisplay="GRAPHIC_ONLY" mnemonicParsing="false" nodeOrientation="LEFT_TO_RIGHT" prefHeight="26.0" prefWidth="45.0" text="Edit" GridPane.columnIndex="2" GridPane.rowIndex="2">
+        <Label id="Labels" fx:id="LabelFecha" maxWidth="1.7976931348623157E308" prefHeight="20.0" prefWidth="380.0" text="Fecha:" GridPane.columnIndex="1" GridPane.rowIndex="3">
+         <font>
+            <Font name="Roboto Light" size="12.0" />
+         </font></Label>
+        <Button id="ButtonList" fx:id="BotonEditar" contentDisplay="GRAPHIC_ONLY" mnemonicParsing="false" nodeOrientation="LEFT_TO_RIGHT" onAction="#Editar" prefHeight="26.0" prefWidth="45.0" text="Edit" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="2">
             <graphic>
                 <ImageView fitHeight="18.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                     <image>
@@ -49,6 +56,18 @@
                 </ImageView>
             </graphic>
         </Button>
-        <Label id="Labels" fx:id="LabelCorreo" maxWidth="1.7976931348623157E308" prefHeight="17.0" prefWidth="400.0" text="Correo:" GridPane.rowIndex="3" />
+        <Label id="Labels" fx:id="LabelCorreo" maxWidth="1.7976931348623157E308" prefHeight="17.0" prefWidth="400.0" text="Correo:" GridPane.rowIndex="3">
+         <font>
+            <Font name="Roboto Light" size="16.0" />
+         </font></Label>
+      <Button id="ButtonList" fx:id="BotonSuscripcion" contentDisplay="GRAPHIC_ONLY" layoutX="272.0" layoutY="28.0" mnemonicParsing="false" nodeOrientation="LEFT_TO_RIGHT" prefHeight="26.0" prefWidth="45.0" text="Edit" GridPane.columnIndex="4" GridPane.halignment="CENTER" GridPane.rowIndex="2">
+         <graphic>
+            <ImageView fitHeight="18.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../../assets/addsusc.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
    </children>
 </GridPane>

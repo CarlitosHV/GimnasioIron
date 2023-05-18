@@ -18,9 +18,14 @@ public class ControladorMenuAdmin implements Initializable {
     @FXML
     private ListView<ClaseClientes> ListView;
 
+    public static String CORREO_USUARIO;
+    public static boolean DESDE_MENU_ADMIN = false;
+
     ControladorTransiciones transiciones = new ControladorTransiciones();
     IndexApp indexApp = new IndexApp();
     ControladorBD bd = new ControladorBD();
+
+
 
 
     /*
@@ -55,7 +60,19 @@ public class ControladorMenuAdmin implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         _clientes = bd.devolverClientes();
-        ListView.setCellFactory(lv -> new ClienteCell());
+        ListView.setCellFactory(lv -> {
+            ClienteCell cell = new ClienteCell();
+            cell.setOnItemSelected(event -> {
+                ClaseClientes clienteSeleccionado = (ClaseClientes) event.getSource();
+                CORREO_USUARIO = clienteSeleccionado.getCorreo();
+                if (CORREO_USUARIO != null){
+                    DESDE_MENU_ADMIN = true;
+                    transiciones.CrearAnimacionFade(500, rootPane, View.EDITAR);
+                }
+            });
+
+            return cell;
+        });
         ListView.setItems(FXCollections.observableArrayList(_clientes));
     }
 }

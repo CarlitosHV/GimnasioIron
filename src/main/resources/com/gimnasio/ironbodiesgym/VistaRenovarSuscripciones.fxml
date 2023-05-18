@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="Fondo" prefHeight="312.0" prefWidth="455.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.gimnasio.ironbodiesgym.ControladorRenovarSuscripciones">
+<AnchorPane id="Fondo" prefHeight="312.0" prefWidth="455.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.gimnasio.ironbodiesgym.ControladorRenovarSuscripciones">
    <children>
       <AnchorPane id="Fondo2" prefHeight="60.0" prefWidth="455.0">
          <children>

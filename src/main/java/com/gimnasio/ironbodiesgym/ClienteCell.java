@@ -1,12 +1,15 @@
 package com.gimnasio.ironbodiesgym;
 
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
 
+
+import javafx.event.Event;
 import java.io.IOException;
 
 public class ClienteCell extends ListCell<ClaseClientes> {
@@ -14,7 +17,16 @@ public class ClienteCell extends ListCell<ClaseClientes> {
     private FXMLLoader fxmlLoader;
     private GridPane fondoItem;
     private Label labelNombre, labelCorreo, labelPlan, labelFecha;
-    private Button botonEditar, botonEliminar;
+    private Button botonEditar, botonEliminar, botonSuscripcion;
+    private EventHandler<ActionEvent> onItemSelected;
+
+    public EventHandler<ActionEvent> getOnItemSelected() {
+        return onItemSelected;
+    }
+
+    public void setOnItemSelected(EventHandler<ActionEvent> onItemSelected) {
+        this.onItemSelected = onItemSelected;
+    }
 
     public ClienteCell() {
         super();
@@ -27,10 +39,12 @@ public class ClienteCell extends ListCell<ClaseClientes> {
             labelFecha = (Label) fxmlLoader.getNamespace().get("LabelFecha");
             botonEditar = (Button) fxmlLoader.getNamespace().get("BotonEditar");
             botonEliminar = (Button) fxmlLoader.getNamespace().get("BotonEliminar");
+            botonSuscripcion = (Button) fxmlLoader.getNamespace().get("BotonSuscripcion");
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
     }
+
 
     @Override
     protected void updateItem(ClaseClientes cliente, boolean empty) {
@@ -42,8 +56,19 @@ public class ClienteCell extends ListCell<ClaseClientes> {
             labelNombre.setText(cliente.getNombre());
             labelCorreo.setText(cliente.getCorreo());
             labelPlan.setText("Suscripción: " + cliente.getTipo_suscripcion());
-            labelFecha.setText("Vence: " + String.valueOf(cliente.getFecha_termino()));
+            if (cliente.getFecha_termino() == null){
+                labelFecha.setVisible(false);
+            }else{
+                labelFecha.setText("Vence: " + String.valueOf(cliente.getFecha_termino()));
+            }
             setGraphic(fondoItem);
         }
+
+        botonEditar.setOnAction(event -> {
+            if (getOnItemSelected() != null) {
+                ActionEvent actionEvent = new ActionEvent(cliente, null);
+                getOnItemSelected().handle(actionEvent);
+            }
+        });
     }
 }

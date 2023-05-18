@@ -12,7 +12,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="Fondo" fx:id="rootPane" maxHeight="Infinity" maxWidth="Infinity" minHeight="765.0" minWidth="744.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.gimnasio.ironbodiesgym.ControladorCrearUsuario">
+<AnchorPane id="Fondo" fx:id="rootPane" maxHeight="Infinity" maxWidth="Infinity" minHeight="765.0" minWidth="744.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.gimnasio.ironbodiesgym.ControladorCrearUsuario">
     <children>
       <AnchorPane id="Fondo2" minHeight="-Infinity" prefHeight="90.0" prefWidth="744.0">
          <children>

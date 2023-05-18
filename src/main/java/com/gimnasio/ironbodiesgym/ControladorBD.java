@@ -4,7 +4,6 @@ import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.sql.*;
 import java.util.ArrayList;
-import java.util.Calendar;
 
 public class ControladorBD {
 
@@ -15,7 +14,7 @@ public class ControladorBD {
                                     int numero, int codigo_postal, String municipio, String estado, int edad, String sexo, boolean bloqueado,
                                     boolean estado_suscripcion) {
         try {
-            CallableStatement stmt = null;
+            CallableStatement stmt;
             conn =
                     DriverManager.getConnection("jdbc:mysql://" + IndexApp.servidor + "/" + IndexApp.base_datos + "?" +
                             "user=" + IndexApp.usuario + "&password=" + IndexApp.contrasenia);
@@ -285,7 +284,7 @@ public class ControladorBD {
                 String apellido_paterno = resultSet.getString("apellido_paterno");
                 String apellido_materno = resultSet.getString("apellido_materno");
                 String correo = resultSet.getString("correo");
-                String tipo_suscripcion = resultSet.getString("tipo_suscripcion");
+                String tipo_suscripcion = resultSet.getString("tipo_suscripcion") == null ? "Sin suscripción" : resultSet.getString("tipo_suscripcion");
                 Date fecha_termino = resultSet.getDate("fecha_termino");
 
                 ClaseClientes clientes = new ClaseClientes(id, nombre, apellido_paterno, apellido_materno,
@@ -372,7 +371,7 @@ public class ControladorBD {
                                     String contrasenia, BigInteger telefono,String calle,
                                     int numero, int codigo_postal, String municipio, String estado) {
         try {
-            CallableStatement stmt = null;
+            CallableStatement stmt;
             conn =
                     DriverManager.getConnection("jdbc:mysql://" + IndexApp.servidor + "/" + IndexApp.base_datos + "?" +
                             "user=" + IndexApp.usuario + "&password=" + IndexApp.contrasenia);

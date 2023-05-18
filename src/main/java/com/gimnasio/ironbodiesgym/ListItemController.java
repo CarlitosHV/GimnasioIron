@@ -11,16 +11,18 @@ import java.util.ResourceBundle;
 public class ListItemController implements Initializable {
 
     @FXML
-    private Button BotonEditar, BotonEliminar;
+    private Button BotonEditar, BotonEliminar, BotonSuscripcion;
 
     @FXML
     private Label LabelNombre, LabelCorreo, LabelPlan, LabelFecha;
 
 
+    @FXML
     void Editar(){
         System.out.println("Haz pulsado el editar");
     }
 
+    @FXML
     void Eliminar(){
         System.out.println("Haz pulsado el eliminar");
     }

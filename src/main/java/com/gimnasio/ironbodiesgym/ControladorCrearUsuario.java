@@ -9,15 +9,12 @@ import javafx.scene.layout.AnchorPane;
 
 import java.math.BigInteger;
 import java.net.URL;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 public class ControladorCrearUsuario implements Initializable {
 
 
-    //Arreglos que guardan la información de los municipios y estados
-    private ArrayList<String> _estados = new ArrayList<>();
     private ArrayList<String> _municipios = new ArrayList<>();
 
 
@@ -54,35 +51,12 @@ public class ControladorCrearUsuario implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        _estados = controladorBD.devolverEstados();
+        //Arreglos que guardan la información de los municipios y estados
+        ArrayList<String> _estados = controladorBD.devolverEstados();
         Combo_estado.getItems().addAll(FXCollections.observableArrayList(_estados));
         Combo_municipio.setPromptText("Selecciona un estado");
         Combo_sexo.getItems().addAll("M", "F");
-        IconoCarga.setVisible(false);
-
-        Campo_nombre.setTextFormatter(new TextFormatter<>(change -> {
-            String newText = change.getControlNewText();
-            if (newText.length() > 16) {
-                return null;
-            }
-            return change;
-        }));
-
-        Campo_apellido_paterno.setTextFormatter(new TextFormatter<>(change -> {
-            String newText = change.getControlNewText();
-            if (newText.length() > 10) {
-                return null;
-            }
-            return change;
-        }));
-
-        Campo_apellido_materno.setTextFormatter(new TextFormatter<>(change -> {
-            String newText = change.getControlNewText();
-            if (newText.length() > 10) {
-                return null;
-            }
-            return change;
-        }));
+        codigoduplicado(IconoCarga, Campo_nombre, Campo_apellido_paterno, Campo_apellido_materno);
 
         Campo_edad.setTextFormatter(new TextFormatter<>(change -> {
             String newText = change.getControlNewText();
@@ -92,7 +66,12 @@ public class ControladorCrearUsuario implements Initializable {
             return change;
         }));
 
-        Campo_correo.setTextFormatter(new TextFormatter<>(change -> {
+        TextFormatter(Campo_correo, Campo_contrasenia, Campo_repite_contrasenia, Campo_calle
+                , Campo_numero, Campo_codigo_postal, Campo_telefono);
+    }
+
+    static void TextFormatter(TextField campoCorreo, PasswordField campoContrasenia, PasswordField campoRepiteContrasenia, TextField campoCalle, TextField campoNumero, TextField campoCodigoPostal, TextField campoTelefono) {
+        campoCorreo.setTextFormatter(new TextFormatter<>(change -> {
             String newText = change.getControlNewText();
             if (newText.length() > 45) {
                 return null;
@@ -100,7 +79,7 @@ public class ControladorCrearUsuario implements Initializable {
             return change;
         }));
 
-        Campo_contrasenia.setTextFormatter(new TextFormatter<>(change -> {
+        campoContrasenia.setTextFormatter(new TextFormatter<>(change -> {
             String newText = change.getControlNewText();
             if (newText.length() > 14) {
                 return null;
@@ -108,7 +87,7 @@ public class ControladorCrearUsuario implements Initializable {
             return change;
         }));
 
-        Campo_repite_contrasenia.setTextFormatter(new TextFormatter<>(change -> {
+        campoRepiteContrasenia.setTextFormatter(new TextFormatter<>(change -> {
             String newText = change.getControlNewText();
             if (newText.length() > 14) {
                 return null;
@@ -116,7 +95,7 @@ public class ControladorCrearUsuario implements Initializable {
             return change;
         }));
 
-        Campo_calle.setTextFormatter(new TextFormatter<>(change -> {
+        campoCalle.setTextFormatter(new TextFormatter<>(change -> {
             String newText = change.getControlNewText();
             if (newText.length() > 20) {
                 return null;
@@ -124,7 +103,7 @@ public class ControladorCrearUsuario implements Initializable {
             return change;
         }));
 
-        Campo_numero.setTextFormatter(new TextFormatter<>(change -> {
+        campoNumero.setTextFormatter(new TextFormatter<>(change -> {
             String newText = change.getControlNewText();
             if (newText.length() > 5) {
                 return null;
@@ -132,7 +111,7 @@ public class ControladorCrearUsuario implements Initializable {
             return change;
         }));
 
-        Campo_codigo_postal.setTextFormatter(new TextFormatter<>(change -> {
+        campoCodigoPostal.setTextFormatter(new TextFormatter<>(change -> {
             String newText = change.getControlNewText();
             if (newText.length() > 5) {
                 return null;
@@ -140,7 +119,35 @@ public class ControladorCrearUsuario implements Initializable {
             return change;
         }));
 
-        Campo_telefono.setTextFormatter(new TextFormatter<>(change -> {
+        campoTelefono.setTextFormatter(new TextFormatter<>(change -> {
+            String newText = change.getControlNewText();
+            if (newText.length() > 10) {
+                return null;
+            }
+            return change;
+        }));
+    }
+
+    static void codigoduplicado(ProgressIndicator iconoCarga, TextField campoNombre, TextField campoApellidoPaterno, TextField campoApellidoMaterno) {
+        iconoCarga.setVisible(false);
+
+        campoNombre.setTextFormatter(new TextFormatter<>(change -> {
+            String newText = change.getControlNewText();
+            if (newText.length() > 16) {
+                return null;
+            }
+            return change;
+        }));
+
+        campoApellidoPaterno.setTextFormatter(new TextFormatter<>(change -> {
+            String newText = change.getControlNewText();
+            if (newText.length() > 10) {
+                return null;
+            }
+            return change;
+        }));
+
+        campoApellidoMaterno.setTextFormatter(new TextFormatter<>(change -> {
             String newText = change.getControlNewText();
             if (newText.length() > 10) {
                 return null;
@@ -162,14 +169,14 @@ public class ControladorCrearUsuario implements Initializable {
         IconoCarga.setProgress(-1.0);
         rootPane.setOpacity(0.5);
 
-        Task<ArrayList<String>> traer_municipios = new Task<ArrayList<String>>() {
+        Task<ArrayList<String>> traer_municipios = new Task<>() {
             @Override
-            protected ArrayList<String> call() throws Exception {
-                ArrayList<String> result = controladorBD.devolverMunicipios(Combo_estado.getValue());
-                return result;
+            protected ArrayList<String> call() {
+                return controladorBD.devolverMunicipios(Combo_estado.getValue());
             }
         };
         new Thread(traer_municipios).start();
+
 
         traer_municipios.setOnSucceeded(event -> {
             IconoCarga.setVisible(false);
@@ -339,15 +346,8 @@ public class ControladorCrearUsuario implements Initializable {
     }
 
     private void insertarClaseUsuario() throws Exception {
-        claseUsuario.setNombre(Campo_nombre.getText());
-        claseUsuario.setApellido_paterno(Campo_apellido_paterno.getText());
-        claseUsuario.setApellido_materno(Campo_apellido_materno.getText());
-        claseUsuario.setCorreo(Campo_correo.getText());
-        String contra = ControladorCifrarContrasena.encript(Campo_contrasenia.getText());
-        claseUsuario.setContrasenia(contra);
-        String telefonostring = Campo_telefono.getText();
-        BigInteger telefono = new BigInteger(telefonostring);
-        claseUsuario.setTelefono(telefono);
+        LlenarClase(claseUsuario, Campo_nombre, Campo_apellido_paterno, Campo_apellido_materno,
+                Campo_correo, Campo_contrasenia, Campo_telefono);
         claseUsuario.setUsuario_administrador(false);
         claseUsuario.setCalle(Campo_calle.getText());
         claseUsuario.setNumero(Integer.parseInt(Campo_numero.getText()));
@@ -358,6 +358,18 @@ public class ControladorCrearUsuario implements Initializable {
         claseUsuario.setSexo(String.valueOf(Combo_sexo.getValue()));
         claseUsuario.setBloqueado(false);
         claseUsuario.setEstado_suscripcion(false);
+    }
+
+    static void LlenarClase(ClaseUsuario claseUsuario, TextField campoNombre, TextField campoApellidoPaterno, TextField campoApellidoMaterno, TextField campoCorreo, PasswordField campoContrasenia, TextField campoTelefono) throws Exception {
+        claseUsuario.setNombre(campoNombre.getText());
+        claseUsuario.setApellido_paterno(campoApellidoPaterno.getText());
+        claseUsuario.setApellido_materno(campoApellidoMaterno.getText());
+        claseUsuario.setCorreo(campoCorreo.getText());
+        String contra = ControladorCifrarContrasena.encript(campoContrasenia.getText());
+        claseUsuario.setContrasenia(contra);
+        String telefonostring = campoTelefono.getText();
+        BigInteger telefono = new BigInteger(telefonostring);
+        claseUsuario.setTelefono(telefono);
     }
 
 

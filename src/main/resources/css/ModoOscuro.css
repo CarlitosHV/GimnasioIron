@@ -124,3 +124,32 @@
 #Boton_Modo:pressed{
     -fx-background-color: #595b5d;
 }
+
+#fondoItem{
+    -fx-background-color: #2b2b2b;
+}
+
+#ButtonList{
+    --fx-background-radius: 50;
+    -fx-border-radius: 50;
+    -fx-effect: dropshadow( gaussian , rgba(0,0,0,0.2) , 10,0,0,1 );
+    -fx-background-color: #2b2b2b;
+    -fx-border-color: transparent;
+    -fx-image-rendering: optimizeQuality;
+    -fx-smooth: true;
+    -fx-background-size: 70% 80%;
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: center;
+}
+
+#ButtonList:hover {
+    -fx-background-color: #beb5b5;
+}
+
+#ListViews .list-cell{
+    -fx-background-color: #2b2b2b;
+}
+
+#ListViews .list-cell:hover{
+    -fx-background-color: rgba(190, 189, 189, 0.56);
+}
