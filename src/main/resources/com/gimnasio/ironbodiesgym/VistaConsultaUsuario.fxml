@@ -25,7 +25,7 @@
       <AnchorPane id="Fondo2" prefHeight="200.0" prefWidth="200.0" GridPane.columnSpan="6" />
       <Label id="Labels" fx:id="LabelNombre" prefHeight="17.0" prefWidth="293.0" text="Label" GridPane.columnIndex="3" GridPane.columnSpan="2" GridPane.halignment="LEFT" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
       <Label id="Labels" fx:id="LabelCorreo" prefHeight="17.0" prefWidth="298.0" text="Label" GridPane.columnIndex="3" GridPane.columnSpan="2" GridPane.halignment="LEFT" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
-      <Label id="Labels" fx:id="LabelDireccion" prefHeight="17.0" prefWidth="293.0" text="Label" GridPane.columnIndex="3" GridPane.columnSpan="2" GridPane.halignment="LEFT" GridPane.rowIndex="3" GridPane.valignment="CENTER" />
+      <Label id="Labels" fx:id="LabelDireccion" prefHeight="17.0" prefWidth="389.0" text="Label" GridPane.columnIndex="3" GridPane.columnSpan="3" GridPane.halignment="LEFT" GridPane.rowIndex="3" GridPane.valignment="CENTER" />
       <Label id="Labels" fx:id="LabelEdad" prefHeight="17.0" prefWidth="177.0" text="Label" GridPane.columnIndex="3" GridPane.rowIndex="4" />
       <Label id="Labels" fx:id="LabelSexo" text="Label" GridPane.columnIndex="4" GridPane.halignment="RIGHT" GridPane.rowIndex="4" />
       <Label id="Labels" fx:id="LabelTelefono" prefHeight="17.0" prefWidth="163.0" text="Label" GridPane.columnIndex="3" GridPane.rowIndex="5" />
