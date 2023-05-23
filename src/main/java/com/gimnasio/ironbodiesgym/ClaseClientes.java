@@ -11,12 +11,13 @@ public class ClaseClientes {
     public String correo;
     public String tipo_suscripcion;
     public Date fecha_termino;
+    public Boolean bloqueado;
 
     public ClaseClientes() {
     }
 
     public ClaseClientes(int id_usuario, String nombre, String apellido_paterno, String apellido_materno,
-                         String correo, String tipo_suscripcion, Date fecha_termino) {
+                         String correo, String tipo_suscripcion, Date fecha_termino, Boolean bloqueado) {
         this.id_usuario = id_usuario;
         this.nombre = nombre;
         this.apellido_paterno = apellido_paterno;
@@ -24,6 +25,15 @@ public class ClaseClientes {
         this.correo = correo;
         this.tipo_suscripcion = tipo_suscripcion;
         this.fecha_termino = fecha_termino;
+        this.bloqueado = bloqueado;
+    }
+
+    public Boolean getBloqueado() {
+        return bloqueado;
+    }
+
+    public void setBloqueado(Boolean bloqueado) {
+        this.bloqueado = bloqueado;
     }
 
     public int getId_usuario() {

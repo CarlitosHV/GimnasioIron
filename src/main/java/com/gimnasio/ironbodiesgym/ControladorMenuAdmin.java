@@ -2,9 +2,10 @@ package com.gimnasio.ironbodiesgym;
 
 
 import javafx.collections.FXCollections;
+import javafx.concurrent.Task;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.ListView;
+import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
 
 import java.net.URL;
@@ -17,6 +18,14 @@ public class ControladorMenuAdmin implements Initializable {
     private GridPane rootPane;
     @FXML
     private ListView<ClaseClientes> ListView;
+    @FXML
+    private TextField Buscador;
+    @FXML
+    private Button Boton_buscar;
+    @FXML
+    private ProgressIndicator IconoCarga;
+    @FXML
+    private Label LabelAgregar;
 
     public static String CORREO_USUARIO;
     public static boolean DESDE_MENU_ADMIN = false;
@@ -57,22 +66,74 @@ public class ControladorMenuAdmin implements Initializable {
         }
     }
 
+    void buscar(String palabra){
+        IconoCarga.setVisible(true);
+        IconoCarga.setProgress(-1.0);
+
+        Task<ArrayList<ClaseClientes>> traer_busqueda = new Task<ArrayList<ClaseClientes>>() {
+            @Override
+            protected ArrayList<ClaseClientes> call() throws Exception {
+                return bd.buscarClientes(palabra);
+            }
+        };
+
+        new Thread(traer_busqueda).start();
+
+
+        traer_busqueda.setOnSucceeded(event -> {
+            Buscador.setEditable(true);
+            IconoCarga.setVisible(false);
+            if (!_clientes.isEmpty()){
+                _clientes.clear();
+            }
+            ListView.getItems().clear();
+            _clientes = traer_busqueda.getValue();
+            ListView.setItems(FXCollections.observableArrayList(_clientes));
+        });
+
+        if(traer_busqueda.isRunning()){
+            Buscador.setEditable(false);
+        }
+
+    }
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         _clientes = bd.devolverClientes();
+        IconoCarga.setVisible(false);
         ListView.setCellFactory(lv -> {
             ClienteCell cell = new ClienteCell();
             cell.setOnItemSelected(event -> {
                 ClaseClientes clienteSeleccionado = (ClaseClientes) event.getSource();
                 CORREO_USUARIO = clienteSeleccionado.getCorreo();
                 if (CORREO_USUARIO != null){
-                    DESDE_MENU_ADMIN = true;
+                    ControladorEditarDatos.ADMINISTRADOR = true;
                     transiciones.CrearAnimacionFade(500, rootPane, View.EDITAR);
                 }
             });
-
             return cell;
         });
         ListView.setItems(FXCollections.observableArrayList(_clientes));
+
+
+        Boton_buscar.setOnAction(actionEvent -> buscar(Buscador.getText()));
+
+        Buscador.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue.length() > 0){
+                buscar(newValue);
+            }else{
+                if (!_clientes.isEmpty()){
+                    _clientes.clear();
+                }
+                ListView.getItems().clear();
+                _clientes = bd.devolverClientes();
+                ListView.setItems(FXCollections.observableArrayList(_clientes));
+            }
+        });
+
+        LabelAgregar.setOnMouseClicked(evt -> {
+            ControladorCrearUsuario.ADMINISTRADOR = true;
+            transiciones.CrearAnimacionFade(500, rootPane, View.CREAR_USUARIO);
+        });
     }
 }
