@@ -28,8 +28,11 @@ public class ControladorRenovarSuscripciones implements Initializable {
     ControladorAlertas alertas = new ControladorAlertas();
     LocalDate fecha_inicio = LocalDate.now();
     LocalDate fecha_termino;
-    int id = (int) ControladorLogin.loginuser.get(15);
+    int id;
     float pago;
+
+    public static boolean ADMINISTRADOR;
+    public static String Correo;
 
     @FXML
     void mostrar_meses() {
@@ -94,7 +97,13 @@ public class ControladorRenovarSuscripciones implements Initializable {
 
     @FXML
     void Regresar() {
-        transiciones.CrearAnimacionFade(500, rootPane, View.MENU_USUARIO);
+        if (ADMINISTRADOR){
+            ADMINISTRADOR = false;
+            Correo = "";
+            transiciones.CrearAnimacionFade(500, rootPane, View.MENU_ADMINISTRADOR);
+        }else{
+            transiciones.CrearAnimacionFade(500, rootPane, View.MENU_USUARIO);
+        }
     }
 
     @FXML
@@ -103,7 +112,13 @@ public class ControladorRenovarSuscripciones implements Initializable {
         if (!ComboPlanes.getValue().equals("Selecciona") && !ComboTiempo.getValue().equals("Selecciona")){
             boolean creada = bd.insertar_suscripcion(id, plan, Date.valueOf(fecha_inicio), Date.valueOf(fecha_termino), pago);
             if (creada){
-                alertas.CrearAlerta(ControladorAlertas.ALERTA_SUSCRIPCION_CREADA, rootPane);
+                if (ADMINISTRADOR){
+                    ADMINISTRADOR = false;
+                    Correo = "";
+                    alertas.CrearAlerta(ControladorAlertas.ALERTA_SUSCRIPCION_CREADA_ADMIN, rootPane);
+                }else{
+                    alertas.CrearAlerta(ControladorAlertas.ALERTA_SUSCRIPCION_CREADA, rootPane);
+                }
             }else{
                 alertas.CrearAlerta(ControladorAlertas.ALERTA_ERROR_BD, rootPane);
             }
@@ -116,5 +131,10 @@ public class ControladorRenovarSuscripciones implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         planes = bd.devolverPlanes();
         ComboPlanes.getItems().addAll(planes);
+        if (ADMINISTRADOR){
+            id = bd.devolverId(Correo);
+        }else{
+            id = (int) ControladorLogin.loginuser.get(15);
+        }
     }
 }

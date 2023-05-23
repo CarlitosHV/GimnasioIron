@@ -181,6 +181,69 @@ public class ControladorBD {
         }
     }
 
+    public boolean bloquearUsuario(int id_usuario) {
+        try {
+            Connection conn = DriverManager.getConnection("jdbc:mysql://" + IndexApp.servidor + "/" + IndexApp.base_datos + "?" +
+                    "user=" + IndexApp.usuario + "&password=" + IndexApp.contrasenia);
+
+            CallableStatement stmt = conn.prepareCall("{call bloquear_cliente(?)}");
+            stmt.setInt(1, id_usuario);
+            boolean resultado = stmt.executeUpdate() > 0;
+
+            stmt.close();
+            conn.close();
+
+            return resultado;
+        } catch (SQLException ex) {
+            System.out.println("SQLException: " + ex.getMessage());
+            System.out.println("SQLState: " + ex.getSQLState());
+            System.out.println("VendorError: " + ex.getErrorCode());
+            return false;
+        }
+    }
+
+    public boolean desbloquearUsuario(int id_usuario) {
+        try {
+            Connection conn = DriverManager.getConnection("jdbc:mysql://" + IndexApp.servidor + "/" + IndexApp.base_datos + "?" +
+                    "user=" + IndexApp.usuario + "&password=" + IndexApp.contrasenia);
+
+            CallableStatement stmt = conn.prepareCall("{call desbloquear_cliente(?)}");
+            stmt.setInt(1, id_usuario);
+            boolean resultado = stmt.executeUpdate() > 0;
+
+            stmt.close();
+            conn.close();
+
+            return resultado;
+        } catch (SQLException ex) {
+            System.out.println("SQLException: " + ex.getMessage());
+            System.out.println("SQLState: " + ex.getSQLState());
+            System.out.println("VendorError: " + ex.getErrorCode());
+            return false;
+        }
+    }
+
+    public boolean eliminarUsuario(int id_usuario) {
+        try {
+            Connection conn = DriverManager.getConnection("jdbc:mysql://" + IndexApp.servidor + "/" + IndexApp.base_datos + "?" +
+                    "user=" + IndexApp.usuario + "&password=" + IndexApp.contrasenia);
+
+            CallableStatement stmt = conn.prepareCall("{call eliminar_usuario(?)}");
+            stmt.setInt(1, id_usuario);
+            boolean resultado = stmt.executeUpdate() > 0;
+
+            stmt.close();
+            conn.close();
+
+            return resultado;
+        } catch (SQLException ex) {
+            System.out.println("SQLException: " + ex.getMessage());
+            System.out.println("SQLState: " + ex.getSQLState());
+            System.out.println("VendorError: " + ex.getErrorCode());
+            return false;
+        }
+    }
+
     public ArrayList<String> devolverPlanes(){
         try {
             ArrayList<String> planes = new ArrayList<>();
@@ -286,9 +349,52 @@ public class ControladorBD {
                 String correo = resultSet.getString("correo");
                 String tipo_suscripcion = resultSet.getString("tipo_suscripcion") == null ? "Sin suscripción" : resultSet.getString("tipo_suscripcion");
                 Date fecha_termino = resultSet.getDate("fecha_termino");
+                Boolean bloqueado = resultSet.getBoolean("bloqueado");
 
                 ClaseClientes clientes = new ClaseClientes(id, nombre, apellido_paterno, apellido_materno,
-                        correo, tipo_suscripcion, fecha_termino);
+                        correo, tipo_suscripcion, fecha_termino, bloqueado);
+
+                _informacion.add(clientes);
+
+            }
+
+            stmt.close();
+            conn.close();
+            return _informacion;
+        } catch (SQLException ex) {
+            System.out.println("SQLException: " + ex.getMessage());
+            System.out.println("SQLState: " + ex.getSQLState());
+            System.out.println("VendorError: " + ex.getErrorCode());
+            return null;
+        }
+    }
+
+    public ArrayList<ClaseClientes> buscarClientes(String palabra){
+        ArrayList<ClaseClientes> _informacion = new ArrayList<>();
+        try {
+            conn =
+                    DriverManager.getConnection("jdbc:mysql://" + IndexApp.servidor + "/" + IndexApp.base_datos + "?" +
+                            "user=" + IndexApp.usuario + "&password=" + IndexApp.contrasenia);
+
+            CallableStatement stmt = conn.prepareCall("{call buscar_avanzado(?)}");
+            stmt.setString(1, palabra);
+
+            stmt.execute();
+
+            ResultSet resultSet = stmt.getResultSet();
+
+            while (resultSet.next()){
+                int id = resultSet.getInt("id_usuario");
+                String nombre = resultSet.getString("nombre");
+                String apellido_paterno = resultSet.getString("apellido_paterno");
+                String apellido_materno = resultSet.getString("apellido_materno");
+                String correo = resultSet.getString("correo");
+                String tipo_suscripcion = resultSet.getString("tipo_suscripcion") == null ? "Sin suscripción" : resultSet.getString("tipo_suscripcion");
+                Date fecha_termino = resultSet.getDate("fecha_termino");
+                Boolean bloqueado = resultSet.getBoolean("bloqueado");
+
+                ClaseClientes clientes = new ClaseClientes(id, nombre, apellido_paterno, apellido_materno,
+                        correo, tipo_suscripcion, fecha_termino, bloqueado);
 
                 _informacion.add(clientes);
 
@@ -402,6 +508,37 @@ public class ControladorBD {
             System.out.println("VendorError: " + ex.getErrorCode());
             return false;
         }
+    }
+
+    public int devolverId(String correo){
+        int idUsuario = -1;
+        try {
+            CallableStatement stmt;
+            conn =
+                    DriverManager.getConnection("jdbc:mysql://" + IndexApp.servidor + "/" + IndexApp.base_datos + "?" +
+                            "user=" + IndexApp.usuario + "&password=" + IndexApp.contrasenia);
+
+            String sql = "{call traer_id_usuario (?)}";
+            stmt = conn.prepareCall(sql);
+
+            stmt.setString(1, correo);
+
+            ResultSet resultSet = stmt.executeQuery();
+
+            if (resultSet.next()) {
+                idUsuario = resultSet.getInt("id_usuario");
+            }
+
+
+            stmt.close();
+            conn.close();
+        }catch(SQLException ex){
+            System.out.println("SQLException: " + ex.getMessage());
+            System.out.println("SQLState: " + ex.getSQLState());
+            System.out.println("VendorError: " + ex.getErrorCode());
+        }
+
+        return idUsuario;
     }
 
 }

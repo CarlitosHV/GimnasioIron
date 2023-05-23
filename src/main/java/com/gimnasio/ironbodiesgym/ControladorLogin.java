@@ -3,16 +3,20 @@ package com.gimnasio.ironbodiesgym;
 import javafx.animation.FadeTransition;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
 import javafx.scene.layout.AnchorPane;
 import javafx.util.Duration;
 
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Objects;
+import java.util.ResourceBundle;
 
-public class ControladorLogin {
+public class ControladorLogin implements Initializable {
 
     public static String correo;
     public static String contraseniadecifrada;
@@ -71,7 +75,23 @@ public class ControladorLogin {
                 alertas.CrearAlerta(ControladorAlertas.ALERTA_USUARIO_INVALIDO, rootPane);
             }
         }else{
+            Campo_contra.setText("");
+            Campo_correo.setText("");
             alertas.CrearAlerta(ControladorAlertas.ALERTA_USUARIO_BLOQUEADO, rootPane);
         }
+
+    }
+
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        Campo_contra.setOnKeyPressed(keyEvent -> {
+            if (keyEvent.getCode() == KeyCode.ENTER){
+                try {
+                    camposValidos();
+                } catch (Exception e) {
+                    throw new RuntimeException(e);
+                }
+            }
+        });
     }
 }

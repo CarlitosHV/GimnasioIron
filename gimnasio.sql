@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1:3306
--- Tiempo de generación: 14-05-2023 a las 02:50:53
+-- Tiempo de generación: 23-05-2023 a las 02:18:04
 -- Versión del servidor: 8.0.31
 -- Versión de PHP: 8.0.26
 
@@ -102,6 +102,35 @@ CREATE DEFINER=`AdminGimnasio`@`%` PROCEDURE `actualizar_usuario` (IN `p_id_usua
         id_usuario = p_id_usuario;
 END$$
 
+DROP PROCEDURE IF EXISTS `bloquear_cliente`$$
+CREATE DEFINER=`AdminGimnasio`@`%` PROCEDURE `bloquear_cliente` (IN `id_cliente` INT)   BEGIN
+    UPDATE USUARIOS SET bloqueado = true WHERE USUARIOS.id_usuario = id_cliente;
+END$$
+
+DROP PROCEDURE IF EXISTS `buscar_avanzado`$$
+CREATE DEFINER=`AdminGimnasio`@`%` PROCEDURE `buscar_avanzado` (IN `p_palabra` VARCHAR(50))   BEGIN
+    SELECT 
+    u.id_usuario,
+    n.nombre as nombre,
+    n.apellido_paterno as apellido_paterno,
+    n.apellido_materno as apellido_materno,
+    u.correo,
+    ts.nombre as tipo_suscripcion,
+    s.fecha_termino,
+    u.bloqueado
+    FROM USUARIOS u
+    JOIN NOMBRES n ON n.id_nombre = u.id_nombre
+    LEFT JOIN SUSCRIPCIONES s ON s.id_usuario = u.id_usuario
+    LEFT JOIN TIPO_SUSCRIPCION ts ON ts.id_tipo_suscripcion = s.id_tipo_suscripcion
+    WHERE 
+        LOWER(u.correo) LIKE CONCAT('%', LOWER(p_palabra), '%')
+        OR LOWER(n.nombre) LIKE CONCAT('%', LOWER(p_palabra), '%')
+        OR LOWER(n.apellido_paterno) LIKE CONCAT('%', LOWER(p_palabra), '%')
+        OR LOWER(n.apellido_materno) LIKE CONCAT('%', LOWER(p_palabra), '%')
+        OR LOWER(CONCAT(n.nombre, ' ', n.apellido_paterno, ' ', n.apellido_materno)) LIKE CONCAT('%', LOWER(p_palabra), '%')
+    ORDER BY n.nombre ASC;   
+END$$
+
 DROP PROCEDURE IF EXISTS `consultar_clientes`$$
 CREATE DEFINER=`AdminGimnasio`@`%` PROCEDURE `consultar_clientes` ()   BEGIN
     SELECT 
@@ -111,11 +140,13 @@ CREATE DEFINER=`AdminGimnasio`@`%` PROCEDURE `consultar_clientes` ()   BEGIN
     n.apellido_materno as apellido_materno,
     u.correo,
     ts.nombre as tipo_suscripcion,
-    s.fecha_termino
+    s.fecha_termino,
+    u.bloqueado
     FROM USUARIOS u
     JOIN NOMBRES n ON n.id_nombre = u.id_nombre
-    JOIN SUSCRIPCIONES s ON s.id_usuario = u.id_usuario
-    JOIN TIPO_SUSCRIPCION ts ON ts.id_tipo_suscripcion = s.id_tipo_suscripcion;
+    LEFT JOIN SUSCRIPCIONES s ON s.id_usuario = u.id_usuario
+    LEFT JOIN TIPO_SUSCRIPCION ts ON ts.id_tipo_suscripcion = s.id_tipo_suscripcion
+    ORDER BY n.nombre ASC;
 END$$
 
 DROP PROCEDURE IF EXISTS `consultar_cuenta`$$
@@ -136,6 +167,18 @@ CREATE DEFINER=`AdminGimnasio`@`%` PROCEDURE `consultar_suscripcion` (IN `p_id_u
     JOIN TIPO_SUSCRIPCION ts ON s.id_tipo_suscripcion = ts.id_tipo_suscripcion
     WHERE s.id_usuario = p_id_usuario AND s.fecha_termino > NOW();
 
+END$$
+
+DROP PROCEDURE IF EXISTS `desbloquear_cliente`$$
+CREATE DEFINER=`AdminGimnasio`@`%` PROCEDURE `desbloquear_cliente` (IN `id_cliente` INT)   BEGIN
+    UPDATE USUARIOS SET bloqueado = false WHERE USUARIOS.id_usuario = id_cliente;
+END$$
+
+DROP PROCEDURE IF EXISTS `eliminar_usuario`$$
+CREATE DEFINER=`AdminGimnasio`@`%` PROCEDURE `eliminar_usuario` (IN `id_usuario` INT(25))   BEGIN
+	DELETE FROM SUSCRIPCIONES WHERE id_usuario = id_usuario;
+    DELETE FROM PAGOS WHERE id_usuario = id_usuario;
+    DELETE FROM usuarios WHERE usuarios.id_usuario = id_usuario;
 END$$
 
 DROP PROCEDURE IF EXISTS `insertar_suscripcion`$$
@@ -261,7 +304,7 @@ CREATE DEFINER=`AdminGimnasio`@`%` PROCEDURE `login_usuario` (IN `correo_usuario
     JOIN MUNICIPIO m ON d.id_municipio = m.id_municipio
     JOIN ESTADO e ON d.id_estado = e.id_estado
 
-    WHERE u.correo = correo_usuario;
+    WHERE upper(u.correo) = upper(correo_usuario);
 
 END$$
 
@@ -275,6 +318,16 @@ END$$
 DROP PROCEDURE IF EXISTS `traer_estado`$$
 CREATE DEFINER=`AdminGimnasio`@`%` PROCEDURE `traer_estado` ()   BEGIN
     SELECT ESTADO.nombre FROM ESTADO ORDER BY ESTADO.nombre ASC;
+END$$
+
+DROP PROCEDURE IF EXISTS `traer_id_usuario`$$
+CREATE DEFINER=`AdminGimnasio`@`%` PROCEDURE `traer_id_usuario` (IN `correo_usuario` VARCHAR(25))   BEGIN
+    -- Buscamos y traemos la información de inicio de sesión del usuario
+    SELECT 
+    u.id_usuario
+    FROM USUARIOS u 
+    WHERE u.correo = correo_usuario;
+
 END$$
 
 DROP PROCEDURE IF EXISTS `traer_municipio`$$
@@ -326,7 +379,21 @@ CREATE TABLE IF NOT EXISTS `direccion` (
   PRIMARY KEY (`id_direccion`),
   KEY `id_municipio` (`id_municipio`),
   KEY `id_estado` (`id_estado`)
-) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=33 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `direccion`
+--
+
+INSERT INTO `direccion` (`id_direccion`, `calle`, `numero`, `codigo_postal`, `id_municipio`, `id_estado`) VALUES
+(25, 'Abel Salazar', 113, 52300, 413, 12),
+(26, 'Abel Salazar', 113, 52300, 1500, 23),
+(27, 'Abel Salazar', 113, 52300, 1794, 31),
+(28, 'Abel Salazar', 113, 52300, 245, 9),
+(29, 'Abel Salazar', 113, 52300, 247, 9),
+(30, 'Independencia', 100, 52340, 357, 12),
+(31, 'Juárez', 158, 52300, 825, 15),
+(32, 'Abel Salazar', 113, 52300, 236, 8);
 
 -- --------------------------------------------------------
 
@@ -572,12 +639,12 @@ INSERT INTO `municipio` (`id_municipio`, `nombre`, `id_estado`) VALUES
 (168, 'Emiliano Zapata', 7),
 (169, 'Mezcalapa', 7),
 (170, 'Honduras de la Sierr', 7),
-(171, '	Ahumada', 8),
-(172, '	Aldama', 8),
-(173, '	Allende	', 8),
+(171, 'Ahumada', 8),
+(172, 'Aldama', 8),
+(173, 'Allende	', 8),
 (174, 'Aquiles Serdán', 8),
-(175, '	Ascensión', 8),
-(176, '	Bachíniva', 8),
+(175, 'Ascensión', 8),
+(176, 'Bachíniva', 8),
 (177, 'Balleza', 8),
 (178, 'Batopilas de Manuel ', 8),
 (179, 'Bocoyna', 8),
@@ -2317,7 +2384,7 @@ CREATE TABLE IF NOT EXISTS `nombres` (
   `apellido_paterno` varchar(15) COLLATE utf8mb4_general_ci DEFAULT NULL,
   `apellido_materno` varchar(25) COLLATE utf8mb4_general_ci DEFAULT NULL,
   PRIMARY KEY (`id_nombre`)
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Volcado de datos para la tabla `nombres`
@@ -2334,7 +2401,9 @@ INSERT INTO `nombres` (`id_nombre`, `nombre`, `apellido_paterno`, `apellido_mate
 (8, 'Charlie Alberto', 'Hernández', 'Velázquez'),
 (9, 'Carlitos', 'Hernández', 'Velázquez'),
 (10, 'Juan', 'Hernández', 'Velázquez'),
-(11, 'Pedro', 'Hernández', 'Velázquez');
+(11, 'Pedro', 'Hernández', 'Velázquez'),
+(12, 'Laisha', 'Rodríguez', 'García'),
+(13, 'Alberto', 'Hernández', 'Velázquez');
 
 -- --------------------------------------------------------
 
@@ -2349,7 +2418,15 @@ CREATE TABLE IF NOT EXISTS `pagos` (
   `id_usuario` int DEFAULT NULL,
   PRIMARY KEY (`id_pago`),
   KEY `id_usuario` (`id_usuario`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `pagos`
+--
+
+INSERT INTO `pagos` (`id_pago`, `nombre`, `id_usuario`) VALUES
+(9, 'Suscripción Premium', 12),
+(10, 'Suscripción Premium', 12);
 
 -- --------------------------------------------------------
 
@@ -2369,7 +2446,7 @@ CREATE TABLE IF NOT EXISTS `suscripciones` (
   KEY `id_pago` (`id_pago`),
   KEY `id_usuario` (`id_usuario`),
   KEY `id_tipo_suscripcion` (`id_tipo_suscripcion`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Disparadores `suscripciones`
@@ -2425,7 +2502,16 @@ CREATE TABLE IF NOT EXISTS `usuarios` (
   PRIMARY KEY (`id_usuario`),
   KEY `id_nombre` (`id_nombre`),
   KEY `id_direccion` (`id_direccion`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `usuarios`
+--
+
+INSERT INTO `usuarios` (`id_usuario`, `id_nombre`, `correo`, `contrasenia`, `telefono`, `usuario_administrador`, `id_direccion`, `edad`, `sexo`, `bloqueado`, `estado_suscripcion`) VALUES
+(11, 3, 'carloshv51@gmail.com', 'II9WbHYltuN1iLoFmhzk5g==', 7295412652, 1, 25, 23, 'M', 0, 1),
+(12, 12, 'ldrg@gmail.com', 'imq4jRwNFQ+VVR2jduM36A==', 7265485222, 0, 30, 21, 'F', 0, 1),
+(13, 10, 'juanitohv@gmail.com', 'NQEKK7+QnZJaXDD0VGLocg==', 7226548952, 0, 31, 21, 'M', 0, 0);
 
 --
 -- Restricciones para tablas volcadas
@@ -2455,7 +2541,8 @@ ALTER TABLE `municipio`
 -- Filtros para la tabla `pagos`
 --
 ALTER TABLE `pagos`
-  ADD CONSTRAINT `pagos_ibfk_1` FOREIGN KEY (`id_usuario`) REFERENCES `usuarios` (`id_usuario`);
+  ADD CONSTRAINT `pagos_ibfk_1` FOREIGN KEY (`id_usuario`) REFERENCES `usuarios` (`id_usuario`),
+  ADD CONSTRAINT `pagos_ibfk_2` FOREIGN KEY (`id_usuario`) REFERENCES `usuarios` (`id_usuario`) ON DELETE CASCADE;
 
 --
 -- Filtros para la tabla `suscripciones`

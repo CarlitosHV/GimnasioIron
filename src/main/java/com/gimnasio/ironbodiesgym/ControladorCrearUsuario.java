@@ -45,6 +45,8 @@ public class ControladorCrearUsuario implements Initializable {
     @FXML
     private AnchorPane rootPane;
 
+    public static boolean ADMINISTRADOR;
+
     /*
         Inicializar los campos
      */
@@ -318,6 +320,7 @@ public class ControladorCrearUsuario implements Initializable {
 
     @FXML
     void Regresar() {
+        ADMINISTRADOR = false;
         transiciones.CrearAnimacionFade(500, rootPane, View.LOGIN);
     }
 
@@ -331,8 +334,12 @@ public class ControladorCrearUsuario implements Initializable {
                         claseUsuario.getCalle(), claseUsuario.getNumero(), claseUsuario.getCodigo_postal(), claseUsuario.getMunicipio(),
                         claseUsuario.getEstado(), claseUsuario.getEdad(), claseUsuario.getSexo(), claseUsuario.isBloqueado(), claseUsuario.isEstado_suscripcion());
                 if (crearcuenta) {
-                    alertas.CrearAlerta(ControladorAlertas.ALERTA_USUARIO_CREADO, rootPane);
-
+                    if (ADMINISTRADOR){
+                        ADMINISTRADOR = false;
+                        alertas.CrearAlerta(ControladorAlertas.ALERTA_USUARIO_CREADO_ADMIN, rootPane);
+                    }else{
+                        alertas.CrearAlerta(ControladorAlertas.ALERTA_USUARIO_CREADO, rootPane);
+                    }
                 } else {
                     alertas.CrearAlerta(ControladorAlertas.ALERTA_CORREO_DUPLICADO, rootPane);
                 }

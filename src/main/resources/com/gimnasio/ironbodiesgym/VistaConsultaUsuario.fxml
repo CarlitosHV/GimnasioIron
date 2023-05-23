@@ -1,35 +1,33 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.*?>
-<?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
 
-<AnchorPane id="Fondo" fx:id="rootPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.gimnasio.ironbodiesgym.ControladorConsultaUsuario">
-    <children>
-        <AnchorPane id="Fondo2" prefHeight="50.0" prefWidth="600.0">
-            <children>
-            <Button id="Buttons" onAction="#Regresar" contentDisplay="GRAPHIC_ONLY" layoutX="20.0" layoutY="5.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="48.0"  text="Regresar">
-               <graphic>
-                      <ImageView accessibleRole="BUTTON" fitHeight="29.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
-                          <image>
-                              <Image url="@../../../assets/back_ico.png" />
-                          </image>
-                      </ImageView>
-               </graphic></Button>
-            </children>
-        </AnchorPane>
-        <Button id="Buttons" layoutX="461.0" layoutY="336.0" mnemonicParsing="false" prefHeight="29.0" prefWidth="100.0" text="Editar" textFill="#f7f5f5">
-            <font>
-                <Font name="Roboto Thin" size="12.0" />
-            </font>
-        </Button>
-      <TextField id="TextFields" layoutX="57.0" layoutY="88.0" prefHeight="29.0" prefWidth="337.0" promptText="Nombre" />
-      <TextField id="TextFields" layoutX="56.0" layoutY="148.0" prefHeight="15.0" prefWidth="338.0" promptText="Dirección" />
-      <TextField id="TextFields" layoutX="57.0" layoutY="207.0" prefHeight="18.0" prefWidth="338.0" promptText="Correo electrónico" />
-      <TextField id="TextFields" layoutX="57.0" layoutY="263.0" prefHeight="17.0" prefWidth="338.0" promptText="Estado de suscripción">
-         <font>
-            <Font name="Roboto Light" size="12.0" />
-         </font></TextField>
-    </children>
-</AnchorPane>
+<GridPane id="Fondo" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="402.0" prefWidth="549.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.gimnasio.ironbodiesgym.ControladorConsultaUsuario">
+  <columnConstraints>
+      <ColumnConstraints hgrow="SOMETIMES" maxWidth="92.0" minWidth="10.0" prefWidth="15.0" />
+    <ColumnConstraints hgrow="SOMETIMES" maxWidth="185.0" minWidth="10.0" prefWidth="97.0" />
+    <ColumnConstraints hgrow="SOMETIMES" maxWidth="188.0" minWidth="10.0" prefWidth="19.0" />
+      <ColumnConstraints hgrow="SOMETIMES" maxWidth="197.0" minWidth="10.0" prefWidth="178.0" />
+      <ColumnConstraints hgrow="SOMETIMES" maxWidth="153.0" minWidth="10.0" prefWidth="153.0" />
+      <ColumnConstraints hgrow="SOMETIMES" maxWidth="160.0" minWidth="10.0" prefWidth="97.0" />
+  </columnConstraints>
+  <rowConstraints>
+    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+  </rowConstraints>
+   <children>
+      <AnchorPane id="Fondo2" prefHeight="200.0" prefWidth="200.0" GridPane.columnSpan="6" />
+      <Label id="Labels" fx:id="LabelNombre" prefHeight="17.0" prefWidth="293.0" text="Label" GridPane.columnIndex="3" GridPane.columnSpan="2" GridPane.halignment="LEFT" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
+      <Label id="Labels" fx:id="LabelCorreo" prefHeight="17.0" prefWidth="298.0" text="Label" GridPane.columnIndex="3" GridPane.columnSpan="2" GridPane.halignment="LEFT" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
+      <Label id="Labels" fx:id="LabelDireccion" prefHeight="17.0" prefWidth="389.0" text="Label" GridPane.columnIndex="3" GridPane.columnSpan="3" GridPane.halignment="LEFT" GridPane.rowIndex="3" GridPane.valignment="CENTER" />
+      <Label id="Labels" fx:id="LabelEdad" prefHeight="17.0" prefWidth="177.0" text="Label" GridPane.columnIndex="3" GridPane.rowIndex="4" />
+      <Label id="Labels" fx:id="LabelSexo" text="Label" GridPane.columnIndex="4" GridPane.halignment="RIGHT" GridPane.rowIndex="4" />
+      <Label id="Labels" fx:id="LabelTelefono" prefHeight="17.0" prefWidth="163.0" text="Label" GridPane.columnIndex="3" GridPane.rowIndex="5" />
+   </children>
+</GridPane>
