@@ -4,17 +4,11 @@ import javafx.collections.FXCollections;
 import javafx.concurrent.Task;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-<<<<<<< HEAD
-import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
-=======
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.ProgressIndicator;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.AnchorPane;
-
->>>>>>> 27a1a36a510f7e4e138794b8da2d59973492c32f
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;

@@ -6,6 +6,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.GridPane;
 import javafx.util.Duration;
 
 import java.net.URL;
@@ -18,7 +19,7 @@ import java.util.ResourceBundle;
 public class ControladorMenuUsuario implements Initializable {
 
     @FXML
-    private AnchorPane rootPane;
+    private GridPane rootPane;
 
     @FXML private Label LabelNombre, LabelDireccion, LabelCorreo, LabelTipoCuenta,
             LabelHeader, LabelFechaVencimiento, Renovar_suscripcion, LabelNoSuscripcion;
