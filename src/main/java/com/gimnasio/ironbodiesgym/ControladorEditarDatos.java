@@ -5,13 +5,9 @@ import javafx.concurrent.Task;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
-import javafx.scene.layout.AnchorPane;
-
-import java.math.BigInteger;
+import javafx.scene.layout.GridPane;
 import java.net.URL;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.ResourceBundle;
 
 public class ControladorEditarDatos implements Initializable {
@@ -20,7 +16,7 @@ public class ControladorEditarDatos implements Initializable {
     ControladorAlertas alertas = new ControladorAlertas();
     ControladorTransiciones transiciones = new ControladorTransiciones();
     @FXML
-    private AnchorPane rootPane;
+    private GridPane rootPane;
 
     //Arreglos que guardan la información de los municipios y estados
     private ArrayList<String> _estados = new ArrayList<>();
