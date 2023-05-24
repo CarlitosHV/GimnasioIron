@@ -63,7 +63,10 @@ public class ControladorMenuUsuario implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         Platform.runLater(() -> {
             Stage stage = (Stage) rootPane.getScene().getWindow();
-            stage.setResizable(true);
+            stage.setMaximized(false);
+            stage.setResizable(false);
+            stage.setMinWidth(850);
+            stage.setMinHeight(600);
             user = bd.loginUsuario(ControladorLogin.loginuser.get(3).toString());
             int id = (int) user.get(15);
             String nombre = "Nombre: " + user.get(0).toString() + " " + user.get(1).toString() + " " + user.get(2).toString();

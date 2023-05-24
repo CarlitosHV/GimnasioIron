@@ -1,5 +1,6 @@
 package com.gimnasio.ironbodiesgym;
 
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.concurrent.Task;
 import javafx.fxml.FXML;
@@ -11,6 +12,8 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.ProgressIndicator;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.Stage;
+
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
@@ -23,7 +26,7 @@ public class ControladorEditarDatos implements Initializable {
 
     public static boolean ADMINISTRADOR;
     @FXML
-    private GridPane rootPane;
+    private AnchorPane rootPane;
 
     private ArrayList<String> _municipios = new ArrayList<>();
 
@@ -151,6 +154,11 @@ public class ControladorEditarDatos implements Initializable {
 
     @FXML
     public void initialize(URL url, ResourceBundle resourceBundle){
+        Platform.runLater(() -> {
+            Stage stage = (Stage) rootPane.getScene().getWindow();
+            stage.setMaximized(true);
+            stage.setMinWidth(697);
+            stage.setMinHeight(690);
         //Arreglos que guardan la información de los municipios y estados
         ArrayList<String> _estados = controladorBD.devolverEstados();
         Combo_estado.getItems().addAll(FXCollections.observableArrayList(_estados));
@@ -191,6 +199,7 @@ public class ControladorEditarDatos implements Initializable {
         Combo_municipio.setValue(_usuario.get(10).toString());
         _municipios = controladorBD.devolverMunicipios(_usuario.get(11).toString());
         Combo_municipio.getItems().addAll(FXCollections.observableArrayList(_municipios));
+        });
     }
 
     @FXML
