@@ -7,75 +7,87 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane id="Fondo" fx:id="rootPane" cache="true" cacheHint="SCALE" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.gimnasio.ironbodiesgym.ControladorLogin">
+<AnchorPane id="Fondo" fx:id="rootPane" cache="true" cacheHint="SCALE" xmlns="http://javafx.com/javafx/17.0.2-ea"
+            xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.gimnasio.ironbodiesgym.ControladorLogin">
+
     <children>
-
-
-         <children>
-              <AnchorPane id="Fondo2" prefHeight="30.0" prefWidth="394.0" GridPane.columnSpan="3" />
-                <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="20.0" prefWidth="203.0" text="INICIAR SESIÓN" textFill="#faf4f4" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowSpan="2">
-        <AnchorPane id="Fondo" cache="true" focusTraversable="true" nodeOrientation="LEFT_TO_RIGHT" prefHeight="332.0" prefWidth="387.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <AnchorPane id="Fondo2" prefHeight="30.0" prefWidth="394.0" GridPane.columnSpan="3"/>
+        <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="20.0" prefWidth="203.0" text="INICIAR SESIÓN"
+               textFill="#faf4f4" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowSpan="2"/>
+        <AnchorPane id="Fondo" cache="true" focusTraversable="true" nodeOrientation="LEFT_TO_RIGHT" prefHeight="332.0"
+                    prefWidth="387.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
+                    AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <children>
-                <ImageView fitHeight="38.0" fitWidth="61.0" layoutX="64.0" layoutY="73.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true">
+                <ImageView fitHeight="38.0" fitWidth="61.0" layoutX="64.0" layoutY="73.0" nodeOrientation="INHERIT"
+                           pickOnBounds="true" preserveRatio="true">
                     <image>
-                        <Image url="@../../../assets/user.png" />
+                        <Image url="@../../../assets/user.png"/>
                     </image>
                 </ImageView>
-                <Button id="Buttons" fx:id="Boton_ingresar" layoutX="80.0" layoutY="208.0" mnemonicParsing="false" onAction="#AbrirMenu" prefHeight="30.0" prefWidth="226.0" text="INGRESAR" textFill="WHITE">
-                    <Font name="Roboto Light" size="13.0" />
+                <Button id="Buttons" fx:id="Boton_ingresar" layoutX="80.0" layoutY="208.0" mnemonicParsing="false"
+                        onAction="#AbrirMenu" prefHeight="30.0" prefWidth="226.0" text="INGRESAR" textFill="WHITE">
+                    <Font name="Roboto Light" size="13.0"/>
                     <cursor>
-                        <Cursor fx:constant="HAND" />
+                        <Cursor fx:constant="HAND"/>
                     </cursor>
                 </Button>
-                <TextField id="TextFields" fx:id="Campo_correo" layoutX="102.0" layoutY="73.0" prefHeight="38.0" prefWidth="194.0" promptText="Correo">
+                <TextField id="TextFields" fx:id="Campo_correo" layoutX="102.0" layoutY="73.0" prefHeight="38.0"
+                           prefWidth="194.0" promptText="Correo">
                     <font>
-                        <Font name="Roboto Light" size="12.0" />
+                        <Font name="Roboto Light" size="12.0"/>
                     </font>
                 </TextField>
-                <PasswordField id="PasswordFields" fx:id="Campo_contra" layoutX="102.0" layoutY="127.0" prefHeight="38.0" prefWidth="194.0" promptText="Contraseña">
+                <PasswordField id="PasswordFields" fx:id="Campo_contra" layoutX="102.0" layoutY="127.0"
+                               prefHeight="38.0" prefWidth="194.0" promptText="Contraseña">
                     <font>
-                        <Font name="Roboto Light" size="12.0" />
+                        <Font name="Roboto Light" size="12.0"/>
                     </font>
                 </PasswordField>
-                <ImageView fitHeight="38.0" fitWidth="44.0" layoutX="64.0" layoutY="127.0" pickOnBounds="true" preserveRatio="true">
+                <ImageView fitHeight="38.0" fitWidth="44.0" layoutX="64.0" layoutY="127.0" pickOnBounds="true"
+                           preserveRatio="true">
                     <image>
-                        <Image url="@../../../assets/candado.png" />
+                        <Image url="@../../../assets/candado.png"/>
                     </image>
                 </ImageView>
-                <Label id="Labels" layoutX="192.0" layoutY="173.0" onMouseClicked="#RecuperarCuenta" prefHeight="20.0" prefWidth="106.0" text="¿Olvidaste la contraseña?" textFill="#7e7d7d">
+                <Label id="Labels" layoutX="192.0" layoutY="173.0" onMouseClicked="#RecuperarCuenta" prefHeight="20.0"
+                       prefWidth="106.0" text="¿Olvidaste la contraseña?" textFill="#7e7d7d">
                     <font>
-                        <Font name="Roboto Light" size="9.0" />
+                        <Font name="Roboto Light" size="9.0"/>
                     </font>
                     <cursor>
-                        <Cursor fx:constant="HAND" />
+                        <Cursor fx:constant="HAND"/>
                     </cursor>
                 </Label>
-                <Label id="Labels" fx:id="Recuperar_cuenta" layoutX="134.0" layoutY="252.0" onMouseClicked="#RecuperarCuenta" text="¿No tienes una cuenta?" textFill="#9c9898">
+                <Label id="Labels" fx:id="Recuperar_cuenta" layoutX="134.0" layoutY="252.0"
+                       onMouseClicked="#RecuperarCuenta" text="¿No tienes una cuenta?" textFill="#9c9898">
                     <font>
-                        <Font name="Roboto Light" size="10.0" />
+                        <Font name="Roboto Light" size="10.0"/>
                     </font>
                     <padding>
-                        <Insets right="3.0" />
+                        <Insets right="3.0"/>
                     </padding>
                 </Label>
-                <Label id="Labels" fx:id="CREAR_CUENTA" contentDisplay="CENTER" layoutX="239.0" layoutY="252.0" onMouseClicked="#Crear_usuario" text="Crear cuenta" textFill="#6e6c6c" textOverrun="CENTER_ELLIPSIS" underline="true">
+                <Label id="Labels" fx:id="CREAR_CUENTA" contentDisplay="CENTER" layoutX="239.0" layoutY="252.0"
+                       onMouseClicked="#Crear_usuario" text="Crear cuenta" textFill="#6e6c6c"
+                       textOverrun="CENTER_ELLIPSIS" underline="true">
                     <font>
-                        <Font name="Roboto Light" size="10.0" />
+                        <Font name="Roboto Light" size="10.0"/>
                     </font>
                     <cursor>
-                        <Cursor fx:constant="HAND" />
+                        <Cursor fx:constant="HAND"/>
                     </cursor>
                 </Label>
             </children>
             <rotationAxis>
-                <Point3D />
+                <Point3D/>
             </rotationAxis>
             <padding>
-                <Insets bottom="1.0" left="1.0" right="1.0" top="1.0" />
+                <Insets bottom="1.0" left="1.0" right="1.0" top="1.0"/>
             </padding>
         </AnchorPane>
+
     </children>
     <rotationAxis>
-        <Point3D />
+        <Point3D/>
     </rotationAxis>
 </AnchorPane>
