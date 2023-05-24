@@ -15,7 +15,7 @@ public class ControladorAlertas {
             ALERTA_CONTRASENIAS_DIFERENTES = 3, ALERTA_CORREO_NO_ENCONTRADO = 4, ALERTA_CONTRASENIA_ACTUALIZADA = 5,
             ALERTA_ERROR_BD = 6, ALERTA_USUARIO_BLOQUEADO = 7, ALERTA_USUARIO_INVALIDO = 8, ALERTA_SUSCRIPCION_CREADA = 9,
             ALERTA_USUARIO_EDITADO = 10, ALERTA_USUARIO_EDITADO_ADMIN = 11, ALERTA_USUARIO_CREADO_ADMIN = 12,
-            ALERTA_SUSCRIPCION_CREADA_ADMIN = 13;
+            ALERTA_SUSCRIPCION_CREADA_ADMIN = 13, ALERTA_USUARIO_INEXISTENTE = 14;
 
     ControladorTransiciones transiciones = new ControladorTransiciones();
 
@@ -39,6 +39,7 @@ public class ControladorAlertas {
             case 11 -> aplicarTemaAlerta("¡Usuario editado!", "El usuario ha sido modificado con éxito", ALERTA_USUARIO_EDITADO_ADMIN, Nodo);
             case 12 -> aplicarTemaAlerta("¡Usuario creado!", "El usuario ha sido creado con éxito", ALERTA_USUARIO_CREADO_ADMIN, Nodo);
             case 13 -> aplicarTemaAlerta("¡Suscripción activa!", "Se ha creado la suscripción", ALERTA_SUSCRIPCION_CREADA_ADMIN, Nodo);
+            case 14 -> aplicarTemaAlerta("Error", "El usuario no se ha encontrado, verifica la información", ALERTA_USUARIO_INEXISTENTE, Nodo);
 
         }
     }

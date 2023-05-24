@@ -1,18 +1,17 @@
 package com.gimnasio.ironbodiesgym;
 
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
-import javafx.scene.control.Labeled;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.Stage;
 
 import java.net.URL;
 import java.sql.Date;
-import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.ResourceBundle;
 
 public class ControladorRenovarSuscripciones implements Initializable {
@@ -21,7 +20,7 @@ public class ControladorRenovarSuscripciones implements Initializable {
     @FXML
     private ComboBox<String> ComboPlanes, ComboTiempo;
     @FXML
-    private Label LabelCosto, LabelNoSuscripcion, Renovar_suscripcion;
+    private Label LabelCosto;
     ArrayList<String> planes = new ArrayList<>();
     ControladorBD bd = new ControladorBD();
     ControladorTransiciones transiciones = new ControladorTransiciones();
@@ -107,9 +106,9 @@ public class ControladorRenovarSuscripciones implements Initializable {
     }
 
     @FXML
-    void Guardar() throws SQLException {
+    void Guardar() {
         String plan = ComboPlanes.getValue();
-        if (!ComboPlanes.getValue().equals("Selecciona") && !ComboTiempo.getValue().equals("Selecciona")){
+        if (ComboPlanes.getValue() != null && ComboTiempo.getValue() != null){
             boolean creada = bd.insertar_suscripcion(id, plan, Date.valueOf(fecha_inicio), Date.valueOf(fecha_termino), pago);
             if (creada){
                 if (ADMINISTRADOR){
@@ -129,12 +128,20 @@ public class ControladorRenovarSuscripciones implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        planes = bd.devolverPlanes();
-        ComboPlanes.getItems().addAll(planes);
-        if (ADMINISTRADOR){
-            id = bd.devolverId(Correo);
-        }else{
-            id = (int) ControladorLogin.loginuser.get(15);
-        }
+        Platform.runLater(() -> {
+            Stage stage = (Stage) rootPane.getScene().getWindow();
+            stage.setMaximized(true);
+            stage.setResizable(true);
+            stage.setMinHeight(312);
+            stage.setMinWidth(455);
+
+            planes = bd.devolverPlanes();
+            ComboPlanes.getItems().addAll(planes);
+            if (ADMINISTRADOR){
+                id = bd.devolverId(Correo);
+            }else{
+                id = (int) ControladorLogin.loginuser.get(15);
+            }
+        });
     }
 }

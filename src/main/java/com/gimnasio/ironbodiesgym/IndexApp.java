@@ -1,6 +1,7 @@
 package com.gimnasio.ironbodiesgym;
 
 import javafx.application.Application;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.layout.Pane;
@@ -32,8 +33,6 @@ public class IndexApp extends Application {
         //Extraemos la variable del tema del archivo
         ViewSwitcher.switchTo(View.LOGIN, Tema);
         stage.setScene(scene);
-        stage.setMinHeight(450);
-        stage.setMinWidth(650);
         stage.getIcons().add(new Image(Objects.requireNonNull(IndexApp.class.getResourceAsStream("/assets/IconGym.png"))));
         stage.setTitle("Iron Bodies Gym");
         stage.show();

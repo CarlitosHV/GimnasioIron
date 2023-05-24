@@ -1,12 +1,14 @@
 package com.gimnasio.ironbodiesgym;
 
 
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.concurrent.Task;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
+import javafx.stage.Stage;
 
 import java.net.URL;
 import java.util.ArrayList;
@@ -99,41 +101,48 @@ public class ControladorMenuAdmin implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        _clientes = bd.devolverClientes();
-        IconoCarga.setVisible(false);
-        ListView.setCellFactory(lv -> {
-            ClienteCell cell = new ClienteCell();
-            cell.setOnItemSelected(event -> {
-                ClaseClientes clienteSeleccionado = (ClaseClientes) event.getSource();
-                CORREO_USUARIO = clienteSeleccionado.getCorreo();
-                if (CORREO_USUARIO != null){
-                    ControladorEditarDatos.ADMINISTRADOR = true;
-                    transiciones.CrearAnimacionFade(500, rootPane, View.EDITAR);
+        Platform.runLater(() -> {
+            Stage stage = (Stage) rootPane.getScene().getWindow();
+            stage.setMaximized(true);
+            stage.setResizable(true);
+            stage.setMinWidth(850);
+            stage.setMinHeight(600);
+            _clientes = bd.devolverClientes();
+            IconoCarga.setVisible(false);
+            ListView.setCellFactory(lv -> {
+                ClienteCell cell = new ClienteCell();
+                cell.setOnItemSelected(event -> {
+                    ClaseClientes clienteSeleccionado = (ClaseClientes) event.getSource();
+                    CORREO_USUARIO = clienteSeleccionado.getCorreo();
+                    if (CORREO_USUARIO != null){
+                        ControladorEditarDatos.ADMINISTRADOR = true;
+                        transiciones.CrearAnimacionFade(500, rootPane, View.EDITAR);
+                    }
+                });
+                return cell;
+            });
+            ListView.setItems(FXCollections.observableArrayList(_clientes));
+
+            Boton_buscar.setOnAction(actionEvent -> buscar(Buscador.getText()));
+
+            Buscador.textProperty().addListener((observable, oldValue, newValue) -> {
+                if (newValue.length() > 0){
+                    buscar(newValue);
+                }else{
+                    if (!_clientes.isEmpty()){
+                        _clientes.clear();
+                    }
+                    ListView.getItems().clear();
+                    _clientes = bd.devolverClientes();
+                    ListView.setItems(FXCollections.observableArrayList(_clientes));
                 }
             });
-            return cell;
-        });
-        ListView.setItems(FXCollections.observableArrayList(_clientes));
 
+            LabelAgregar.setOnMouseClicked(evt -> {
+                ControladorCrearUsuario.ADMINISTRADOR = true;
+                transiciones.CrearAnimacionFade(500, rootPane, View.CREAR_USUARIO);
+            });
 
-        Boton_buscar.setOnAction(actionEvent -> buscar(Buscador.getText()));
-
-        Buscador.textProperty().addListener((observable, oldValue, newValue) -> {
-            if (newValue.length() > 0){
-                buscar(newValue);
-            }else{
-                if (!_clientes.isEmpty()){
-                    _clientes.clear();
-                }
-                ListView.getItems().clear();
-                _clientes = bd.devolverClientes();
-                ListView.setItems(FXCollections.observableArrayList(_clientes));
-            }
-        });
-
-        LabelAgregar.setOnMouseClicked(evt -> {
-            ControladorCrearUsuario.ADMINISTRADOR = true;
-            transiciones.CrearAnimacionFade(500, rootPane, View.CREAR_USUARIO);
         });
     }
 }

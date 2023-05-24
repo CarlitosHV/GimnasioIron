@@ -2,6 +2,7 @@ package com.gimnasio.ironbodiesgym;
 
 import javafx.animation.FadeTransition;
 import javafx.animation.TranslateTransition;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
@@ -10,6 +11,7 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TextFormatter;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.Stage;
 import javafx.util.Duration;
 
 import java.net.URL;
@@ -25,7 +27,7 @@ public class ControladorRecuperarContrasena implements Initializable {
     @FXML
     private Button Boton_validar;
     @FXML
-    public AnchorPane PanelPrin;
+    public AnchorPane rootPane;
 
     ControladorBD bd = new ControladorBD();
     ControladorAlertas alertas = new ControladorAlertas();
@@ -44,10 +46,10 @@ public class ControladorRecuperarContrasena implements Initializable {
                     if (encontrado){
                         TrasladarItems();
                     }else{
-                        alertas.CrearAlerta(ControladorAlertas.ALERTA_CORREO_NO_ENCONTRADO, PanelPrin);
+                        alertas.CrearAlerta(ControladorAlertas.ALERTA_CORREO_NO_ENCONTRADO, rootPane);
                     }
                 }else{
-                    alertas.CrearAlerta(ControladorAlertas.ALERTA_ERROR_CAMPOS, PanelPrin);
+                    alertas.CrearAlerta(ControladorAlertas.ALERTA_ERROR_CAMPOS, rootPane);
                 }
             }
             case "Actualizar" -> {
@@ -55,12 +57,12 @@ public class ControladorRecuperarContrasena implements Initializable {
                     String contracifrada = ControladorCifrarContrasena.encript(Campo_contrasenia.getText());
                     boolean actualizada = bd.cambiarContrasenia(Campo_correo.getText(), contracifrada);
                     if (actualizada){
-                        alertas.CrearAlerta(ControladorAlertas.ALERTA_CONTRASENIA_ACTUALIZADA, PanelPrin);
+                        alertas.CrearAlerta(ControladorAlertas.ALERTA_CONTRASENIA_ACTUALIZADA, rootPane);
                     }else{
-                        alertas.CrearAlerta(ControladorAlertas.ALERTA_ERROR_BD, PanelPrin);
+                        alertas.CrearAlerta(ControladorAlertas.ALERTA_ERROR_BD, rootPane);
                     }
                 }else{
-                    alertas.CrearAlerta(ControladorAlertas.ALERTA_CONTRASENIAS_DIFERENTES, PanelPrin);
+                    alertas.CrearAlerta(ControladorAlertas.ALERTA_CONTRASENIAS_DIFERENTES, rootPane);
                 }
             }
 
@@ -69,7 +71,7 @@ public class ControladorRecuperarContrasena implements Initializable {
 
     @FXML
     public void RegresarLogin() {
-        transiciones.CrearAnimacionFade(500, PanelPrin, View.LOGIN);
+        transiciones.CrearAnimacionFade(500, rootPane, View.LOGIN);
     }
 
     @FXML
@@ -79,8 +81,8 @@ public class ControladorRecuperarContrasena implements Initializable {
             también desactiva el campo correo
          */
         Campo_correo.setEditable(false);
-        animar(Campo_correo, -15.0);
-        animar(Boton_validar, 120.0);
+        animar(Campo_correo, 55.0);
+        animar(Boton_validar, 160.0);
 
     }
 
@@ -137,53 +139,38 @@ public class ControladorRecuperarContrasena implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        OcultarItems();
+        Platform.runLater(() -> {
+            Stage stage = (Stage) rootPane.getScene().getWindow();
+            stage.setMaximized(true);
+            stage.setResizable(true);
+            stage.setMinWidth(530);
+            stage.setMinHeight(400);
 
-        Campo_correo.setTextFormatter(new TextFormatter<>(change -> {
-            String newText = change.getControlNewText();
-            if (newText.length() > 40) {
-                return null;
-            }
-            return change;
-        }));
+            OcultarItems();
 
-        Campo_contrasenia.setTextFormatter(new TextFormatter<>(change -> {
-            String newText = change.getControlNewText();
-            if (newText.length() > 14) {
-                return null;
-            }
-            return change;
-        }));
+            Campo_correo.setTextFormatter(new TextFormatter<>(change -> {
+                String newText = change.getControlNewText();
+                if (newText.length() > 40) {
+                    return null;
+                }
+                return change;
+            }));
 
-        Campo_repetir_contrasena.setTextFormatter(new TextFormatter<>(change -> {
-            String newText = change.getControlNewText();
-            if (newText.length() > 14) {
-                return null;
-            }
-            return change;
-        }));
-    }
+            Campo_contrasenia.setTextFormatter(new TextFormatter<>(change -> {
+                String newText = change.getControlNewText();
+                if (newText.length() > 14) {
+                    return null;
+                }
+                return change;
+            }));
 
-    @FXML
-    private boolean validarContrasena(String contrasena) {
-        //Validar que la contraseña tenga al menos 6 caracteres
-        if (contrasena.length() < 6) {
-            return false;
-        }
-        //Validar que la contraseña contenga zletras mayúsculas, minúsculas y números
-        boolean tieneMayuscula = false;
-        boolean tieneMinuscula = false;
-        boolean tieneNumero = false;
-        for (char c : contrasena.toCharArray()) {
-            if (Character.isUpperCase(c)) {
-                tieneMayuscula = true;
-            } else if (Character.isLowerCase(c)) {
-                tieneMinuscula = true;
-            } else if (Character.isDigit(c)) {
-
-            }
-
-        }
-        return true;
+            Campo_repetir_contrasena.setTextFormatter(new TextFormatter<>(change -> {
+                String newText = change.getControlNewText();
+                if (newText.length() > 14) {
+                    return null;
+                }
+                return change;
+            }));
+        });
     }
 }

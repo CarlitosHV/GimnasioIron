@@ -7,56 +7,74 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="Fondo" prefHeight="312.0" prefWidth="455.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.gimnasio.ironbodiesgym.ControladorRenovarSuscripciones">
-   <children>
-      <AnchorPane id="Fondo2" prefHeight="60.0" prefWidth="455.0">
-         <children>
-            <Label id="Labels" layoutX="82.0" layoutY="21.0" text="Crear nueva suscripción" textFill="#fffafa">
-               <font>
-                  <Font name="Roboto Bold Italic" size="13.0" />
-               </font>
-            </Label>
-         </children></AnchorPane>
-      <Button id="Buttons" onAction="#Guardar" contentDisplay="GRAPHIC_ONLY" layoutX="384.0" layoutY="265.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="40.0" text="Button">
-         <graphic>
-            <ImageView fitHeight="23.0" fitWidth="17.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../../../assets/sig.png" />
-               </image>
-            </ImageView>
-         </graphic>
-      </Button>
-      <Button id="Button_back" contentDisplay="GRAPHIC_ONLY" layoutX="14.0" layoutY="11.0" mnemonicParsing="false" onAction="#Regresar" prefHeight="27.0" prefWidth="43.0" text="Button">
-         <graphic>
-            <ImageView accessibleRole="BUTTON" fitHeight="32.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../../../assets/back_ico.png" />
-               </image>
-            </ImageView>
-         </graphic>
-         <cursor>
-            <Cursor fx:constant="HAND" />
-         </cursor>
-      </Button>
-      <Label id="Labels" alignment="CENTER_RIGHT" contentDisplay="RIGHT" layoutX="63.0" layoutY="82.0" prefHeight="26.0" prefWidth="33.0" text="Plan:" textFill="#8c8888">
-         <font>
-            <Font name="Roboto Italic" size="12.0" />
-         </font>
-      </Label>
-      <Label id="Labels" layoutX="64.0" layoutY="193.0" text="Costo:" textFill="#969494">
-         <font>
-            <Font name="Roboto Italic" size="12.0" />
-         </font>
-      </Label>
-      <ComboBox id="ComboBox" fx:id="ComboPlanes" layoutX="108.0" layoutY="82.0" onAction="#mostrar_meses" prefHeight="26.0" prefWidth="191.0" promptText="Selecciona" />
-      <Label id="Labels" layoutX="53.0" layoutY="141.0" text="Tiempo:" textFill="#969494">
-         <font>
-            <Font name="Roboto Italic" size="12.0" />
-         </font>
-      </Label>
-      <ComboBox id="ComboBox" fx:id="ComboTiempo" onAction="#mostrar_precios" layoutX="108.0" layoutY="136.0" prefHeight="26.0" prefWidth="191.0" promptText="Selecciona un plan" />
-      <Label id="Labels" fx:id="LabelCosto" layoutX="108.0" layoutY="193.0" prefHeight="17.0" prefWidth="85.0" />
-   </children>
+<AnchorPane id="Fondo" fx:id="rootPane" prefHeight="312.0" prefWidth="455.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.gimnasio.ironbodiesgym.ControladorRenovarSuscripciones">
+<children>
+   <AnchorPane id="Fondo2" maxHeight="Infinity" maxWidth="Infinity" prefHeight="60.0" prefWidth="455.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <children>
+         <Label id="Labels" layoutX="82.0" layoutY="21.0" text="Crear nueva suscripción" textFill="#fffafa" AnchorPane.leftAnchor="82.0" AnchorPane.topAnchor="21.0">
+            <font>
+               <Font name="Roboto Bold Italic" size="13.0" />
+            </font>
+         </Label>
+      </children>
+   </AnchorPane>
+   <Button id="Buttons" contentDisplay="GRAPHIC_ONLY" layoutX="384.0" layoutY="265.0" mnemonicParsing="false" onAction="#Guardar" prefHeight="26.0" prefWidth="40.0" text="Button" AnchorPane.bottomAnchor="50.0" AnchorPane.rightAnchor="50.0">
+      <graphic>
+         <ImageView fitHeight="23.0" fitWidth="17.0" pickOnBounds="true" preserveRatio="true">
+            <image>
+               <Image url="@../../../assets/sig.png" />
+            </image>
+         </ImageView>
+      </graphic>
+   </Button>
+   <Button id="Button_back" contentDisplay="GRAPHIC_ONLY" layoutX="14.0" layoutY="11.0" mnemonicParsing="false" onAction="#Regresar" prefHeight="27.0" prefWidth="43.0" text="Button" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="11.0">
+      <graphic>
+         <ImageView accessibleRole="BUTTON" fitHeight="32.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
+            <image>
+               <Image url="@../../../assets/back_ico.png" />
+            </image>
+         </ImageView>
+      </graphic>
+      <cursor>
+         <Cursor fx:constant="HAND" />
+      </cursor>
+   </Button>
+   <GridPane alignment="CENTER" hgap="10.0" layoutX="48.0" layoutY="69.0" prefHeight="175.0" prefWidth="282.0" vgap="15.0" AnchorPane.bottomAnchor="68.0" AnchorPane.leftAnchor="48.0" AnchorPane.rightAnchor="125.0" AnchorPane.topAnchor="69.0">
+      <columnConstraints>
+         <ColumnConstraints halignment="CENTER" hgrow="ALWAYS" maxWidth="200.0" minWidth="10.0" prefWidth="100.0" />
+         <ColumnConstraints halignment="CENTER" hgrow="ALWAYS" maxWidth="200.0" minWidth="10.0" prefWidth="100.0" />
+      </columnConstraints>
+      <rowConstraints>
+         <RowConstraints maxHeight="50.0" minHeight="10.0" prefHeight="30.0" valignment="CENTER" vgrow="ALWAYS" />
+         <RowConstraints maxHeight="50.0" minHeight="10.0" prefHeight="30.0" valignment="CENTER" vgrow="ALWAYS" />
+         <RowConstraints maxHeight="50.0" minHeight="10.0" prefHeight="30.0" valignment="CENTER" vgrow="ALWAYS" />
+      </rowConstraints>
+      <children>
+         <Label id="Labels" alignment="CENTER" contentDisplay="RIGHT" prefHeight="26.0" prefWidth="33.0" text="Plan:" textFill="#8c8888" GridPane.halignment="RIGHT" GridPane.valignment="CENTER">
+            <font>
+               <Font name="Roboto Italic" size="12.0" />
+            </font>
+         </Label>
+         <ComboBox id="ComboBox" fx:id="ComboPlanes" maxHeight="-Infinity" maxWidth="400.0" onAction="#mostrar_meses" prefHeight="30.0" prefWidth="250.0" promptText="Selecciona" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.valignment="CENTER" />
+         <Label id="Labels" text="Costo:" textFill="#969494" GridPane.halignment="RIGHT" GridPane.rowIndex="2" GridPane.valignment="CENTER">
+            <font>
+               <Font name="Roboto Italic" size="12.0" />
+            </font>
+         </Label>
+
+         <ComboBox id="ComboBox" fx:id="ComboTiempo" maxHeight="-Infinity" maxWidth="400.0" onAction="#mostrar_precios" prefHeight="30.0" prefWidth="250.0" promptText="Selecciona un plan" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
+         <Label id="Labels" prefHeight="17.0" prefWidth="48.0" text="Tiempo:" textFill="#969494" GridPane.halignment="RIGHT" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+            <font>
+               <Font name="Roboto Italic" size="12.0" />
+            </font>
+         </Label>
+         <Label id="Labels" fx:id="LabelCosto" prefHeight="17.0" prefWidth="98.0" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
+      </children>
+   </GridPane>
+</children>
 </AnchorPane>
