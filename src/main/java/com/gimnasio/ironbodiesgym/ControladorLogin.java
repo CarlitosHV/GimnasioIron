@@ -5,9 +5,7 @@ import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
@@ -16,6 +14,7 @@ import javafx.util.Duration;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class ControladorLogin implements Initializable {
@@ -96,20 +95,28 @@ public class ControladorLogin implements Initializable {
             stage.setResizable(false);
             stage.setHeight(370);
             stage.setWidth(396);
-
-            Campo_contra.setOnKeyPressed(keyEvent -> {
-                if (keyEvent.getCode() == KeyCode.ENTER){
-                    try {
-                        camposValidos();
-                    } catch (Exception e) {
-                        throw new RuntimeException(e);
-                    }
+            stage.setMinHeight(370);
+            stage.setMinWidth(396);
+            stage.setOnCloseRequest(event -> {
+                event.consume();
+                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                alert.setTitle("Confirmar cierre");
+                alert.setHeaderText("¿Estás seguro de que quieres cerrar la aplicación?");
+                alert.setContentText("Se perderán los cambios no guardados.");
+                Optional<ButtonType> result = alert.showAndWait();
+                if (result.isPresent() && result.get() == ButtonType.OK) {
+                    stage.close();
                 }
             });
-
-
         });
-
-
+        Campo_contra.setOnKeyPressed(keyEvent -> {
+            if (keyEvent.getCode() == KeyCode.ENTER){
+                try {
+                    camposValidos();
+                } catch (Exception e) {
+                    throw new RuntimeException(e);
+                }
+            }
+        });
     }
 }

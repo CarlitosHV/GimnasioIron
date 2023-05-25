@@ -159,6 +159,8 @@ public class ControladorEditarDatos implements Initializable {
             stage.setMaximized(true);
             stage.setMinWidth(697);
             stage.setMinHeight(690);
+            stage.setResizable(true);
+        });
         //Arreglos que guardan la información de los municipios y estados
         ArrayList<String> _estados = controladorBD.devolverEstados();
         Combo_estado.getItems().addAll(FXCollections.observableArrayList(_estados));
@@ -199,7 +201,6 @@ public class ControladorEditarDatos implements Initializable {
         Combo_municipio.setValue(_usuario.get(10).toString());
         _municipios = controladorBD.devolverMunicipios(_usuario.get(11).toString());
         Combo_municipio.getItems().addAll(FXCollections.observableArrayList(_municipios));
-        });
     }
 
     @FXML

@@ -67,29 +67,28 @@ public class ControladorMenuUsuario implements Initializable {
             stage.setResizable(false);
             stage.setMinWidth(850);
             stage.setMinHeight(600);
-            user = bd.loginUsuario(ControladorLogin.loginuser.get(3).toString());
-            int id = (int) user.get(15);
-            String nombre = "Nombre: " + user.get(0).toString() + " " + user.get(1).toString() + " " + user.get(2).toString();
-            String direccion = "Dirección: " + user.get(8) + " " + user.get(9);
-            String correo = "Correo: " + user.get(3).toString();
-            LabelHeader.setText("Bienvenido, " + user.get(0).toString());
-            LabelNombre.setText(nombre);
-            LabelDireccion.setText(direccion);
-            LabelCorreo.setText(correo);
-            suscripcion = bd.devolverSuscripcion(id);
-
-            if (!suscripcion.isEmpty()){
-                SimpleDateFormat formato = new SimpleDateFormat("dd/MMMM/yyyy");
-                Date date = (Date) suscripcion.get(2);
-                Renovar_suscripcion.setVisible(false);
-                LabelNoSuscripcion.setVisible(false);
-                LabelFechaVencimiento.setText("Fecha de término: " + formato.format(date));
-                LabelTipoCuenta.setText("Plan: " + suscripcion.get(0).toString());
-            }else {
-                LabelFechaVencimiento.setText("Fecha vencimiento: " + "Sin fecha");
-                LabelTipoCuenta.setText("Tipo suscripción: " + "Sin suscripción");
-            }
-
         });
+        user = bd.loginUsuario(ControladorLogin.loginuser.get(3).toString());
+        int id = (int) user.get(15);
+        String nombre = "Nombre: " + user.get(0).toString() + " " + user.get(1).toString() + " " + user.get(2).toString();
+        String direccion = "Dirección: " + user.get(8) + " " + user.get(9);
+        String correo = "Correo: " + user.get(3).toString();
+        LabelHeader.setText("Bienvenido, " + user.get(0).toString());
+        LabelNombre.setText(nombre);
+        LabelDireccion.setText(direccion);
+        LabelCorreo.setText(correo);
+        suscripcion = bd.devolverSuscripcion(id);
+
+        if (!suscripcion.isEmpty()){
+            SimpleDateFormat formato = new SimpleDateFormat("dd/MMMM/yyyy");
+            Date date = (Date) suscripcion.get(2);
+            Renovar_suscripcion.setVisible(false);
+            LabelNoSuscripcion.setVisible(false);
+            LabelFechaVencimiento.setText("Fecha de término: " + formato.format(date));
+            LabelTipoCuenta.setText("Plan: " + suscripcion.get(0).toString());
+        }else {
+            LabelFechaVencimiento.setText("Fecha vencimiento: " + "Sin fecha");
+            LabelTipoCuenta.setText("Tipo suscripción: " + "Sin suscripción");
+        }
     }
 }

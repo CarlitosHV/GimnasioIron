@@ -134,14 +134,13 @@ public class ControladorRenovarSuscripciones implements Initializable {
             stage.setResizable(true);
             stage.setMinHeight(312);
             stage.setMinWidth(455);
-
-            planes = bd.devolverPlanes();
-            ComboPlanes.getItems().addAll(planes);
-            if (ADMINISTRADOR){
-                id = bd.devolverId(Correo);
-            }else{
-                id = (int) ControladorLogin.loginuser.get(15);
-            }
         });
+        planes = bd.devolverPlanes();
+        ComboPlanes.getItems().addAll(planes);
+        if (ADMINISTRADOR){
+            id = bd.devolverId(Correo);
+        }else{
+            id = (int) ControladorLogin.loginuser.get(15);
+        }
     }
 }

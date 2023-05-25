@@ -60,21 +60,22 @@ public class ControladorCrearUsuario implements Initializable {
             stage.setMaximized(true);
             stage.setMinWidth(697);
             stage.setMinHeight(690);
-            ArrayList<String> _estados = controladorBD.devolverEstados();
-            Combo_estado.getItems().addAll(FXCollections.observableArrayList(_estados));
-            Combo_municipio.setPromptText("Selecciona un estado");
-            Combo_sexo.getItems().addAll("M", "F");
-            codigoduplicado(IconoCarga, Campo_nombre, Campo_apellido_paterno, Campo_apellido_materno);
-            Campo_edad.setTextFormatter(new TextFormatter<>(change -> {
-                String newText = change.getControlNewText();
-                if (newText.length() > 2) {
-                    return null;
-                }
-                return change;
-            }));
-            TextFormatter(Campo_correo, Campo_contrasenia, Campo_repite_contrasenia, Campo_calle
-                    , Campo_numero, Campo_codigo_postal, Campo_telefono);
+            stage.setResizable(true);
         });
+        ArrayList<String> _estados = controladorBD.devolverEstados();
+        Combo_estado.getItems().addAll(FXCollections.observableArrayList(_estados));
+        Combo_municipio.setPromptText("Selecciona un estado");
+        Combo_sexo.getItems().addAll("M", "F");
+        codigoduplicado(IconoCarga, Campo_nombre, Campo_apellido_paterno, Campo_apellido_materno);
+        Campo_edad.setTextFormatter(new TextFormatter<>(change -> {
+            String newText = change.getControlNewText();
+            if (newText.length() > 2) {
+                return null;
+            }
+            return change;
+        }));
+        TextFormatter(Campo_correo, Campo_contrasenia, Campo_repite_contrasenia, Campo_calle
+                , Campo_numero, Campo_codigo_postal, Campo_telefono);
     }
 
 

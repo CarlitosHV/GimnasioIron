@@ -145,32 +145,31 @@ public class ControladorRecuperarContrasena implements Initializable {
             stage.setResizable(true);
             stage.setMinWidth(530);
             stage.setMinHeight(400);
-
-            OcultarItems();
-
-            Campo_correo.setTextFormatter(new TextFormatter<>(change -> {
-                String newText = change.getControlNewText();
-                if (newText.length() > 40) {
-                    return null;
-                }
-                return change;
-            }));
-
-            Campo_contrasenia.setTextFormatter(new TextFormatter<>(change -> {
-                String newText = change.getControlNewText();
-                if (newText.length() > 14) {
-                    return null;
-                }
-                return change;
-            }));
-
-            Campo_repetir_contrasena.setTextFormatter(new TextFormatter<>(change -> {
-                String newText = change.getControlNewText();
-                if (newText.length() > 14) {
-                    return null;
-                }
-                return change;
-            }));
         });
+        OcultarItems();
+
+        Campo_correo.setTextFormatter(new TextFormatter<>(change -> {
+            String newText = change.getControlNewText();
+            if (newText.length() > 40) {
+                return null;
+            }
+            return change;
+        }));
+
+        Campo_contrasenia.setTextFormatter(new TextFormatter<>(change -> {
+            String newText = change.getControlNewText();
+            if (newText.length() > 14) {
+                return null;
+            }
+            return change;
+        }));
+
+        Campo_repetir_contrasena.setTextFormatter(new TextFormatter<>(change -> {
+            String newText = change.getControlNewText();
+            if (newText.length() > 14) {
+                return null;
+            }
+            return change;
+        }));
     }
 }
